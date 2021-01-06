@@ -34,8 +34,11 @@ public class GameBoard {
     public void Game() {
         f1 = new FieldsOnBoard();
         myFields = f1.getFieldArr();
-        fieldChance = (FieldChance) myFields[3];
-        fieldChance.mixCards();
+        //*************VIRKER IKKE!***********
+        //fieldChance = (FieldChance) myFields[2];
+        //*************VIRKER IKKE!***********
+        //System.out.println(fieldChance);
+        //fieldChance.mixCards();
         uiController = new UIController(myFields);
         GameOver = false;
         lang = uiController.getGUI().getUserButtonPressed("", /*"WIP English",*/ "Dansk");
@@ -54,7 +57,7 @@ public class GameBoard {
 
     private int SetPlayerAmount(){
         numberOfPlayers = uiController.getGUI().getUserInteger(currentLang[0]);
-        while (numberOfPlayers > 4 || numberOfPlayers < 2) {
+        while (numberOfPlayers > 6 || numberOfPlayers < 3) {
             uiController.getGUI().showMessage(currentLang[1]);
             numberOfPlayers = uiController.getGUI().getUserInteger(currentLang[0]);
         } return numberOfPlayers;
@@ -81,17 +84,19 @@ public class GameBoard {
             }
             //Sets the players money according the rules
             switch (numberOfPlayers) {
-                case 2 -> player.setMoney(20);
-                case 3 -> player.setMoney(18);
-                case 4 -> player.setMoney(16);
+                case 3 -> player.setMoney(30000);
+                case 4 -> player.setMoney(30000);
+                case 5 -> player.setMoney(30000);
+                case 6 -> player.setMoney(30000);
             }
             playerList[i - 1] = player;
 
         }
         //Adds playerfigure at end of playerName
+        /* Ikke nødvendig mere
         for (int i = 1; i < numberOfPlayers + 1; i++) {
             playerList[i-1].setName(playerList[i-1].getName() + currentLang[i+21]);
-        }
+        }*/
     }
 
     private void EndGame() {
