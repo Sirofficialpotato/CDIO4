@@ -12,6 +12,10 @@ public class Rafflecup {
         d1.rollDie();
         d2.rollDie();
     }
+    public int RafflecupFaceValue()
+    {
+        return d1.getFaceValue() + d2.getFaceValue();
+    }
 
     public Boolean SameDie()
     {

@@ -15,7 +15,10 @@ public class GameController {
     private GameBoard gameBoard = new GameBoard();
     private int numberOfPlayers = 0;
     private Player[] playerList;
-    private final Die die = new Die(1);
+    //nye terninger?
+    Die d1 = new Die(2);
+    Die d2 = new Die(2);
+    Rafflecup rafflecup = new Rafflecup(d1, d2);
     private boolean GameOver = false;
 
     private UIController uiController;
@@ -191,10 +194,32 @@ public class GameController {
                 //************************************JAIL************************************
                 if(playerList[i].getInJail() && !playerList[i].getJailCard())
                 {
-                    playerList[i].setInJail(false);
+                    //playerList[i].setInJail(false);
                     uiController.getGUI().showMessage(playerList[i].getName() + currentLang[20]);
-                    playerList[i].setMoney(+-1);
-                    uiController.getGuiPlayer(i).setBalance(playerList[i].getMoney());
+                    //if the player has over 1000 gives both oppertunities:
+                    String chosenbutton = "";
+                    if (uiController.getGuiPlayer(i).getBalance() > 999) {
+                        chosenbutton = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName(), "Betal 1000,-", "Slå 2 ens");
+                    }
+                    else {
+                        chosenbutton = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName(), "Slå 2 ens");
+                    }
+
+                    if(chosenbutton.equals("Betal 1000,-")) {
+                        playerList[i].setMoney(+-1000);
+                        uiController.getGuiPlayer(i).setBalance(playerList[i].getMoney());
+                        playerList[i].setInJail(false);
+                    }
+                    else {
+                        rafflecup.useRafflecup();
+                        if (rafflecup.SameDie()) {
+                            playerList[i].setInJail(false);
+                            playerList[i].setPosition(+rafflecup.RafflecupFaceValue());
+                            //updates gui player position
+                            uiController.updateGUIPlayerPos(playerList[i],playerList[i].getOldposition(), playerList[i].getPosition());
+                        }
+                    }
+
                     //break;
                 } else if(playerList[i].getInJail() && playerList[i].getJailCard())
                 {
@@ -218,8 +243,9 @@ public class GameController {
                 // if statement to check if the user typed in throw
                 if (ready.equals(currentLang[15])) {
                     //Change die on in gui to reflect new roll and update player position
+
                     uiController.getGUI().setDie(die.rollDie());
-                    playerList[i].setPosition(+die.getFaceValue());
+                    playerList[i].setPosition(+rafflecup.RafflecupFaceValue());
 
                     //updates gui player position
                     uiController.updateGUIPlayerPos(playerList[i],playerList[i].getOldposition(), playerList[i].getPosition());
