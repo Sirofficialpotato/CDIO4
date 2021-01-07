@@ -8,8 +8,7 @@ public class Die {
     }
 
     public int rollDie() {
-        faceValue = 5;
-        //faceValue = (int) (Math.random() * MAX) + 1;
+        faceValue = (int) (Math.random() * MAX) + 1;
         return faceValue;
         }
 
