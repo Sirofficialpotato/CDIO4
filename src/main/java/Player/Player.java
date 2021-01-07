@@ -10,8 +10,7 @@ public class Player{
     private int Position, oldposition;
     private Wallet wallet = new Wallet();
     private DynamicArr<Cards> cardArray = new DynamicArr<Cards>();
-
-
+    private DynamicArr<Integer> playerOwnedFields = new DynamicArr<Integer>();
 
     public Player(String Name)
     {
@@ -20,6 +19,14 @@ public class Player{
         JailCard = false;
         Position = 0;
         oldposition = 0;
+    }
+
+    public DynamicArr<Integer> getPlayerOwnedFields(){
+        return playerOwnedFields;
+    }
+
+    public void addToPlayerOwnedFields(){
+        playerOwnedFields.add(Position);
     }
 
     public int getPosition()

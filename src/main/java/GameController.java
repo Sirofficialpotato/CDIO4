@@ -96,10 +96,18 @@ public class GameController {
 
     private void EndGame() {
         for (int k = 0; k < playerList.length; k++) {
-
+            // Disable player with 0 or less cash
             if (uiController.getGuiPlayer(k).getBalance() <= 0) {
                 if (playerList[k] != null) {
                     uiController.getGUI().getFields()[playerList[k].getPosition()].setCar(uiController.getGuiPlayer(k), false);
+
+                    /* Virker ikke måske brugbart???
+                    for (int i = 0; i < playerList[k].getPlayerOwnedFields().size; i++) {
+                        System.out.println(playerList[k].getPlayerOwnedFields().atIndex(i));
+                        int deleteField = playerList[k].getPlayerOwnedFields().atIndex(i);
+                        ((Properties) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
+                    }*/
+
                     playerList[k] = null;
                     Losers++;
                 }
@@ -288,6 +296,9 @@ public class GameController {
                             }
                         }*/
                     } else if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties) {
+                        if(((Properties) gameBoard.getFields()[playerList[i].getPosition()]).getOwnedBy() == -1){
+                            playerList[i].addToPlayerOwnedFields();
+                        }
                         ((Properties) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields());
                     } else {
                         gameBoard.getFields()[playerList[i].getPosition()].landOnField(playerList, i);
