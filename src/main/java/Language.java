@@ -3,7 +3,7 @@ public class Language {
 
     String lang;
     //array that stores string in danish
-    String[] dk = {"Indtast antallet af spillere fra 2-4", "Prøv igen i intervallet 2-4", "Indtast navn til spiller ", " vælg venligst en farve til din bil som ingen andre har",
+    String[] dk = {"Indtast antallet af spillere fra 3-6", "Prøv igen i intervallet 3-6", "Indtast navn til spiller ", " vælg venligst en farve til din bil som ingen andre har",
             "RØD", "SORT", "BLÅ", "MAGENTA", "ROSE", "CYAN", "GUL", "HVID", " har 0M og taber spillet", "Og vinderen er ... "," tryk på knappen for at kaste terningen!",
             "Kast", "Spil igen?", "Ja!", "Nej!", "To spillere med samme navn er ikke tilladt! Prøv igen spiller ", " er i fængsel og betaler 1M for at blive løsladt", " bruger sit fængselskort og løslades uden omkostninger"
             ,": Bilen", ": Skibet", ": Katten", ": Hunden", "Lad venligst yngste spiller indtaste sit navn først"};
