@@ -103,7 +103,7 @@ public class GameController {
                         max = a[j];
                         lastmax = j;
                     }
-                    //if 2 players have the same amount of money at the end of the game
+                    //if 2 players have the same amount of money at the end of the game SLET FRA HER
                     else if (a[j] == max){
                         uiController.getGUI().showMessage("player: " + j + " propertyvalue: " + ((Properties) gameBoard.getFields()[2]).getTotalPropertyValue(playerList,j, gameBoard.getFields()) + " player: " + lastmax + " propertyvalue: " +((Properties) gameBoard.getFields()[2]).getTotalPropertyValue(playerList,lastmax, gameBoard.getFields()));
                         //System.out.println("player: " + j + " propertyvalue: " + ((Properties) gameBoard.getFields()[2]).getTotalPropertyValue(playerList,j, gameBoard.getFields()) + " player: " + lastmax + " propertyvalue: " +((Properties) gameBoard.getFields()[2]).getTotalPropertyValue(playerList,lastmax, gameBoard.getFields()));
@@ -120,6 +120,7 @@ public class GameController {
                             uiController.getGUI().showMessage("begge spillere har samme værdi i egendomme... I begge vinder!!!");
                         }
                     }
+                    //SLET TIL HER
                 }
                 // second loop to announce winner
                 for (int j = 0; j < a.length; j++) {

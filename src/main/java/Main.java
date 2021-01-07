@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args) {
-        GameBoard gameBoard = new GameBoard();
-        gameBoard.Game();
+        GameController gameController = new GameController();
+        gameController.Game();
         //Test test = new Test();
         //test.Start();
     }
