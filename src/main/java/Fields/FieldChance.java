@@ -59,7 +59,7 @@ public class FieldChance extends Field {
         }
 
     }
-
+    //creates new array, moves each index of the old array into the new array at random while deleteing the moved index of the old array.
     public void mixCards(){
         Cards[] tempArr = new Cards[getCards().size];
         Random ran = new Random();

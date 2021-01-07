@@ -9,7 +9,7 @@ class RafflecupTest {
     void useRafflecup() {
 
 
-        /*
+
         final int NUMBEROFTRIES = 100000;
         Die d1 = new Die(2);
         Die d2 = new Die(2);
@@ -40,7 +40,17 @@ class RafflecupTest {
         for (int i = 0; i < 11; i++) {
             System.out.println(i+2+": "+counterArray[i]);
         }
-        */
+
+        System.out.println("Samme slag?");
+            if (tester.SameDie() == true)
+            {
+                System.out.println("Same");
+            }
+            else
+                System.out.println("not same");
+
+
+
     }
 }
 

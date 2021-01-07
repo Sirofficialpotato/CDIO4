@@ -49,6 +49,7 @@ public class Properties extends Field {
     {
         int propertiesTotalValue = 0;
         for (int i = 1; i <= 23; i++) {
+           // hvis felt i er en property check ellers continue
             if (i % 3 == 0 )
             {
                 continue;
