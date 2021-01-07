@@ -31,10 +31,10 @@ public class Player{
     {
         this.oldposition = this.Position;
         this.Position += Position;
-        if(this.Position >= 24) this.Position -= 24;
+        if(this.Position >= 40) this.Position -= 40;
         // ved ikke lige om det virker helt
         if(this.Position < this.oldposition && !this.inJail){
-            this.setMoney(+2);
+            this.setMoney(+4000);
         }
     }
 
@@ -42,7 +42,7 @@ public class Player{
         this.oldposition = this.Position;
         this.Position = position;
         if(this.Position < this.oldposition && !this.inJail){
-            this.setMoney(+2);
+            this.setMoney(+4000);
         }
     }
     public int getSpecificPosition(){

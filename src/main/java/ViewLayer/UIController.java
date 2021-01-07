@@ -91,6 +91,15 @@ public class UIController {
                 else if(((Properties)((Properties) fieldArray[i])).getFieldColor().equals("grøn")){
                     color = Color.green;
                 }
+                else if(((Properties)((Properties) fieldArray[i])).getFieldColor().equals("hvid")){
+                    color = Color.white;
+                }
+                else if(((Properties)((Properties) fieldArray[i])).getFieldColor().equals("pink")){
+                    color = Color.PINK;
+                }
+                else if(((Properties)((Properties) fieldArray[i])).getFieldColor().equals("sort")){
+                    color = Color.black;
+                }
 
                 guiFields[i] = new GUI_Street(((Properties) fieldArray[i]).getFieldName(), ((Properties) fieldArray[i]).getFieldDescription(), (fieldArray[i]).getFieldName(), String.valueOf(((Properties) fieldArray[i]).getPrice()), color, txtcolor);
             }
