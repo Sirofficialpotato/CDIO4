@@ -1,8 +1,10 @@
+import Cards.Cards;
 import Cards.GetOutOfJail;
 import Cards.PlayerSpecific;
 import Fields.*;
 import Player.Player;
 import ViewLayer.UIController;
+import Cards.*;
 
 
 import java.awt.*;
@@ -17,7 +19,6 @@ import java.util.Arrays;
 
 
 public class GameBoard {
-
 
     private FieldsOnBoard f1;
     private Field[] myFields;
