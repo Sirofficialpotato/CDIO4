@@ -19,7 +19,7 @@ class UIControllerTest {
         FieldsOnBoard f1 = new FieldsOnBoard();
         myFields = f1.getFieldArr();
         Player[] players = {new Player("test1"), new Player("test2"), new Player("test3"), new Player("test4")};
-        UIController myControl = new UIController(players, myFields);
+        UIController myControl = new UIController(players);
 
 
         Scanner scan = new Scanner(System.in);

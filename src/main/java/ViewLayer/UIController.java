@@ -31,6 +31,11 @@ public class UIController {
        }
         return guiPlayers;
     }
+    public UIController(Player[] players){
+        this.gui = new GUI();
+        guiPlayers = new GUI_Player[players.length];
+        guiPlayers = this.UIPlayerGen(players);
+    }
 
     public void addPlayers(Player[] players){
         guiPlayers = new GUI_Player[players.length];

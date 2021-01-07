@@ -30,7 +30,7 @@ public class GameBoard {
     public GameBoard(){
         f1 = new FieldsOnBoard();
         myFields = f1.getFieldArr();
-        fieldChance = (FieldChance) myFields[3];
+        fieldChance = (FieldChance) myFields[2];
         fieldChance.mixCards();
         Language langSelector = new Language("dk");
         currentLang = langSelector.returnLang();
