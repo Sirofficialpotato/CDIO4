@@ -19,11 +19,11 @@ public class FieldsOnBoard {
         //allFields[2] = new String[]{"Chance", "Tag et kort"};
 
         allFields[3] = new String[]{"Hvidovrevej", "M1200", "blå"};
-        allFields[4] = new String[]{"Betal indkomst-skat", "10%/4000", ""};
+        allFields[4] = new String[]{"Betal indkomst-skat", "M4000", ""};
         allFields[5] = new String[]{"Øresundsredderiet", "M4000", "blå"};
         allFields[6] = new String[]{"Roskildevej", "M2000", "orange"};
 
-        allFields[7] = new String[]{"CHANCEKORTHER!!!", "sort"};
+        allFields[7] = new String[]{"Prøv lykken", "sort"};
         //allFields[7] = new String[]{"Chance", "Tag et kort"};
 
         allFields[8] = new String[]{"Valby Langgade", "M2000", "orange"};
@@ -36,7 +36,7 @@ public class FieldsOnBoard {
         allFields[15] = new String[]{"D.F.D.S.", "M4000", "lyseblå"};
         allFields[16] = new String[]{"Bernstorffsvej", "M3600", "grå"};
 
-        allFields[17] = new String[]{"CHANCEKORTHER!!!", "sort"};
+        allFields[17] = new String[]{"Prøv lykken", "sort"};
         //allFields[17] = new String[]{"Chance", "Tag et kort"};
 
         allFields[18] = new String[]{"Hellerupvej", "M3600", "grå"};
@@ -44,7 +44,7 @@ public class FieldsOnBoard {
         allFields[20] = new String[]{"Gratis", "Parkering"};
         allFields[21] = new String[]{"Trianglen", "M4400", "rød"};
 
-        allFields[22] = new String[]{"CHANCEKORTHER!!!", "sort"};
+        allFields[22] = new String[]{"Prøv lykken", "sort"};
         //allFields[17] = new String[]{"Chance", "Tag et kort"};
 
         allFields[23] = new String[]{"Østerbro-gade", "M4400", "rød"};
@@ -58,13 +58,13 @@ public class FieldsOnBoard {
         allFields[31] = new String[]{"Amagertorv", "M6000", "gul"};
         allFields[32] = new String[]{"Vimmel-skaftet", "M6000", "gul"};
 
-        allFields[33] = new String[]{"CHANCEKORTHER!!!", "M60", "sort"};
+        allFields[33] = new String[]{"Prøv lykken", "M60", "sort"};
         //allFields[33] = new String[]{"Chance", "Tag et kort"};
 
         allFields[34] = new String[]{"Nygade", "M6400", "gul"};
         allFields[35] = new String[]{"Scandlines", "M4000", "lyseblå"};
 
-        allFields[36] = new String[]{"CHANCEKORTHER!!!", "M60", "sort"};
+        allFields[36] = new String[]{"Prøv lykken", "M60", "sort"};
         //allFields[36] = new String[]{"Chance", "Tag et kort"};
 
         allFields[37] = new String[]{"Frederiksberggade", "M7000", "lilla"};
@@ -77,14 +77,14 @@ public class FieldsOnBoard {
                 this.fieldArr[i] = new FieldStart();
 
             }
-            else if(allFields[i][0].equals("Chance")){
-                if (i == 3) {
+            else if(allFields[i][0].equals("Prøv lykken")){
+                if (i == 2) {
                     //initialises first FieldChance
                     this.fieldArr[i] = new FieldChance();
 
                 }
                 //makes all chanceFields the same object reference
-                else{fieldArr[i] = fieldArr[3];}
+                else{fieldArr[i] = fieldArr[2];}
 
 
             }
