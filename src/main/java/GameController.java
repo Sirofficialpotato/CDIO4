@@ -212,6 +212,7 @@ public class GameController {
                     }
                     else {
                         rafflecup.useRafflecup();
+                        uiController.getGUI().setDice(d1.getFaceValue(), d2.getFaceValue());
                         if (rafflecup.SameDie()) {
                             playerList[i].setInJail(false);
                             playerList[i].setPosition(+rafflecup.RafflecupFaceValue());
@@ -243,8 +244,8 @@ public class GameController {
                 // if statement to check if the user typed in throw
                 if (ready.equals(currentLang[15])) {
                     //Change die on in gui to reflect new roll and update player position
-
-                    uiController.getGUI().setDie(die.rollDie());
+                    rafflecup.useRafflecup();
+                    uiController.getGUI().setDice(d1.getFaceValue(), d2.getFaceValue());
                     playerList[i].setPosition(+rafflecup.RafflecupFaceValue());
 
                     //updates gui player position
