@@ -9,23 +9,21 @@ import Player.Player;
 
 public abstract class Cards
 {
-    private int cardIndex;
+
     private String cardText;
     private CardInfo info;
     private boolean drawAgain;
 
 
-        public Cards (String text, int index)
+        public Cards (String text)
         {
             this.info = new CardInfo();
-            this.cardIndex = index;
+
             this.cardText = text;
             this.drawAgain = false;
         }
 
-    public int getCardIndex() {
-        return cardIndex;
-    }
+
 
     public String getCardText() {
         return cardText;
@@ -37,7 +35,7 @@ public abstract class Cards
 
     public boolean getDrawAgain(){return this.drawAgain;}
 
-    public abstract void drawCard(Player[] players, int player, Field[] fields, int choice);
+    public abstract void drawCard(Player player);
 
 
 }

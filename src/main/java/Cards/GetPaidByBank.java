@@ -2,17 +2,19 @@ package Cards;
 import Player.*;
 import Fields.*;
 
-public class GetPaidOrPay extends Cards
+public class GetPaidByBank extends Cards
 {
-    public GetPaidOrPay(String text, int index)
+    int value;
+    public GetPaidByBank(String text, int value)
     {
-        super(text, index);
+        super(text);
+        this.value = value;
     }
 
     @Override
-    public void drawCard(Player[] players, int player, Field[] fields, int choice)
+    public void drawCard(Player player)
     {
-        switch (this.getCardText().substring(0, 2)){
+        /*switch (this.getCardText().substring(0, 2)){
             //case for fødselsdagskort
             case("14"):
                 for (int i = 0; i < players.length; i++) {
@@ -30,6 +32,6 @@ public class GetPaidOrPay extends Cards
                 players[player].setMoney(-2);
                 break;
 
-        }
+        }*/
     }
 }

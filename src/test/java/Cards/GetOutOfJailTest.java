@@ -4,8 +4,6 @@ import Fields.Field;
 import Fields.FieldChance;
 import Player.Player;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 //kort 10 er fængselskort
 
 class GetOutOfJailTest {
@@ -17,15 +15,15 @@ class GetOutOfJailTest {
         Field[] f2 = new Field[0];
         System.out.println("Du har jailkort");
         System.out.println(players[0].getJailCard());
-        DynamicArr<GetOutOfJail> choiceCards = new DynamicArr<GetOutOfJail>();
+        DynamicArr<JailInteractions> choiceCards = new DynamicArr<JailInteractions>();
         int choiceCounter = 0;
         for (int i = 0; i < f1.getCards().size; i++) {
-            if(f1.getCards().getLast() instanceof GetOutOfJail){
-                choiceCards.add((GetOutOfJail) f1.getCards().getLast());
+            if(f1.getCards().getLast() instanceof JailInteractions){
+                choiceCards.add((JailInteractions) f1.getCards().getLast());
             }
             f1.getCards().lastItemToFront();
         }
-            choiceCards.getLast().drawCard(players, 0, f2, -1);
+            choiceCards.getLast().drawCard(players[0]);
             System.out.print(choiceCards.getLast().getCardText());
         System.out.println("Du har jailkort");
         System.out.println(players[0].getJailCard());
