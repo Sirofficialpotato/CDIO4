@@ -237,6 +237,7 @@ public class GameController {
                                 //updates gui player position
                                 uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
                             }
+
                         }
 
                         //break;
@@ -259,11 +260,11 @@ public class GameController {
                     //Guibutton to read the next user input
                     String ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], currentLang[15]);
                     // if statement to check if the user typed in throw
-                    if (ready.equals(currentLang[15])) {
+                    if (ready.equals(currentLang[15]) && !playerList[i].getInJail()) {
                         //Change die on in gui to reflect new roll and update player position
                         rafflecup.useRafflecup();
                         uiController.getGUI().setDice(d1.getFaceValue(), d2.getFaceValue());
-                        playerList[i].setPosition(+rafflecup.RafflecupFaceValue());
+                        playerList[i].setPosition(30);
 
                         //updates gui player position
                         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
