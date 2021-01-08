@@ -66,10 +66,10 @@ public class GameController {
             }
             //Sets the players money according the rules
             switch (numberOfPlayers) {
-                case 3 -> player.setMoney(10000);
-                case 4 -> player.setMoney(10000);
-                case 5 -> player.setMoney(10000);
-                case 6 -> player.setMoney(10000);
+                case 3 -> player.setMoney(30000);
+                case 4 -> player.setMoney(30000);
+                case 5 -> player.setMoney(30000);
+                case 6 -> player.setMoney(30000);
             }
             playerList[i - 1] = player;
 
@@ -216,13 +216,17 @@ public class GameController {
                     }
                     //************************************JAIL************************************
                     if (playerList[i].getInJail() && !playerList[i].getJailCard()) {
-                        uiController.getGUI().showMessage(playerList[i].getName() + currentLang[20]);
+                        //uiController.getGUI().showMessage(playerList[i].getName() + currentLang[20]);
                         //if the player has over 1000 gives both opportunities:
                         String chosenbutton = "";
-                        if (uiController.getGuiPlayer(i).getBalance() > 999) {
-                            chosenbutton = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName(), "Betal 1000,-", "Slå 2 ens");
+                        if (uiController.getGuiPlayer(i).getBalance() > 999 && playerList[i].getTurnsInJail() != 3) {
+                            chosenbutton = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + " er i fængsel og kan nu vælge imellem følgende muligheder for at komme ud", "Betal 1000,-", "Slå 2 ens");
+                        } else if(playerList[i].getTurnsInJail() == 3){
+                            chosenbutton = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + " er i fængsel og kan nu vælge imellem følgende muligheder for at komme ud", "Betal 1000,-");
+                            playerList[i].addToTurnsInJail(-3);
+                            System.out.println(playerList[i].getTurnsInJail());
                         } else {
-                            chosenbutton = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName(), "Slå 2 ens");
+                            chosenbutton = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + " er i fængsel og kan nu vælge imellem følgende muligheder for at komme ud", "Slå 2 ens");
                         }
 
                         if (chosenbutton.equals("Betal 1000,-")) {
@@ -230,6 +234,7 @@ public class GameController {
                             uiController.getGuiPlayer(i).setBalance(playerList[i].getMoney());
                             playerList[i].setInJail(false);
                         } else {
+
                             rafflecup.useRafflecup();
                             uiController.getGUI().setDice(d1.getFaceValue(), d2.getFaceValue());
                             if (rafflecup.SameDie()) {
@@ -237,8 +242,11 @@ public class GameController {
                                 playerList[i].setPosition(+rafflecup.RafflecupFaceValue());
                                 //updates gui player position
                                 uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
-                            }
-
+                            } else if(!rafflecup.SameDie() && playerList[i].getTurnsInJail() == 3){
+                                playerList[i].setInJail(false);
+                                playerList[i].setMoney(+-1000);
+                            } else if(!rafflecup.SameDie()){playerList[i].addToTurnsInJail(+1);
+                                System.out.println(playerList[i].getTurnsInJail());}
                         }
 
                         //break;
@@ -265,7 +273,7 @@ public class GameController {
                         //Change die on in gui to reflect new roll and update player position
                         rafflecup.useRafflecup();
                         uiController.getGUI().setDice(d1.getFaceValue(), d2.getFaceValue());
-                        playerList[i].setPosition(rafflecup.RafflecupFaceValue());
+                        playerList[i].setPosition(+/*rafflecup.RafflecupFaceValue()*/30);
 
                         //updates gui player position
                         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());

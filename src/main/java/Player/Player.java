@@ -11,6 +11,7 @@ public class Player{
     private Wallet wallet = new Wallet();
     private DynamicArr<Cards> cardArray = new DynamicArr<Cards>();
     private DynamicArr<Integer> playerOwnedFields = new DynamicArr<Integer>();
+    private int turnsInJail = 0;
 
     public Player(String Name)
     {
@@ -131,6 +132,11 @@ public class Player{
     {
         return inJail;
     }
+    public int getTurnsInJail(){ return turnsInJail; }
+    public void addToTurnsInJail(int Value){
+        this.turnsInJail += Value;
+    }
+
 
 
     public int getMoney(){
