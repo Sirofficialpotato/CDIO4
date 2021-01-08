@@ -62,6 +62,9 @@ public class Properties extends Field {
         return propertiesTotalValue;
     }
 
+
+
+
     public String getFieldName() {
         return fieldName;
     }
