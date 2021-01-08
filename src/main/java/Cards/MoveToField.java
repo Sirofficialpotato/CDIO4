@@ -26,7 +26,15 @@ public class MoveToField extends Cards
         }
 
         if(this.value == 404){
-            //Move to shipping
+            int temp;
+            temp = player.getPosition()/10;
+            if (player.getPosition() - temp < 5){
+                player.setSpecificPosition(temp + 5);
+            }
+            else{
+                player.setSpecificPosition(temp + 15);
+            }
+
         }
 
     }
