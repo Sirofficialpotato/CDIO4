@@ -36,7 +36,7 @@ public class Properties extends Field {
                 }
             }
             else if(fields[players[player].getPosition()+1] instanceof Properties){
-                if(((Properties) fields[(players[player].getPosition()+1)%24]).getOwnedBy() == this.getOwnedBy()){
+                if(((Properties) fields[(players[player].getPosition()+1)%40]).getOwnedBy() == this.getOwnedBy()){
                     priceMulti = 2;
                 }
             }
@@ -61,6 +61,9 @@ public class Properties extends Field {
         }
         return propertiesTotalValue;
     }
+
+
+
 
     public String getFieldName() {
         return fieldName;
