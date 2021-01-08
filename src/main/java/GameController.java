@@ -1,5 +1,4 @@
-import Cards.GetOutOfJail;
-import Cards.PlayerSpecific;
+import Cards.*;
 import Fields.Field;
 import Fields.FieldChance;
 
@@ -73,6 +72,10 @@ public class GameController {
             }
             playerList[i - 1] = player;
 
+        }
+        //Adds playerfigure at end of playerName
+        for (int i = 1; i < numberOfPlayers + 1; i++) {
+            playerList[i-1].setName(playerList[i-1].getName() + currentLang[i+21]);
         }
     }
 

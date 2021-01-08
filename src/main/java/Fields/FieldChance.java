@@ -18,15 +18,15 @@ public class FieldChance extends Field {
 
     }
 
-    public void landOnField(Player[] players, int player, Field[] fields, int choice) {
+    public void landOnField(Player player) {
 
-        takeChanceCard(players, player, fields, choice);
+        takeChanceCard(player);
     }
 
-    public void takeChanceCard(Player[] players, int player, Field[] fields, int choice){
-        cards.getLast().drawCard(players, player, fields, choice);
+    public void takeChanceCard(Player player){
+        cards.getLast().drawCard(player);
         //Checks if chance card is getOutOfJail and removes it from stack of cards if so
-        if(cards.getLast() instanceof GetOutOfJail || cards.getLast() instanceof PlayerSpecific){
+        if(cards.getLast() instanceof JailInteractions || cards.getLast() instanceof PayTheBank){
             cards.removeAt(cards.size-1);
         }
         else{cards.lastItemToFront();
@@ -40,21 +40,21 @@ public class FieldChance extends Field {
         cards = new DynamicArr<Cards>();
         String temp;
         for (int i = 0; i < info.getText().length; i++) {
-            temp = info.getText()[i];
-            if(temp.substring(0,2).equals("1:") || temp.substring(0,2).equals("6:") || temp.substring(0,2).equals("12") || temp.substring(0,2).equals("13")){
-                cards.add(new PlayerSpecific(temp, 0));
+            temp = (String)info.getCardInfo()[0][i];
+            if(temp.substring(0,12).equals("Priser stiger")){
+                cards.add(new PriceIncrease(((String)info.getCardInfo()[0][i]).substring(14),(int) info.getCardInfo()[1][i], (int)info.getCardInfo()[2][i]));
             }
-            else if(temp.substring(0,2).equals("10") && jail == true){
-                cards.add(new GetOutOfJail(temp,0));
+            else if(temp.substring(0,16).equals("Noget med fængsel")){
+                cards.add(new JailInteractions(((String)info.getCardInfo()[0][i]).substring(18),0));
             }
-            else if(temp.substring(0,2).equals("7:") || temp.substring(0,2).equals("14") || temp.substring(0,2).equals("16")){
-                cards.add(new GetPaidOrPay(temp, 0));
+            else if(temp.substring(0, 11).equals("Modtag penge")){
+                cards.add(new GetPaidByBank(((String)info.getCardInfo()[0][i]).substring(13), 0));
             }
-            else if(temp.substring(0,2).equals("2:") || temp.substring(0,2).equals("11") || temp.substring(0,2).equals("18") ){
-                cards.add(new SpecificField(temp,0));
+            else if(temp.substring(0, 7).equals("Ryk felt")){
+                cards.add(new MoveToField(((String)info.getCardInfo()[0][i]).substring(9), (int) info.getCardInfo()[1][i],(boolean) info.getCardInfo()[3][i]));
             }
-            else if(!temp.substring(0,2).equals("10")){
-                cards.add(new ChooseToMove(temp, 0));
+            else if(temp.substring(0, 12).equals("Prisen stiger")){
+                cards.add(new PriceIncrease(((String)info.getCardInfo()[0][i]).substring(14), (int) info.getCardInfo()[1][i], (int) info.getCardInfo()[2][i]));
             }
         }
 

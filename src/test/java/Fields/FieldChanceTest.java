@@ -21,7 +21,7 @@ class FieldChanceTest {
         f1.mixCards();
         for (int i = 0; i < 100; i++) {
             System.out.println(f1.getCards().size + ": " + f1.getCards().atIndex(f1.getCards().size-1).getCardText());
-            f1.takeChanceCard(p1,1,fields,0);
+            f1.takeChanceCard(p1[0]);
 
         }
     }

@@ -41,7 +41,7 @@ class CardsTest {
                 if(players[i].getPosition() == 3 || players[i].getPosition() == 9 || players[i].getPosition() == 15 || players[i].getPosition() == 21){
                     int input = uiController.getGuiInput(((FieldChance)myFields[3]).nextCard());
                     uiController.getGUI().displayChanceCard(((FieldChance)myFields[3]).nextCard().getCardText());
-                    ((FieldChance) myFields[3]).landOnField(players, i, myFields, input);
+                    ((FieldChance) myFields[3]).landOnField(players[0]);
                     uiController.getGuiPlayer(i).setBalance(players[i].getMoney());
                     uiController.updateGUIPlayerPos(players[i], players[i].getOldposition() , players[i].getPosition());
                 }

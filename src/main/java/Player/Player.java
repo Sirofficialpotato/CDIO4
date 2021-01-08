@@ -82,7 +82,7 @@ public class Player{
     public Cards getPlayerSpecific(){
         for (int i = 0; i < cardArray.size; i++) {
             String tester = cardArray.atIndex(i).getCardText().substring(0,2);
-            if(cardArray.atIndex(i) instanceof PlayerSpecific){
+            if(cardArray.atIndex(i) instanceof PayTheBank){
                 return this.cardArray.atIndex(i);
             }
         }
@@ -92,7 +92,7 @@ public class Player{
     public void removePlayerSpecific(){
         for (int i = 0; i < cardArray.size; i++) {
             String tester = cardArray.atIndex(i).getCardText().substring(0,2);
-            if(cardArray.atIndex(i) instanceof PlayerSpecific){
+            if(cardArray.atIndex(i) instanceof PayTheBank){
                 this.cardArray.removeAt(i);
             }
         }
@@ -100,7 +100,7 @@ public class Player{
 
     public Cards getJailCardOject(){
         for (int i = 0; i < cardArray.size; i++) {
-            if(cardArray.atIndex(i) instanceof GetOutOfJail){
+            if(cardArray.atIndex(i) instanceof JailInteractions){
                 return cardArray.atIndex(i);
             }
         }
@@ -108,7 +108,7 @@ public class Player{
     }
     public void removeJailCardObect() {
         for (int i = 0; i < cardArray.size; i++) {
-            if (cardArray.atIndex(i) instanceof GetOutOfJail) {
+            if (cardArray.atIndex(i) instanceof JailInteractions) {
                 cardArray.removeAt(i);
             }
         }
@@ -117,7 +117,7 @@ public class Player{
     public boolean hasPlayerSpecific(){
         boolean tester = false;
         for (int i = 0; i < cardArray.size; i++) {
-            if(cardArray.atIndex(i) instanceof PlayerSpecific){
+            if(cardArray.atIndex(i) instanceof PayTheBank){
                 tester = true;
             }
         }

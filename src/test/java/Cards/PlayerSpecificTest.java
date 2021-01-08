@@ -5,8 +5,6 @@ import Fields.FieldChance;
 import Player.Player;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class PlayerSpecificTest {
 
     @Test
@@ -15,16 +13,16 @@ class PlayerSpecificTest {
         Field[] f2 = new Field[0];
         FieldChance f1 = new FieldChance();
         System.out.println(players[0].getCardArray());
-        DynamicArr<PlayerSpecific> choiceCards = new DynamicArr<PlayerSpecific>();
+        DynamicArr<PayTheBank> choiceCards = new DynamicArr<PayTheBank>();
         int choiceCounter = 0;
         for (int i = 0; i < f1.getCards().size; i++) {
-            if(f1.getCards().getLast() instanceof PlayerSpecific){
-                choiceCards.add((PlayerSpecific) f1.getCards().getLast());
+            if(f1.getCards().getLast() instanceof PayTheBank){
+                choiceCards.add((PayTheBank) f1.getCards().getLast());
             }
             f1.getCards().lastItemToFront();
         }
         for (int i = 0; i < choiceCards.size; i++) {
-            choiceCards.getLast().drawCard(players, 0, f2, -1);
+            choiceCards.getLast().drawCard(players[0]);
             System.out.print(choiceCards.getLast().getCardText());
             System.out.print("player1 -bil: ");
             players[0].getCardArray().print();
