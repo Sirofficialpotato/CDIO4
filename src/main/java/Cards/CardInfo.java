@@ -14,6 +14,7 @@ public class CardInfo<T> {
                 {//Prisen stiger
                     "Priser stiger: Oliepriserne er steget, og De skal betale kr 500 pr hus og kr 2000 pr hotel",
                         "Priser stiger: Ejendomsskatten er steget. Ekstraudgifterne er: 800 kr pr hus, 2300 kr pr hotel.",
+                        //Betal penge til banken
                         "Betal penge til banken: De har kørt frem for “fuldt stop”, Betal 1000 kroner i bøde",
                         "Betal penge til banken: Betal for vognvask og smøring kr 300",
                         "Betal penge til banken: Betal kr 200 for levering af 2 kasser øl",
@@ -23,6 +24,7 @@ public class CardInfo<T> {
                         "Betal penge til banken: Betal deres bilforsikring, kr 1000",
                         "Betal penge til banken: De har været udenlands og købt for mange smøger, betal kr 200 i told.",
                         "Betal penge til banken: Tandlægeregning, betal kr 2000.",
+
                         //Modtag penge
                         "Modtag penge: De har vundet i klasselotteriet. Modtag 500 kr. (Antal kort: 2)",
                         "Modtag penge: De modtager Deres aktieudbytte. Modtag kr 1000 af banken (antal: 3)",
@@ -33,6 +35,7 @@ public class CardInfo<T> {
                         "Modtag penge: De har solg nogle gamle møbler på auktion. Modtag 1000 kr af banken.",
                         "Modtag penge: Værdien af egen avl fra nyttehaven udgør 200 som de modtager af banken",
                         "Modtag penge: De modtager “Matador-legatet” på kr 40.000, men kun hvis værdier ikke overstiger 15.000 kr",
+
                         //Få penge fra spillere
                         "Få penge fra spillere: Det er deres fødselsdag. Modtag af hver medspiller 200 kr.",
                         "Få penge fra spillere: De har lagt penge ud til et sammenskudsgilde. Mærkværdigvis betaler alle straks. Modtag fra hver medspiller 500 kr.",
@@ -54,9 +57,10 @@ public class CardInfo<T> {
                         "Noget med fængsel: Gå i fængsel, De indkasserer ikke 4000 kr for at passere start. (antal kort: 2)"},
                 //Value for the field (price, field etc.)
                 {500, 800,
-                        1000, 300, 200, 3000, 1000, 200, 2000,
-                        500, 1000, 3000, 1000, 1000, 1000, 1000, 40000, 200, 500, 500,
-                        0, 3, -3, 37, 404, 15,},
+                        1000, 300, 200, 3000, 1000, 200, 1000,200 ,2000,
+                        500, 1000, 3000, 1000, 1000, 1000, 1000, 200, 40000,
+                        200, 500, 500,
+                        0, 3, -3, 37, 404, 15, 24, 32, 404, 19, 39},
                 //Extra value for priceIncrease fields
                 {2000, 2300},
                 //Used for MoveToField. True means it is a relative position

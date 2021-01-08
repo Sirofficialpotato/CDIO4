@@ -39,22 +39,28 @@ public class FieldChance extends Field {
     public void generateChanceCards(boolean jail){
         cards = new DynamicArr<Cards>();
         String temp;
-        for (int i = 0; i < info.getText().length; i++) {
+        //Counters to keep track of index in the 2d array
+        int valueCounter = 0, value1Counter = 0, relativeCounter = 0;
+        for (int i = 0; i < info.getCardInfo()[0].length; i++) {
             temp = (String)info.getCardInfo()[0][i];
-            if(temp.substring(0,12).equals("Priser stiger")){
-                cards.add(new PriceIncrease(((String)info.getCardInfo()[0][i]).substring(14),(int) info.getCardInfo()[1][i], (int)info.getCardInfo()[2][i]));
+            if(temp.substring(0, 8).equals("Ryk felt")){
+                cards.add(new MoveToField(((String)info.getCardInfo()[0][i]).substring(10), (int) info.getCardInfo()[1][valueCounter++],(boolean) info.getCardInfo()[3][relativeCounter++]));
             }
-            else if(temp.substring(0,16).equals("Noget med fængsel")){
-                cards.add(new JailInteractions(((String)info.getCardInfo()[0][i]).substring(18),0));
+            else if(temp.substring(0,13).equals("Priser stiger")){
+                cards.add(new PriceIncrease(((String)info.getCardInfo()[0][i]).substring(15),(int) info.getCardInfo()[1][valueCounter++], (int)info.getCardInfo()[2][value1Counter++]));
             }
-            else if(temp.substring(0, 11).equals("Modtag penge")){
-                cards.add(new GetPaidByBank(((String)info.getCardInfo()[0][i]).substring(13), 0));
+            else if(temp.substring(0,17).equals("Noget med fængsel")){
+                cards.add(new JailInteractions(((String)info.getCardInfo()[0][i]).substring(19),0));
             }
-            else if(temp.substring(0, 7).equals("Ryk felt")){
-                cards.add(new MoveToField(((String)info.getCardInfo()[0][i]).substring(9), (int) info.getCardInfo()[1][i],(boolean) info.getCardInfo()[3][i]));
+            else if(temp.substring(0, 12).equals("Modtag penge")){
+                cards.add(new GetPaidByBank(((String)info.getCardInfo()[0][i]).substring(14), (int) info.getCardInfo()[1][valueCounter++]));
             }
-            else if(temp.substring(0, 12).equals("Prisen stiger")){
-                cards.add(new PriceIncrease(((String)info.getCardInfo()[0][i]).substring(14), (int) info.getCardInfo()[1][i], (int) info.getCardInfo()[2][i]));
+
+            else if(temp.substring(0, 21).equals("Få penge fra spillere")){
+                cards.add(new GetPaidByPlayers(((String)info.getCardInfo()[0][i]).substring(23), (int) info.getCardInfo()[1][valueCounter++]));
+            }
+            else if(temp.substring(0, 22).equals("Betal penge til banken")){
+                cards.add(new PayTheBank(((String)info.getCardInfo()[0][i]).substring(24), (int) info.getCardInfo()[1][valueCounter++]));
             }
         }
 

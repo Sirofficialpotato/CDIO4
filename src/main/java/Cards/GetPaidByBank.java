@@ -4,9 +4,11 @@ import Fields.*;
 
 public class GetPaidByBank extends Cards
 {
-    public GetPaidByBank(String text, int index)
+    int value;
+    public GetPaidByBank(String text, int value)
     {
         super(text);
+        this.value = value;
     }
 
     @Override

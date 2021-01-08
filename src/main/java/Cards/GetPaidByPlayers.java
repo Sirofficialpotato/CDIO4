@@ -4,9 +4,10 @@ import Fields.Field;
 import Player.Player;
 
 public class GetPaidByPlayers extends Cards {
-    
-    public GetPaidByPlayers(String text, int index) {
+    int value;
+    public GetPaidByPlayers(String text, int value) {
         super(text);
+        this.value = value;
     }
 
     @Override
