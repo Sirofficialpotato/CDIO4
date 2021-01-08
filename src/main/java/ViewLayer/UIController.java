@@ -5,7 +5,8 @@ import Fields.*;
 import Player.*;
 import gui_fields.*;
 import gui_main.GUI;
-
+import javax.swing.BorderFactory;
+import javax.swing.*;
 import java.awt.*;
 
 
@@ -183,6 +184,13 @@ public class UIController {
                 ((GUI_Ownable) this.gui.getFields()[field]).setBorder(this.guiPlayers[((Properties)fields[field]).getOwnedBy()].getPrimaryColor());
             }
         }
+        public void removeGUIFieldOwner(Field[] fields, int field){
+            if(((Properties)fields[field]).getOwnedBy() != -1) {
+                ((GUI_Ownable) this.gui.getFields()[field]).setOwnerName(null);
+                ((GUI_Ownable) this.gui.getFields()[field]).setBorder(Color.lightGray);
+            }
+        }
+
 
         public GUI_Player getGuiPlayer(int playerNumber){
         return guiPlayers[playerNumber];

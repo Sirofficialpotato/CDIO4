@@ -65,10 +65,10 @@ public class GameController {
             }
             //Sets the players money according the rules
             switch (numberOfPlayers) {
-                case 3 -> player.setMoney(30000);
-                case 4 -> player.setMoney(30000);
-                case 5 -> player.setMoney(30000);
-                case 6 -> player.setMoney(30000);
+                case 3 -> player.setMoney(10000);
+                case 4 -> player.setMoney(10000);
+                case 5 -> player.setMoney(10000);
+                case 6 -> player.setMoney(10000);
             }
             playerList[i - 1] = player;
 
@@ -104,12 +104,13 @@ public class GameController {
                 if (playerList[k] != null) {
                     uiController.getGUI().getFields()[playerList[k].getPosition()].setCar(uiController.getGuiPlayer(k), false);
 
-                    /*Virker ikke måske brugbart???
+                    //Virker ikke måske brugbart???
                     for (int i = 0; i < playerList[k].getPlayerOwnedFields().size; i++) {
                         System.out.println(playerList[k].getPlayerOwnedFields().atIndex(i));
                         int deleteField = playerList[k].getPlayerOwnedFields().atIndex(i);
+                        uiController.removeGUIFieldOwner(gameBoard.getFields(),playerList[k].getPlayerOwnedFields().atIndex(i));
                         ((Properties) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
-                    }*/
+                    }
 
                     playerList[k] = null;
                     Losers++;
@@ -259,20 +260,19 @@ public class GameController {
                     EndGame();
                     if (GameOver) break;
 
-                    if (!playerList[i].getInJail()) {
-                        //Guibutton to read the next user input
-                        String ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], currentLang[15]);
-                        // if statement to check if the user typed in throw
-                        if (ready.equals(currentLang[15])) {
-                            //Change die on in gui to reflect new roll and update player position
-                            rafflecup.useRafflecup();
-                            uiController.getGUI().setDice(d1.getFaceValue(), d2.getFaceValue());
-                            playerList[i].setPosition(30);
 
-                            //updates gui player position
-                            uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
+                    //Guibutton to read the next user input
+                    String ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], currentLang[15]);
+                    // if statement to check if the user typed in throw
+                    if (ready.equals(currentLang[15]) && !playerList[i].getInJail()) {
+                        //Change die on in gui to reflect new roll and update player position
+                        rafflecup.useRafflecup();
+                        uiController.getGUI().setDice(d1.getFaceValue(), d2.getFaceValue());
+                        playerList[i].setPosition(rafflecup.RafflecupFaceValue());
 
-                        }
+                        //updates gui player position
+                        uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
+
                     }
                     //Part 1 of landOnField test see part 2
                     //System.out.println(playerList[i].getName() + " before landing on field: " + playerList[i].getMoney());
