@@ -101,7 +101,7 @@ public class GameController {
                 if (playerList[k] != null) {
                     uiController.getGUI().getFields()[playerList[k].getPosition()].setCar(uiController.getGuiPlayer(k), false);
 
-                    /* Virker ikke måske brugbart???
+                    /*Virker ikke måske brugbart???
                     for (int i = 0; i < playerList[k].getPlayerOwnedFields().size; i++) {
                         System.out.println(playerList[k].getPlayerOwnedFields().atIndex(i));
                         int deleteField = playerList[k].getPlayerOwnedFields().atIndex(i);
