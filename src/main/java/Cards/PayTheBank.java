@@ -14,7 +14,7 @@ public class PayTheBank extends Cards
     @Override
     public void drawCard(Player player)
     {
-        player.setMoney(value);
+        player.setMoney(-value);
 
     }
 }
