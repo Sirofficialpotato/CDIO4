@@ -13,6 +13,7 @@ import java.util.Arrays;
 public class GameController {
     private GameBoard gameBoard = new GameBoard();
     private int numberOfPlayers = 0;
+    String ready;
     int Losers = 0;
     private Player[] playerList;
     //nye terninger?
@@ -72,10 +73,6 @@ public class GameController {
             }
             playerList[i - 1] = player;
 
-        }
-        //Adds playerfigure at end of playerName
-        for (int i = 1; i < numberOfPlayers + 1; i++) {
-            playerList[i-1].setName(playerList[i-1].getName() + currentLang[i+21]);
         }
     }
 
@@ -251,8 +248,6 @@ public class GameController {
                             } else if(!rafflecup.SameDie()){playerList[i].addToTurnsInJail(+1);
                                 System.out.println(playerList[i].getTurnsInJail());}
                         }
-
-                        //break;
                     } else if (playerList[i].getInJail() && playerList[i].getJailCard()) {
                         playerList[i].setJailCard(false);
                         playerList[i].setInJail(false);
@@ -261,26 +256,27 @@ public class GameController {
                         playerList[i].removeJailCardObect();
                         uiController.getGUI().showMessage(playerList[i].getName() + currentLang[21]);
                     }//***********************************JAIL************************************
-                    //Check for if player has a player specific card and gives them the choice
 
-
-                    //loop to check if a player as reached 0
                     EndGame();
                     if (GameOver) break;
 
 
                     //Guibutton to read the next user input
-                    String ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], currentLang[15]);
+                    if(!playerList[i].getInJail()) ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], currentLang[15]);
                     // if statement to check if the user typed in throw
                     if (ready.equals(currentLang[15]) && !playerList[i].getInJail()) {
+
                         //Change die on in gui to reflect new roll and update player position
                         rafflecup.useRafflecup();
                         uiController.getGUI().setDice(d1.getFaceValue(), d2.getFaceValue());
-                        playerList[i].setPosition(+/*rafflecup.RafflecupFaceValue()*/30);
+                        playerList[i].setPosition(+/*rafflecup.RafflecupFaceValue()*/1);
 
                         //updates gui player position
                         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
 
+                        if(playerList[i].getPosition() == 30){
+                            uiController.getGUI().showMessage(playerList[i].getName() + " landede på gå i fængsel feltet og bliver derfor smidt direkte i fængsel!");
+                        }
                     }
                     //Part 1 of landOnField test see part 2
                     //System.out.println(playerList[i].getName() + " before landing on field: " + playerList[i].getMoney());
@@ -310,9 +306,14 @@ public class GameController {
                         }*/
                     } else if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties) {
                         if(((Properties) gameBoard.getFields()[playerList[i].getPosition()]).getOwnedBy() == -1){
-                            playerList[i].addToPlayerOwnedFields();
-                        }
-                        ((Properties) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields());
+                            boolean buyOrNot = uiController.getGUI().getUserLeftButtonPressed(playerList[i].getName() + " landede på " + gameBoard.getFields()[playerList[i].getPosition()].getFieldName() + " og har nu muligheden for at købe", "Køb", "Ignorere");
+                            if(buyOrNot) {
+                                playerList[i].addToPlayerOwnedFields();
+                                ((Properties) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), true);
+                            } else {
+                                ((Properties) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), false);
+                            }
+                        } else {((Properties) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), true);}
                     } else {
                         gameBoard.getFields()[playerList[i].getPosition()].landOnField(playerList, i);
                     }//***************************************************************************************************************

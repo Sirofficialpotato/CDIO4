@@ -20,14 +20,15 @@ public class Properties extends Field {
     }
 
 
-    public void landOnField(Player[] players, int player, Field[] fields) {
+    public void landOnField(Player[] players, int player, Field[] fields, boolean wantToBuyBool) {
         //is 1 if group is not owned by same but 2 if group is owned by same
         int priceMulti = 1;
         //Case when no one owns
-        if(this.getOwnedBy() == -1){
+        if(this.getOwnedBy() == -1 && wantToBuyBool){
             players[player].setMoney(-this.getPrice());
             this.setOwnedBy(player);
         }
+        else if(!wantToBuyBool) {}
         //case if you dont own meaning someone else owns
         else if(this.getOwnedBy() != player){
             if(fields[players[player].getPosition()-1] instanceof Properties){
