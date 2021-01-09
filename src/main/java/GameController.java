@@ -167,6 +167,7 @@ public class GameController {
     }
 
     private void DoAfterMove(int i){
+        uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
         //********************checks is player is on a chancefield if so he draws a card***********************************
         if (gameBoard.getFields()[playerList[i].getPosition()] instanceof FieldChance) {
                         /*boolean draw = true;
@@ -204,6 +205,16 @@ public class GameController {
         } else {
             gameBoard.getFields()[playerList[i].getPosition()].landOnField(playerList, i);
         }//***************************************************************************************************************
+
+        if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties) {
+            uiController.updateGUIFieldOwner(playerList, gameBoard.getFields(), playerList[i].getPosition());
+
+            //Part 2 of landOnField test
+            //System.out.println(playerList[i].getName() + " after landing on field: " + playerList[i].getMoney());
+
+            //we use set balance here to update the gui
+            uiController.getGuiPlayer(i).setBalance(playerList[i].getMoney());
+        }
     }
 
     private void GameFlow() {
@@ -240,12 +251,14 @@ public class GameController {
 
                             rafflecup.useRafflecup();
                             uiController.getGUI().setDice(d1.getFaceValue(), d2.getFaceValue());
+
                             if (rafflecup.SameDie()) {
                                 playerList[i].setInJail(false);
                                 playerList[i].setPosition(+rafflecup.RafflecupFaceValue());
                                 //updates gui player position
                                 uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
                                 DoAfterMove(i);
+
                             } else if (!rafflecup.SameDie() && playerList[i].getTurnsInJail() == 3) {
                                 playerList[i].setInJail(false);
                                 playerList[i].setMoney(+-1000);
@@ -297,7 +310,7 @@ public class GameController {
                     //here we update the player position again to make sure it's correct if a chancecard has been used
                     uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
                     //Checks if player lands on Property and updates GUI with owner
-                    if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties) {
+                    /*if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties) {
                         uiController.updateGUIFieldOwner(playerList, gameBoard.getFields(), playerList[i].getPosition());
 
                         //Part 2 of landOnField test
@@ -305,7 +318,7 @@ public class GameController {
 
                         //we use set balance here to update the gui
                         uiController.getGuiPlayer(i).setBalance(playerList[i].getMoney());
-                    }
+                    }*/
                 }
             }
 
