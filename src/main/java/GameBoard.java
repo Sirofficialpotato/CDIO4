@@ -40,9 +40,9 @@ public class GameBoard {
         return this.myFields;
     }
 
-
+    //Method that generates a set of cards from cardInfo
+    //Get out of jail card excluded parameter is false
     public void generateChanceCards(boolean jail){
-        cards = new DynamicArr<Cards>();
         String temp;
         //Counters to keep track of index in the 2d array
         int valueCounter = 0, value1Counter = 0, relativeCounter = 0;
@@ -70,7 +70,7 @@ public class GameBoard {
         }
 
     }
-
+    //Mixes the chance cards
     public void mixCards(){
         Cards[] tempArr = new Cards[this.cards.size];
         Random ran = new Random();
