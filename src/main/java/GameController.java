@@ -102,9 +102,15 @@ public class GameController {
                     //Virker ikke måske brugbart???
                     for (int i = 0; i < playerList[k].getPlayerOwnedFields().size; i++) {
                         System.out.println(playerList[k].getPlayerOwnedFields().atIndex(i));
-                        int deleteField = playerList[k].getPlayerOwnedFields().atIndex(i);
-                        uiController.removeGUIFieldOwner(gameBoard.getFields(), playerList[k].getPlayerOwnedFields().atIndex(i));
-                        ((Properties) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
+                        if (playerList[k].getPlayerOwnedFields().atIndex(i) == null)
+                        {
+                            continue;
+                        }
+                        else {
+                            int deleteField = playerList[k].getPlayerOwnedFields().atIndex(i);
+                            uiController.removeGUIFieldOwner(gameBoard.getFields(), playerList[k].getPlayerOwnedFields().atIndex(i));
+                            ((Properties) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
+                        }
                     }
 
                     playerList[k] = null;

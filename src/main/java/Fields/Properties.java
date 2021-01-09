@@ -65,7 +65,6 @@ public class Properties extends Field {
 
 
 
-
     public String getFieldName() {
         return fieldName;
     }
