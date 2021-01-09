@@ -1,9 +1,6 @@
 import Cards.*;
-import Fields.Field;
-import Fields.FieldChance;
+import Fields.*;
 
-import Fields.FieldsOnBoard;
-import Fields.Properties;
 import Player.Player;
 import ViewLayer.UIController;
 
@@ -109,7 +106,11 @@ public class GameController {
                         else {
                             int deleteField = playerList[k].getPlayerOwnedFields().atIndex(i);
                             uiController.removeGUIFieldOwner(gameBoard.getFields(), playerList[k].getPlayerOwnedFields().atIndex(i));
-                            ((Properties) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
+                            if(deleteField == 5 || deleteField == 15 || deleteField == 25 || deleteField == 35){
+                                ((FieldShipYard) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
+                            } else {
+                                ((Properties) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
+                            }
                         }
                     }
 
@@ -204,11 +205,25 @@ public class GameController {
             } else {
                 ((Properties) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), true);
             }
+        } else if (gameBoard.getFields()[playerList[i].getPosition()] instanceof FieldShipYard) {
+            if (((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).getOwnedBy() == -1) {
+                boolean buyOrNot = uiController.getGUI().getUserLeftButtonPressed(playerList[i].getName() + " landede på " + gameBoard.getFields()[playerList[i].getPosition()].getFieldName() + " og har nu muligheden for at købe", "Køb", "Ignorere");
+                if (buyOrNot) {
+                    playerList[i].addToPlayerOwnedFields();
+                    ((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), true);
+                } else {
+                    ((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), false);
+                }
+            } else {
+                ((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), true);
+            }
         } else {
             gameBoard.getFields()[playerList[i].getPosition()].landOnField(playerList, i);
-        }//***************************************************************************************************************
+        }
 
-        if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties) {
+        //***************************************************************************************************************
+
+        if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties || gameBoard.getFields()[playerList[i].getPosition()] instanceof FieldShipYard) {
             uiController.updateGUIFieldOwner(playerList, gameBoard.getFields(), playerList[i].getPosition());
 
             //Part 2 of landOnField test
@@ -311,16 +326,6 @@ public class GameController {
 
                     //here we update the player position again to make sure it's correct if a chancecard has been used
                     uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
-                    //Checks if player lands on Property and updates GUI with owner
-                    /*if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties) {
-                        uiController.updateGUIFieldOwner(playerList, gameBoard.getFields(), playerList[i].getPosition());
-
-                        //Part 2 of landOnField test
-                        //System.out.println(playerList[i].getName() + " after landing on field: " + playerList[i].getMoney());
-
-                        //we use set balance here to update the gui
-                        uiController.getGuiPlayer(i).setBalance(playerList[i].getMoney());
-                    }*/
                 }
             }
 

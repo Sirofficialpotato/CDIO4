@@ -31,20 +31,20 @@ public class UIController {
            guiPlayers[i] = new GUI_Player(players[i].getName(), players[i].getMoney());
        }
         return guiPlayers;
-    }
-    public UIController(Player[] players){
+   }
+   public UIController(Player[] players){
         this.gui = new GUI();
         guiPlayers = new GUI_Player[players.length];
         guiPlayers = this.UIPlayerGen(players);
-    }
+   }
 
-    public void addPlayers(Player[] players){
+   public void addPlayers(Player[] players){
         guiPlayers = new GUI_Player[players.length];
         for (int i = 0; i < players.length; i++) {
             guiPlayers[i] = new GUI_Player(players[i].getName(), players[i].getMoney());
             this.gui.addPlayer(guiPlayers[i]);
         }
-    }
+   }
 
     //Generates a GUI_Field array from a logic Field array
     public GUI_Field[] UIFieldGen(Field[] fieldArray){
@@ -61,6 +61,10 @@ public class UIController {
             else if(fieldArray[i] instanceof Jail) {
                 guiFields[i] = new GUI_Jail( "default",((Jail) fieldArray[i]).getFieldName(), ((Jail) fieldArray[i]).getFieldDescription(), ((Jail) fieldArray[i]).getFieldDescription(), Color.RED, Color.BLACK);
             }
+            else if(fieldArray[i] instanceof FieldShipYard){
+                guiFields[i] = new GUI_Shipping("default", ((FieldShipYard) fieldArray[i]).getFieldName(),/*String.valueOf(((FieldShipYard) fieldArray[i]).getPrice())*/"M4000", ((FieldShipYard) fieldArray[i]).getFieldDescription(), String.valueOf(((FieldShipYard) fieldArray[i]).getRent()), Color.WHITE, Color.BLACK);
+            }
+
             else if(fieldArray[i] instanceof Properties) {
                 Color color, txtcolor;
                 Color OrangeColor = new Color(207, 151, 23);
@@ -178,24 +182,40 @@ public class UIController {
         }
 
         //Updates Owners of GUI fields, by referencing the name of the owner of logical fields
-        public void updateGUIFieldOwner(Player[] players, Field[] fields, int field){
+    public void updateGUIFieldOwner(Player[] players, Field[] fields, int field){
+        if(field == 5 || field == 15 || field == 25 || field == 35) {
+            if (((FieldShipYard) fields[field]).getOwnedBy() != -1) {
+                ((GUI_Shipping) this.gui.getFields()[field]).setOwnerName(players[((FieldShipYard) fields[field]).getOwnedBy()].getName());
+                ((GUI_Shipping) this.gui.getFields()[field]).setBorder(this.guiPlayers[((FieldShipYard) fields[field]).getOwnedBy()].getPrimaryColor());
+                //((GUI_Shipping) this.gui.getFields()[field]).setRent("M500");
+            }
+        } else {
             if(((Properties)fields[field]).getOwnedBy() != -1) {
                 ((GUI_Ownable) this.gui.getFields()[field]).setOwnerName(players[((Properties) fields[field]).getOwnedBy()].getName());
                 ((GUI_Ownable) this.gui.getFields()[field]).setBorder(this.guiPlayers[((Properties)fields[field]).getOwnedBy()].getPrimaryColor());
             }
         }
-        public void removeGUIFieldOwner(Field[] fields, int field){
+    }
+    public void removeGUIFieldOwner(Field[] fields, int field){
+        if(field == 5 || field == 15 || field == 25 || field == 35) {
+            if (((FieldShipYard) fields[field]).getOwnedBy() != -1) {
+                ((GUI_Shipping) this.gui.getFields()[field]).setOwnerName(null);
+                ((GUI_Shipping) this.gui.getFields()[field]).setBorder(Color.lightGray);
+            }
+        }
+        else {
             if(((Properties)fields[field]).getOwnedBy() != -1) {
                 ((GUI_Ownable) this.gui.getFields()[field]).setOwnerName(null);
                 ((GUI_Ownable) this.gui.getFields()[field]).setBorder(Color.lightGray);
             }
         }
+    }
 
 
-        public GUI_Player getGuiPlayer(int playerNumber){
+    public GUI_Player getGuiPlayer(int playerNumber){
         return guiPlayers[playerNumber];
-        }
+    }
 
-        public GUI getGUI(){return this.gui;}
+    public GUI getGUI(){return this.gui;}
 
 }
