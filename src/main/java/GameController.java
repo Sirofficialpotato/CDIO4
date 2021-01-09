@@ -74,10 +74,6 @@ public class GameController {
             }
             playerList[i - 1] = player;
         }
-        //Adds playerfigure at end of playerName
-        for (int i = 1; i < numberOfPlayers + 1; i++) {
-            playerList[i - 1].setName(playerList[i - 1].getName() + currentLang[i + 21]);
-        }
     }
 
     public void Game() {
@@ -292,7 +288,7 @@ public class GameController {
                         //Change die on in gui to reflect new roll and update player position
                         rafflecup.useRafflecup();
                         uiController.getGUI().setDice(d1.getFaceValue(), d2.getFaceValue());
-                        playerList[i].setPosition(+/*rafflecup.RafflecupFaceValue()*/30);
+                        playerList[i].setPosition(+/*rafflecup.RafflecupFaceValue()*/1);
 
                         //updates gui player position
                         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
