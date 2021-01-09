@@ -168,6 +168,54 @@ public class GameController {
         }
     }
 
+    private void Jailfunc(int i){
+        if (playerList[i].getInJail() && !playerList[i].getJailCard()) {
+            //uiController.getGUI().showMessage(playerList[i].getName() + currentLang[20]);
+            //if the player has over 1000 gives both opportunities:
+            String chosenbutton;
+            if (uiController.getGuiPlayer(i).getBalance() > 999 && playerList[i].getTurnsInJail() != 3) {
+                chosenbutton = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + " er i fængsel og kan nu vælge imellem følgende muligheder for at komme ud", "Betal 1000,-", "Slå 2 ens");
+            } else if (playerList[i].getTurnsInJail() == 3) {
+                chosenbutton = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + " er i fængsel og kan nu vælge imellem følgende muligheder for at komme ud", "Betal 1000,-");
+                playerList[i].addToTurnsInJail(-3);
+                System.out.println(playerList[i].getTurnsInJail());
+            } else {
+                chosenbutton = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + " er i fængsel og kan nu vælge imellem følgende muligheder for at komme ud", "Slå 2 ens");
+            }
+
+            if (chosenbutton.equals("Betal 1000,-")) {
+                playerList[i].setMoney(+-1000);
+                uiController.getGuiPlayer(i).setBalance(playerList[i].getMoney());
+                playerList[i].setInJail(false);
+            } else {
+
+                rafflecup.useRafflecup();
+                uiController.getGUI().setDice(d1.getFaceValue(), d2.getFaceValue());
+
+                if (rafflecup.SameDie()) {
+                    playerList[i].setInJail(false);
+                    playerList[i].setPosition(+rafflecup.RafflecupFaceValue());
+                    //updates gui player position
+                    uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
+                    DoAfterMove(i);
+
+                } else if (!rafflecup.SameDie() && playerList[i].getTurnsInJail() == 3) {
+                    playerList[i].setInJail(false);
+                    playerList[i].setMoney(+-1000);
+                } else if (!rafflecup.SameDie()) {
+                    playerList[i].addToTurnsInJail(+1);
+                    System.out.println(playerList[i].getTurnsInJail());
+                }
+            }
+        } else if (playerList[i].getInJail() && playerList[i].getJailCard()) {
+            playerList[i].setJailCard(false);
+            playerList[i].setInJail(false);
+            gameBoard.fieldChance.getCards().add(playerList[i].getJailCardOject());
+            gameBoard.fieldChance.getCards().lastItemToFront();
+            playerList[i].removeJailCardObect();
+            uiController.getGUI().showMessage(playerList[i].getName() + currentLang[21]);
+        }
+    }
     private void DoAfterMove(int i){
         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
         //********************checks is player is on a chancefield if so he draws a card***********************************
@@ -231,52 +279,8 @@ public class GameController {
                         }
                     }
                     //************************************JAIL************************************
-                    if (playerList[i].getInJail() && !playerList[i].getJailCard()) {
-                        //uiController.getGUI().showMessage(playerList[i].getName() + currentLang[20]);
-                        //if the player has over 1000 gives both opportunities:
-                        String chosenbutton = "";
-                        if (uiController.getGuiPlayer(i).getBalance() > 999 && playerList[i].getTurnsInJail() != 3) {
-                            chosenbutton = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + " er i fængsel og kan nu vælge imellem følgende muligheder for at komme ud", "Betal 1000,-", "Slå 2 ens");
-                        } else if (playerList[i].getTurnsInJail() == 3) {
-                            chosenbutton = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + " er i fængsel og kan nu vælge imellem følgende muligheder for at komme ud", "Betal 1000,-");
-                            playerList[i].addToTurnsInJail(-3);
-                            System.out.println(playerList[i].getTurnsInJail());
-                        } else {
-                            chosenbutton = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + " er i fængsel og kan nu vælge imellem følgende muligheder for at komme ud", "Slå 2 ens");
-                        }
-
-                        if (chosenbutton.equals("Betal 1000,-")) {
-                            playerList[i].setMoney(+-1000);
-                            uiController.getGuiPlayer(i).setBalance(playerList[i].getMoney());
-                            playerList[i].setInJail(false);
-                        } else {
-
-                            rafflecup.useRafflecup();
-                            uiController.getGUI().setDice(d1.getFaceValue(), d2.getFaceValue());
-
-                            if (rafflecup.SameDie()) {
-                                playerList[i].setInJail(false);
-                                playerList[i].setPosition(+rafflecup.RafflecupFaceValue());
-                                //updates gui player position
-                                uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
-                                DoAfterMove(i);
-
-                            } else if (!rafflecup.SameDie() && playerList[i].getTurnsInJail() == 3) {
-                                playerList[i].setInJail(false);
-                                playerList[i].setMoney(+-1000);
-                            } else if (!rafflecup.SameDie()) {
-                                playerList[i].addToTurnsInJail(+1);
-                                System.out.println(playerList[i].getTurnsInJail());
-                            }
-                        }
-                    } else if (playerList[i].getInJail() && playerList[i].getJailCard()) {
-                        playerList[i].setJailCard(false);
-                        playerList[i].setInJail(false);
-                        gameBoard.fieldChance.getCards().add(playerList[i].getJailCardOject());
-                        gameBoard.fieldChance.getCards().lastItemToFront();
-                        playerList[i].removeJailCardObect();
-                        uiController.getGUI().showMessage(playerList[i].getName() + currentLang[21]);
-                    }//***********************************JAIL************************************
+                    Jailfunc(i);
+                    //***********************************JAIL************************************
                     //Check for if player has a player specific card and gives them the choice
 
 
