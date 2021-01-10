@@ -22,7 +22,7 @@ public class PropertyController {
             for (int j = 0; j < fields.length; j++) {
                 //Checks if field is Properties and if the
                 if(fields[j] instanceof Properties){
-                    if(findPropGroup((Properties) fields[j]) == i) {
+                    if(((Properties) fields[j]).getIndex() == i) {
                         properties[i][probCounter][0] = ((Properties) fields[j]).getOwnedBy();
                         properties[i][probCounter][1] = ((Properties) fields[j]).getBuildOn();
                         properties[i][probCounter][2] = ((Properties) fields[j]).getIndex();
@@ -33,27 +33,7 @@ public class PropertyController {
         }
     }
     //Takes in a field and returns what group it belongs to based on the color
-    private int findPropGroup(Properties field) {
-        switch (field.getFieldColor()){
-            case "blå":
-                return 0;
-            case "orange":
-                return 1;
-            case "grøn":
-                return 2;
-            case "grå":
-                return 3;
-            case "rød":
-                return 4;
-            case "hvid":
-                return 5;
-            case "gul":
-                return 6;
-            case "lilla":
-                return 7;
-            default: return -1;
-        }
-    }
+
     //Checks if a specific player can build on a specific field
     public boolean isFieldBuildable(Properties field, int playerNumber) {
         boolean groupOwner = false;
