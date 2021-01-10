@@ -22,6 +22,7 @@ public class PropertyController {
                 }
             }
         }
+        initCanBuy();
     }
     //Takes in a field and returns what group it belongs to based on the color
     private int findPropGroup(Properties field) {
@@ -45,28 +46,59 @@ public class PropertyController {
             default: return -1;
         }
     }
-
-    public void generatePossibilities(int playerNumber){
-        int totalCounter = 0;
+    //Checks if a specific player can build on a specific field
+    public boolean isFieldBuildable(Field field, int playerNumber) {
         boolean groupOwner = false;
         for (int i = 0; i < properties.length; i++) {
             //Checks if player owns a group
-            if(playerNumber == properties[i][0][0] && playerNumber == properties[i][1][0]){
+            if (playerNumber == properties[i][0][0] && playerNumber == properties[i][1][0]) {
                 groupOwner = true;
                 //Try if group is of size 3
-                try{
-                    if(playerNumber != properties[i][2][0]){
+                try {
+                    if (playerNumber != properties[i][2][0]) {
                         groupOwner = false;
                     }
-                }
-                catch (ArrayIndexOutOfBoundsException e){
+                } catch (ArrayIndexOutOfBoundsException e) {
                     break;
                 }
             }
 
         }
+        return groupOwner;
+    }
+    //Generates array of fields that player can build on
+    public void generatePossibilities(int playerNumber){
+            for (int i = 0; i < fields.length; i++) {
+                if(fields[i] instanceof Properties && isFieldBuildable(fields[i], playerNumber)){
+                    canBuy[i] = true;
+                }
+            }
+
     }
 
+    public Field[] getPosibillites(){
+        Field[] possibilities;
+        int totalPossibilities = 0;
+        for (int i = 0; i < canBuy.length; i++) {
+            if (canBuy[i] == true) {
+                totalPossibilities++;
+            }
+        }
+        possibilities = new Field[totalPossibilities];
+        int fieldCounter = 0;
+        for (int i = 0; i < fields.length; i++) {
+            if(canBuy[i] == true){
+                possibilities[fieldCounter] = fields[i];
+            }
+        }
+        return possibilities;
+    }
+
+    public void initCanBuy(){
+        for (int i = 0; i < canBuy.length; i++) {
+            canBuy[i] = false;
+        }
+    }
     public Object[][] possibleToBuy(){
         return new Object[40][2];
     }
