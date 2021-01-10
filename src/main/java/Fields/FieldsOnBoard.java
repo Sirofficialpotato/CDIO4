@@ -100,7 +100,7 @@ public class FieldsOnBoard {
             }
 
             else {
-                this.fieldArr[i] = new Properties(allFields[i][0], allFields[i][1], allFields[i][2], parseInt(allFields[i][1].substring(1)));
+                this.fieldArr[i] = new Properties(allFields[i][0], allFields[i][1], allFields[i][2], parseInt(allFields[i][1].substring(1)), i);
 
             }
         }

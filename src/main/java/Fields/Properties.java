@@ -7,13 +7,17 @@ public class Properties extends Field {
     private String fieldColor;
     private int ownedBy;
     private int price;
+    private int buildOn = 0;
+    private int index;
+
 
     // All ownable properties with a value and a color
-    public Properties(String name, String description, String color,int value){
+    public Properties(String name, String description, String color,int value, int index){
         super(name, description);
         this.fieldColor = color;
         this.price = value;
         this.ownedBy = -1;
+        this.index = index;
     }
     @Override
     public void landOnField(Player[] players, int player){
@@ -64,6 +68,10 @@ public class Properties extends Field {
         return propertiesTotalValue;
     }
 
+    public int getBuildOn(){
+        return buildOn;
+    }
+
 
 
     public String getFieldName() {
@@ -88,5 +96,7 @@ public class Properties extends Field {
     public int getPrice() {
         return price;
     }
+
+    public int getIndex(){return this.index;}
 
 }
