@@ -249,13 +249,23 @@ public class GameController {
 
                     ((Properties) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), temp);
                     gameBoard.getFields()[playerList[i].getPosition()].landOnField(playerList, i);
-                    gameBoard.getCards().lastItemToFront();
-                } else {
-                    currentCard.drawCard(playerList[i]);
-                    gameBoard.getCards().lastItemToFront();
-                }
 
+                }
+                gameBoard.getCards().lastItemToFront();
             }
+            else if(currentCard instanceof PayTheBank) {
+                ((PayTheBank)currentCard).drawCard(playerList[i]);
+                gameBoard.getCards().lastItemToFront();
+            }
+            else if(currentCard instanceof GetPaidByBank){
+                ((GetPaidByBank)currentCard).drawCard(playerList[i]);
+                gameBoard.getCards().lastItemToFront();
+            }
+            else{
+                ((PriceIncrease)currentCard).drawCard(playerList[i]);
+            }
+
+
 
         }
 
