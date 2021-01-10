@@ -37,47 +37,32 @@ public class Properties extends Field {
 
         //case if you dont own meaning someone else owns
         else if(this.getOwnedBy() != player){
+
             switch(players[player].getPosition()){
                 case 1,3:
-                    if(((Properties) fields[1]).getOwnedBy() == this.getOwnedBy() && ((Properties) fields[3]).getOwnedBy() == this.getOwnedBy()){
-                        if(this.buildings > 0) {buildingSwitch();}
-                        else if(((Properties) fields[1]).buildings == 0 && ((Properties) fields[3]).buildings == 0){priceMulti = 2;}
-                    } break;
+                    doubleSizedGroup(fields,1,3);
+                    break;
                 case 6,8,9:
-                    if(((Properties) fields[6]).getOwnedBy() == this.getOwnedBy() && ((Properties) fields[8]).getOwnedBy() == this.getOwnedBy() && ((Properties) fields[9]).getOwnedBy() == this.getOwnedBy()){
-                        if(this.buildings > 0) {buildingSwitch();}
-                        else if(((Properties) fields[6]).buildings == 0 && ((Properties) fields[8]).buildings == 0 && ((Properties) fields[9]).buildings == 0){this.priceMulti = 2;}
-                    } break;
+                    tripleSizedGroup(fields,6,8,9);
+                    break;
                 case 11,13,14:
-                    if(((Properties) fields[11]).getOwnedBy() == this.getOwnedBy() && ((Properties) fields[13]).getOwnedBy() == this.getOwnedBy() && ((Properties) fields[14]).getOwnedBy() == this.getOwnedBy()){
-                        if(this.buildings > 0) {buildingSwitch();}
-                        else if(((Properties) fields[11]).buildings == 0 && ((Properties) fields[13]).buildings == 0 && ((Properties) fields[14]).buildings == 0){this.priceMulti = 2;}
-                    } break;
+                    tripleSizedGroup(fields,11,13,14);
+                    break;
                 case 16,18,19:
-                    if(((Properties) fields[16]).getOwnedBy() == this.getOwnedBy() && ((Properties) fields[18]).getOwnedBy() == this.getOwnedBy() && ((Properties) fields[19]).getOwnedBy() == this.getOwnedBy()){
-                        if(this.buildings > 0) {buildingSwitch();}
-                        else if(((Properties) fields[16]).buildings == 0 && ((Properties) fields[18]).buildings == 0 && ((Properties) fields[19]).buildings == 0){this.priceMulti = 2;}
-                    } break;
+                    tripleSizedGroup(fields,16,18,19);
+                    break;
                 case 21,23,24:
-                    if(((Properties) fields[21]).getOwnedBy() == this.getOwnedBy() && ((Properties) fields[23]).getOwnedBy() == this.getOwnedBy() && ((Properties) fields[24]).getOwnedBy() == this.getOwnedBy()){
-                        if(this.buildings > 0) {buildingSwitch();}
-                        else if(((Properties) fields[21]).buildings == 0 && ((Properties) fields[23]).buildings == 0 && ((Properties) fields[24]).buildings == 0){this.priceMulti = 2;}
-                    } break;
+                    tripleSizedGroup(fields,21,23,24);
+                    break;
                 case 26,27,29:
-                    if(((Properties) fields[26]).getOwnedBy() == this.getOwnedBy() && ((Properties) fields[27]).getOwnedBy() == this.getOwnedBy() && ((Properties) fields[29]).getOwnedBy() == this.getOwnedBy()){
-                        if(this.buildings > 0) {buildingSwitch();}
-                        else if(((Properties) fields[26]).buildings == 0 && ((Properties) fields[27]).buildings == 0 && ((Properties) fields[29]).buildings == 0){this.priceMulti = 2;}
-                    } break;
+                    tripleSizedGroup(fields,26,27,29);
+                    break;
                 case 31,32,34:
-                    if(((Properties) fields[31]).getOwnedBy() == this.getOwnedBy() && ((Properties) fields[32]).getOwnedBy() == this.getOwnedBy() && ((Properties) fields[34]).getOwnedBy() == this.getOwnedBy()){
-                        if(this.buildings > 0) {buildingSwitch();}
-                        else if(((Properties) fields[31]).buildings == 0 && ((Properties) fields[32]).buildings == 0 && ((Properties) fields[34]).buildings == 0){this.priceMulti = 2;}
-                    } break;
+                    tripleSizedGroup(fields,31,32,34);
+                    break;
                 case 37,39:
-                    if(((Properties) fields[37]).getOwnedBy() == this.getOwnedBy() && ((Properties) fields[39]).getOwnedBy() == this.getOwnedBy()){
-                        if(this.buildings > 0) {buildingSwitch();}
-                        else if(((Properties) fields[37]).buildings == 0 && ((Properties) fields[39]).buildings == 0){this.priceMulti = 2;}
-                    } break;
+                    doubleSizedGroup(fields,37,39);
+                    break;
             }
 
             players[player].setMoney(-this.getPrice() * this.priceMulti);
@@ -136,7 +121,6 @@ public class Properties extends Field {
     public int getBuildings(){return this.buildings;}
 
     private void buildingSwitch(){
-        //int buildings = ((Properties) fields[player]).getBuildings();
         switch(buildings){
             case 1:
                 this.priceMulti = 2;
@@ -153,6 +137,22 @@ public class Properties extends Field {
             case 5:
                 this.priceMulti = 6;
                 break;
+        }
+    }
+
+    private void doubleSizedGroup(Field[] fields, int fieldToCheck, int fieldToCheck2){
+
+        if(((Properties) fields[fieldToCheck]).getOwnedBy() == this.getOwnedBy() && ((Properties) fields[fieldToCheck2]).getOwnedBy() == this.getOwnedBy()){
+            if(this.buildings > 0) {buildingSwitch();}
+            else if(((Properties) fields[fieldToCheck]).buildings == 0 && ((Properties) fields[fieldToCheck2]).buildings == 0){priceMulti = 2;}
+        }
+    }
+
+    private void tripleSizedGroup(Field[] fields, int fieldToCheck, int fieldToCheck2, int fieldToCheck3){
+
+        if(((Properties) fields[fieldToCheck]).getOwnedBy() == this.getOwnedBy() && ((Properties) fields[fieldToCheck2]).getOwnedBy() == this.getOwnedBy() && ((Properties) fields[fieldToCheck3]).getOwnedBy() == this.getOwnedBy()){
+            if(this.buildings > 0) {buildingSwitch();}
+            else if(((Properties) fields[fieldToCheck]).buildings == 0 && ((Properties) fields[fieldToCheck2]).buildings == 0 && ((Properties) fields[fieldToCheck3]).buildings == 0){priceMulti = 2;}
         }
     }
 }
