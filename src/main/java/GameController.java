@@ -221,7 +221,7 @@ public class GameController {
         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
         //********************checks is player is on a chancefield if so he draws a card***********************************
         if (gameBoard.getFields()[playerList[i].getPosition()] instanceof FieldChance) {
-            boolean draw = true;
+            /*boolean draw = true;
             Cards currentCard = gameBoard.getCards().getLast();
             uiController.getGUI().displayChanceCard(currentCard.getCardText());
             //Loop that draws cards until the last drawn card has drawAgain == false
@@ -265,7 +265,7 @@ public class GameController {
                 ((PriceIncrease)currentCard).drawCard(playerList[i]);
             }
 
-
+*/
 
         }
 
