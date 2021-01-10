@@ -23,11 +23,18 @@ public class PriceIncrease extends Cards
     //Updates the playerPosition **** not sure if it should use landOnField method on new field as well
     public void drawCard(Player player)
     {
-
-
+        int totalValue = 0;
+        for (Integer i:
+             player.getPlayerOwnedFields().getArr()[1]) {
+            if(i < 5){
+                totalValue += i * value;
+            }
+            else{
+                totalValue += value1;
+            }
+        }
+        player.setMoney(-totalValue);
     }
-
-
 
 }
 

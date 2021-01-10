@@ -7,6 +7,7 @@ public class Properties extends Field {
     private String fieldColor;
     private int ownedBy;
     private int price;
+
     // All ownable properties with a value and a color
     public Properties(String name, String description, String color,int value){
         super(name, description);
@@ -87,4 +88,5 @@ public class Properties extends Field {
     public int getPrice() {
         return price;
     }
+
 }

@@ -12,7 +12,7 @@ class PlayerSpecificTest {
         Player[] players = new Player[]{new Player("test1"), new Player("test2"), new Player("test3"), new Player("test4")};
         Field[] f2 = new Field[0];
         FieldChance f1 = new FieldChance();
-        System.out.println(players[0].getCardArray());
+        System.out.println(players[0].getjailCards());
         DynamicArr<PayTheBank> choiceCards = new DynamicArr<PayTheBank>();
         int choiceCounter = 0;
         for (int i = 0; i < f1.getCards().size; i++) {
@@ -25,16 +25,16 @@ class PlayerSpecificTest {
             choiceCards.getLast().drawCard(players[0]);
             System.out.print(choiceCards.getLast().getCardText());
             System.out.print("player1 -bil: ");
-            players[0].getCardArray().print();
+            players[0].getjailCards().print();
             System.out.println();
             System.out.print("player2 -skib: ");
-            players[1].getCardArray().print();
+            players[1].getjailCards().print();
             System.out.println();
             System.out.print("player3 -kat: ");
-            players[2].getCardArray().print();
+            players[2].getjailCards().print();
             System.out.println();
             System.out.print("player4 -hund: ");
-            players[3].getCardArray().print();
+            players[3].getjailCards().print();
             choiceCards.lastItemToFront();
         }
 

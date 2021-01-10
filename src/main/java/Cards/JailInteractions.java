@@ -14,7 +14,7 @@ public class JailInteractions extends Cards
     @Override
     public void drawCard(Player player)
     {
-       player.getCardArray().add(this);
+       player.getjailCards().add(this);
        player.setJailCard(true);
     }
 }

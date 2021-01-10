@@ -104,8 +104,8 @@ public class GameController {
                             continue;
                         }
                         else {
-                            int deleteField = playerList[k].getPlayerOwnedFields().atIndex(i);
-                            uiController.removeGUIFieldOwner(gameBoard.getFields(), playerList[k].getPlayerOwnedFields().atIndex(i));
+                            int deleteField = playerList[k].getPlayerOwnedFields().getArr()[0][i];
+                            uiController.removeGUIFieldOwner(gameBoard.getFields(),playerList[k].getPlayerOwnedFields().getArr()[0][i]);
                             if(deleteField == 5 || deleteField == 15 || deleteField == 25 || deleteField == 35){
                                 ((FieldShipYard) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
                             } else {
@@ -221,27 +221,45 @@ public class GameController {
         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
         //********************checks is player is on a chancefield if so he draws a card***********************************
         if (gameBoard.getFields()[playerList[i].getPosition()] instanceof FieldChance) {
-                        /*boolean draw = true;
-                        //Loop that draws cards until the last drawn card has drawAgain == false
-                        //If else statements keeps track of which type of card and acts accordingly
-                        while (draw) {
-                            uiController.getGUI().displayChanceCard(gameBoard.fieldChance.getCards().getLast().getCardText());
-                            if (gameBoard.fieldChance.getCards().getLast() instanceof PlayerSpecific) {
-                                draw = true;
-                                gameBoard.fieldChance.takeChanceCard(playerList, i, gameBoard.getFields(), uiController.getGuiInput(gameBoard.fieldChance.nextCard()));
-                            } else if (gameBoard.fieldChance.getCards().getLast() instanceof GetOutOfJail) {
-                                draw = false;
-                                gameBoard.fieldChance.takeChanceCard(playerList, i, gameBoard.getFields(), uiController.getGuiInput(gameBoard.fieldChance.nextCard()));
-                            } else {
-                                gameBoard.fieldChance.takeChanceCard(playerList, i, gameBoard.getFields(), uiController.getGuiInput(gameBoard.fieldChance.nextCard()));
-                                draw = gameBoard.fieldChance.getCards().atIndex(0).getDrawAgain();
-                            }
+            boolean draw = true;
+            Cards currentCard = gameBoard.getCards().getLast();
+            uiController.getGUI().displayChanceCard(currentCard.getCardText());
+            //Loop that draws cards until the last drawn card has drawAgain == false
+            //If else statements keeps track of which type of card and acts accordingly
 
-                            if (draw == true) {
-                                uiController.getGUI().getUserButtonPressed("Du skal trække igen", "træk");
-                            }
-                        }*/
-        } else if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties) {
+            if (currentCard instanceof JailInteractions) {
+                if (currentCard.getCardText().substring(0, 20).equals("Noget med fængsel: I")) {
+                    gameBoard.getCards().removeLast();
+                    playerList[i].addJailCard((JailInteractions) currentCard);
+                } else {
+                    playerList[i].setInJail(true);
+                    playerList[i].setSpecificPosition(10);
+                }
+            } else if (currentCard instanceof GetPaidByPlayers) {
+                ((GetPaidByPlayers) currentCard).drawCard(playerList, i);
+                gameBoard.getCards().lastItemToFront();
+            } else if (currentCard instanceof MoveToField) {
+                currentCard.drawCard(playerList[i]);
+                if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties) {
+                    boolean temp = false;
+                    Properties currentProp = (Properties) gameBoard.getFields()[playerList[i].getPosition()];
+                    if(currentProp.getOwnedBy() == -1){
+                        temp = uiController.getGUI().getUserLeftButtonPressed(playerList[i].getName() + " landede på " + gameBoard.getFields()[playerList[i].getPosition()].getFieldName() + " og har nu muligheden for at købe", "Køb", "Ignorere");
+                    }
+
+                    ((Properties) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), temp);
+                    gameBoard.getFields()[playerList[i].getPosition()].landOnField(playerList, i);
+                    gameBoard.getCards().lastItemToFront();
+                } else {
+                    currentCard.drawCard(playerList[i]);
+                    gameBoard.getCards().lastItemToFront();
+                }
+
+            }
+
+        }
+
+        else if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties) {
             if (((Properties) gameBoard.getFields()[playerList[i].getPosition()]).getOwnedBy() == -1) {
                 boolean buyOrNot = uiController.getGUI().getUserLeftButtonPressed(playerList[i].getName() + " landede på " + gameBoard.getFields()[playerList[i].getPosition()].getFieldName() + " og har nu muligheden for at købe", "Køb", "Ignorere");
                 if (buyOrNot) {

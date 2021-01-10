@@ -33,7 +33,10 @@ public class GameBoard {
         currentLang = langSelector.returnLang();
 
         generateChanceCards(true);
-        mixCards();
+        while(!cards.getLast().getCardText().equals("Ryk tre felter tilbage")){
+            mixCards();
+        }
+
     }
 
     public Field[] getFields(){
@@ -84,6 +87,10 @@ public class GameBoard {
         for (int i = 0; i < tempArr.length; i++) {
             cards.add(tempArr[i]);
         }
+    }
+
+    public DynamicArr<Cards> getCards(){
+        return this.cards;
     }
 
 }

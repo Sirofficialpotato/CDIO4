@@ -102,6 +102,14 @@ public class DynamicArr<T> {
 
     }
 
+    public void removeLast(){
+        T[] temp = (T[]) new Object[arr.length-1];
+        for (int i = 0; i < temp.length; i++) {
+            temp[i] = arr[i];
+        }
+        arr = temp;
+    }
+
     public void addAtStart(T object){
         this.add(object);
         this.lastItemToFront();

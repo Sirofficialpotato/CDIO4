@@ -9,8 +9,8 @@ public class Player{
     private boolean JailCard;
     private int Position, oldposition;
     private Wallet wallet = new Wallet();
-    private DynamicArr<Cards> cardArray = new DynamicArr<Cards>();
-    private DynamicArr<Integer> playerOwnedFields = new DynamicArr<Integer>();
+    private DynamicArr<Cards> jailCards = new DynamicArr<Cards>();
+    private DynamicArr<Integer[]> playerOwnedFields = new DynamicArr<Integer[]>();
     private int turnsInJail = 0;
 
     public Player(String Name)
@@ -22,12 +22,12 @@ public class Player{
         oldposition = 0;
     }
 
-    public DynamicArr<Integer> getPlayerOwnedFields(){
+    public DynamicArr<Integer[]> getPlayerOwnedFields(){
         return playerOwnedFields;
     }
 
     public void addToPlayerOwnedFields(){
-        playerOwnedFields.add(Position);
+        playerOwnedFields.add(new Integer[]{Position, 0});
     }
 
     public int getPosition()
@@ -41,6 +41,7 @@ public class Player{
         this.Position += Position;
         if(this.Position >= 40) this.Position -= 40;
         // ved ikke lige om det virker helt
+        else if(this.Position < 0) this.Position +=40;
         if(this.Position < this.oldposition && !this.inJail){
             this.setMoney(+4000);
         }
@@ -77,48 +78,51 @@ public class Player{
     {
         return this.JailCard;
     }
+    public void addJailCard(JailInteractions jailCard){
+        this.jailCards.add(jailCard);
+    }
 
 
 
     public Cards getPlayerSpecific(){
-        for (int i = 0; i < cardArray.size; i++) {
-            String tester = cardArray.atIndex(i).getCardText().substring(0,2);
-            if(cardArray.atIndex(i) instanceof PayTheBank){
-                return this.cardArray.atIndex(i);
+        for (int i = 0; i < jailCards.size; i++) {
+            String tester = jailCards.atIndex(i).getCardText().substring(0,2);
+            if(jailCards.atIndex(i) instanceof PayTheBank){
+                return this.jailCards.atIndex(i);
             }
         }
         return null;
     }
 
     public void removePlayerSpecific(){
-        for (int i = 0; i < cardArray.size; i++) {
-            String tester = cardArray.atIndex(i).getCardText().substring(0,2);
-            if(cardArray.atIndex(i) instanceof PayTheBank){
-                this.cardArray.removeAt(i);
+        for (int i = 0; i < jailCards.size; i++) {
+            String tester = jailCards.atIndex(i).getCardText().substring(0,2);
+            if(jailCards.atIndex(i) instanceof PayTheBank){
+                this.jailCards.removeAt(i);
             }
         }
     }
 
     public Cards getJailCardOject(){
-        for (int i = 0; i < cardArray.size; i++) {
-            if(cardArray.atIndex(i) instanceof JailInteractions){
-                return cardArray.atIndex(i);
+        for (int i = 0; i < jailCards.size; i++) {
+            if(jailCards.atIndex(i) instanceof JailInteractions){
+                return jailCards.atIndex(i);
             }
         }
         return null;
     }
     public void removeJailCardObect() {
-        for (int i = 0; i < cardArray.size; i++) {
-            if (cardArray.atIndex(i) instanceof JailInteractions) {
-                cardArray.removeAt(i);
+        for (int i = 0; i < jailCards.size; i++) {
+            if (jailCards.atIndex(i) instanceof JailInteractions) {
+                jailCards.removeAt(i);
             }
         }
     }
 
     public boolean hasPlayerSpecific(){
         boolean tester = false;
-        for (int i = 0; i < cardArray.size; i++) {
-            if(cardArray.atIndex(i) instanceof PayTheBank){
+        for (int i = 0; i < jailCards.size; i++) {
+            if(jailCards.atIndex(i) instanceof PayTheBank){
                 tester = true;
             }
         }
@@ -147,7 +151,7 @@ public class Player{
         wallet.setMoney(money);
     }
 
-    public DynamicArr<Cards> getCardArray() {
-        return cardArray;
+    public DynamicArr<Cards> getjailCards() {
+        return jailCards;
     }
 }
