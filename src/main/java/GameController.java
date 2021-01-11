@@ -116,7 +116,11 @@ public class GameController {
                                 uiController.removeGUIFieldOwner(gameBoard.getFields(), playerList[k].getPlayerOwnedFields().getArr()[i]);
                                 if (deleteField == 5 || deleteField == 15 || deleteField == 25 || deleteField == 35) {
                                     ((FieldShipYard) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
-                                } else {
+                                }
+                                else if(deleteField == 12 || deleteField == 28){
+                                    ((Brewery) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
+                                }
+                                else {
                                     ((Properties) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
                                 }
                         }
