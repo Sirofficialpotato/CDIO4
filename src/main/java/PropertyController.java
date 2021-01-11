@@ -25,13 +25,14 @@ public class PropertyController {
             for (int j = 0; j < fields.length; j++) {
                 //Checks if field is Properties and if the
                 if(fields[j] instanceof Properties){
-                    if(((Properties) fields[j]).getIndex() == i) {
+                    if(((Properties) fields[j]).getGroup() == i) {
                         properties[i][probCounter][0] = ((Properties) fields[j]).getOwnedBy();
                         properties[i][probCounter][1] = ((Properties) fields[j]).getBuildOn();
                         properties[i][probCounter][2] = ((Properties) fields[j]).getIndex();
                         probCounter++;
                     }
                 }
+
             }
         }
     }

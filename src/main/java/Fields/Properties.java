@@ -86,7 +86,29 @@ public class Properties extends Field {
         }
     }
 
+    public int getGroup(){
+        switch (this.getFieldColor()) {
+            case "blå":
+                return 0;
+            case "orange":
+                return 1;
+            case "grøn":
+                return 2;
+            case "grå":
+                return 3;
+            case "rød":
+                return 4;
+            case "hvid":
+                return 5;
+            case "gul":
+                return 6;
+            case "lilla":
+                return 7;
+            default:
+                return -1;
+        }
 
+    }
 
     public String getFieldName() {
         return fieldName;
