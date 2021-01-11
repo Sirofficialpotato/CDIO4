@@ -18,7 +18,7 @@ public class GetPaidByPlayers extends Cards {
     public  void drawCard(Player[] players, int player){
         for (int i = 0; i < players.length; i++) {
             if(i == player){
-                players[player].setMoney(value);
+                players[player].setMoney(value * (players.length-1));
             }
             else{
                 players[player].setMoney(-value);
