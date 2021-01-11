@@ -79,8 +79,10 @@ public class Properties extends Field {
             {
                 continue;
             }
-            if (((Properties) fields[i]).getOwnedBy() == player){
-                propertiesTotalValue += ((Properties) fields[i]).getPrice();
+            if(fields[i] instanceof Properties) {
+                if (((Properties) fields[i]).getOwnedBy() == player) {
+                    propertiesTotalValue += ((Properties) fields[i]).getPrice();
+                }
             }
 
         }
