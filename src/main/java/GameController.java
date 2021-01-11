@@ -13,10 +13,7 @@ public class GameController {
     String ready;
     int Losers = 0;
     private Player[] playerList;
-    //nye terninger?
-    Die d1 = new Die(2);
-    Die d2 = new Die(2);
-    Rafflecup rafflecup = new Rafflecup(d1, d2);
+    Rafflecup rafflecup = new Rafflecup();
     private boolean GameOver = false;
 
     private UIController uiController;
@@ -29,10 +26,10 @@ public class GameController {
 
     private int SetPlayerAmount() {
         while (numberOfPlayers > 6 || numberOfPlayers < 3) {
-            String numbofplayers = uiController.getGUI().getUserString(currentLang[0]);
+            String numbofplayerstring = uiController.getGUI().getUserString(currentLang[0]);
             try {
-                numberOfPlayers = Integer.parseInt(numbofplayers);
-                if (numbofplayers.equals("")) {
+                numberOfPlayers = Integer.parseInt(numbofplayerstring);
+                if (numbofplayerstring.equals("")) {
                     numberOfPlayers = 0;
                     uiController.getGUI().showMessage(currentLang[1]);
                 }
@@ -199,7 +196,7 @@ public class GameController {
             } else {
 
                 rafflecup.useRafflecup();
-                uiController.getGUI().setDice(d1.getFaceValue(), d2.getFaceValue());
+                uiController.getGUI().setDice(rafflecup.getD1(), rafflecup.getD2());
 
                 if (rafflecup.SameDie()) {
                     playerList[i].setInJail(false);
@@ -348,8 +345,8 @@ public class GameController {
 
                         //Change die on in gui to reflect new roll and update player position
                         rafflecup.useRafflecup();
-                        uiController.getGUI().setDice(d1.getFaceValue(), d2.getFaceValue());
-                        playerList[i].setPosition(+/*rafflecup.RafflecupFaceValue()*/1);
+                        uiController.getGUI().setDice(rafflecup.getD1(), rafflecup.getD2());
+                        playerList[i].setPosition(+rafflecup.RafflecupFaceValue());
 
                         //updates gui player position
                         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());

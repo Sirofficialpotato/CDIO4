@@ -2,11 +2,13 @@ public class Rafflecup {
 
     private Die d1, d2;
 
-
-
-    public Rafflecup(Die dice1, Die dice2) {
+    public Rafflecup() {
+        Die dice1 = new Die(2);
+        Die dice2 = new Die(2);
         this.d1 = dice1;
         this.d2 = dice2;
+
+
 
     }
 
@@ -21,12 +23,14 @@ public class Rafflecup {
 
     public Boolean SameDie()
     {
-        if (d1.getFaceValue() == d2.getFaceValue())
+        return d1.getFaceValue() == d2.getFaceValue();
+       /* if (d1.getFaceValue() == d2.getFaceValue())
         {
             return true;
         }
-        else
+        else {
             return false;
+        } */
     }
 
     public int getD1(){
