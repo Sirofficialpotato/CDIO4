@@ -326,6 +326,9 @@ public class GameController {
                 ((Brewery)gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), false);
             }
         }
+        else{
+            gameBoard.getFields()[playerList[i].getPosition()].landOnField(playerList, i);
+        }
 
         //***************************************************************************************************************
 
