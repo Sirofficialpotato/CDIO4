@@ -110,14 +110,15 @@ public class GameController {
                         {
                             continue;
                         }
-                        else {
-                            int deleteField = playerList[k].getPlayerOwnedFields().getArr()[i];
-                            uiController.removeGUIFieldOwner(gameBoard.getFields(),playerList[k].getPlayerOwnedFields().getArr()[i]);
-                            if(deleteField == 5 || deleteField == 15 || deleteField == 25 || deleteField == 35){
-                                ((FieldShipYard) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
-                            } else {
-                                ((Properties) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
-                            }
+                        else if(playerList[k].getPlayerOwnedFields().getArr()[i] != null){
+
+                                int deleteField = playerList[k].getPlayerOwnedFields().getArr()[i];
+                                uiController.removeGUIFieldOwner(gameBoard.getFields(), playerList[k].getPlayerOwnedFields().getArr()[i]);
+                                if (deleteField == 5 || deleteField == 15 || deleteField == 25 || deleteField == 35) {
+                                    ((FieldShipYard) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
+                                } else {
+                                    ((Properties) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
+                                }
                         }
                     }
 
@@ -359,7 +360,7 @@ public class GameController {
 
 
 
-                    //Guibutton to read the next user input
+                    //*************************************Player gets the choice to either buy houses/hotels or roll with the dice*******************************************************
                     if (!playerList[i].getInJail() && pController.getPosibillites(i).length != 0) {
                         String[] choiceArr = new String[pController.getPosibillites(i).length];
                         for (int j = 0; j < pController.getPosibillites(i).length; j++) {
@@ -367,11 +368,12 @@ public class GameController {
                         }
                         ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], currentLang[15], "Køb huse/hoteller");
 
+
                         while(!ready.equals(currentLang[15])) {
                             if(ready.equals("Køb huse/hoteller") && !playerList[i].getInJail()){
                                 String propertyToBuyAt = uiController.getGUI().getUserButtonPressed("Vælg en grund at købe huse/hoteller til", choiceArr);
 
-                                //Loop to check what field the player selected
+                                //Loop to check what field the player selected by matching the String propertyTOBuyAt with the fields of which the player owns
                                 for (int j = 0; j < playerList[i].getPlayerOwnedFields().current; j++) {
                                     if(propertyToBuyAt.equals(gameBoard.getFields()[playerList[i].getPlayerOwnedFields().atIndex(j)].getFieldName())){
                                         ((Properties)gameBoard.getFields()[playerList[i].getPlayerOwnedFields().atIndex(j)]).buildOnProperty(playerList[i]);
@@ -386,6 +388,7 @@ public class GameController {
                     } else if (!playerList[i].getInJail() && pController.getPosibillites(i).length == 0) {
                         ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], currentLang[15]);
                     }
+                    //*************************************Player gets the choice to either buy houses/hotels or roll with the dice*******************************************************
 
 
                     // if statement to check if the user typed in throw
