@@ -130,7 +130,7 @@ public class Player{
         int playerAsset = 0;
         if(playerOwnedFields.current > 0) {
             for (int i = 0; i < playerOwnedFields.size; i++) {
-                Field tempField = fields[playerOwnedFields.getArr()[i]];
+                Field tempField = fields[playerOwnedFields.atIndex(i)];
                 if (tempField instanceof Properties) {
                     playerAsset += ((Properties) tempField).getTotalPropertyValue();
                 } else if (tempField instanceof Brewery) {
