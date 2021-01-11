@@ -27,15 +27,14 @@ public class Brewery extends Field{
         //case if you dont own meaning someone else owns
         else if(this.getOwnedBy() != player){
             if(((Brewery)fields[12]).getOwnedBy() == ((Brewery)fields[28]).getOwnedBy()){
-                players[player].setMoney(-players[player].getLastRoll());
+                players[player].setMoney(-players[player].getLastRoll() * 200);
+                players[this.getOwnedBy()].setMoney(players[player].getLastRoll() * 200);
             }
-            else if(fields[players[player].getPosition()+1] instanceof Properties){
-                if(((Properties) fields[(players[player].getPosition()+1)%40]).getOwnedBy() == this.getOwnedBy()){
-                    priceMulti = 2;
-                }
+            else {
+                players[player].setMoney(-players[player].getLastRoll() * 100);
+                players[this.getOwnedBy()].setMoney(players[player].getLastRoll() * 100);
             }
-            players[player].setMoney(-this.getPrice() * priceMulti);
-            players[this.getOwnedBy()].setMoney(this.getPrice() * priceMulti);
+
         }
     }
 
