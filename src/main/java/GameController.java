@@ -28,7 +28,13 @@ public class GameController {
     }
 
     private int SetPlayerAmount() {
-        numberOfPlayers = uiController.getGUI().getUserInteger(currentLang[0]);
+        String numbofplayers = uiController.getGUI().getUserString(currentLang[0]);
+        if (numbofplayers.equals("")) {
+            numberOfPlayers = 1;
+        }
+        else{
+            numberOfPlayers = Integer.parseInt(numbofplayers);
+        }
         while (numberOfPlayers > 6 || numberOfPlayers < 3) {
             uiController.getGUI().showMessage(currentLang[1]);
             numberOfPlayers = uiController.getGUI().getUserInteger(currentLang[0]);
