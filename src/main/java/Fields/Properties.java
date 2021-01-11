@@ -70,23 +70,10 @@ public class Properties extends Field {
         }
     }
     //methode for when 2 players have the same amount of money in the end of the game
-    public int getTotalPropertyValue(Player[] players, int player, Field[] fields)
+    public int getTotalPropertyValue()
     {
-        int propertiesTotalValue = 0;
-        for (int i = 1; i <= 39; i++) {
-            // hvis felt i er en property check ellers continue, der er nok en bedre løsning, men virker for nu.
-            if (i == 2 || i == 4 ||i == 7 ||i == 10 ||i == 17 ||i == 20 ||i == 22 || i == 30 ||i == 33 ||i == 36)
-            {
-                continue;
-            }
-            if(fields[i] instanceof Properties) {
-                if (((Properties) fields[i]).getOwnedBy() == player) {
-                    propertiesTotalValue += ((Properties) fields[i]).getPrice();
-                }
-            }
+        return this.price + this.price * 10 / 5 * buildOn;
 
-        }
-        return propertiesTotalValue;
     }
 
     public int getBuildOn(){
