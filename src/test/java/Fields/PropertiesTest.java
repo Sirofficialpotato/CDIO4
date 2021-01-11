@@ -46,7 +46,7 @@ class PropertiesTest {
 //            System.out.println(((Properties) fields[i]).getOwnedBy());
 //        }
 
-        System.out.println(((Properties)fields[2]).getTotalPropertyValue(players, 2, fields));
+        //System.out.println(((Properties)fields[2]).getTotalPropertyValue(players, 2, fields));
 
 
     }

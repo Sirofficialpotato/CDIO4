@@ -128,18 +128,18 @@ public class Player{
     }
    public int getPlayerAssets(Field[] fields){
         int playerAsset = 0;
-       for (int i = 0; i < playerOwnedFields.size; i++) {
-           Field tempField = fields[playerOwnedFields.getArr()[i]];
-           if(tempField instanceof Properties){
-               playerAsset += ((Properties) tempField).getTotalPropertyValue();
-           }
-           else if (tempField instanceof Brewery){
-               playerAsset += ((Brewery) tempField).getPrice();
-           }
-           else if(tempField instanceof FieldShipYard){
-               playerAsset += ((FieldShipYard) tempField).getPrice();
-           }
-       }
+        if(playerOwnedFields.current > 0) {
+            for (int i = 0; i < playerOwnedFields.size; i++) {
+                Field tempField = fields[playerOwnedFields.getArr()[i]];
+                if (tempField instanceof Properties) {
+                    playerAsset += ((Properties) tempField).getTotalPropertyValue();
+                } else if (tempField instanceof Brewery) {
+                    playerAsset += ((Brewery) tempField).getPrice();
+                } else if (tempField instanceof FieldShipYard) {
+                    playerAsset += ((FieldShipYard) tempField).getPrice();
+                }
+            }
+        }
        return playerAsset;
    }
 

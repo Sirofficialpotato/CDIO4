@@ -18,7 +18,7 @@ public class PayTax extends Field{
             if (choice == true) {
                 players[player].setMoney(-4000);
             } else {
-                players[player].setMoney(-players[player].getPlayerAssets(fields) + players[player].getMoney());
+                players[player].setMoney(-(players[player].getPlayerAssets(fields) + players[player].getMoney())/10);
             }
         }
         else{
