@@ -1,5 +1,8 @@
 import Fields.*;
 //[group][Property][info]
+/*
+* Info in properties[x][y] = {owner, buildOn, index}
+* */
 
 
 public class PropertyController {
@@ -47,8 +50,13 @@ public class PropertyController {
             }
         }
         if(groupChecker != -1) {
-            if (playerNumber == properties[groupChecker][0][0] && playerNumber == properties[groupChecker][1][0] && playerNumber == properties[groupChecker][2][0]) {
-                groupOwner = true;
+            if(properties[groupChecker][2][0] != -2) {
+                if (playerNumber == properties[groupChecker][0][0] && playerNumber == properties[groupChecker][1][0] && playerNumber == properties[groupChecker][2][0]) {
+                    groupOwner = true;
+                }
+            }
+            else {
+
             }
         }
 
@@ -68,10 +76,9 @@ public class PropertyController {
     //sets fields not to be used to -2
     public void set3rdSpaceIn2PropGroupsToN2(){
         properties[0][2][0] = -2;
-        properties[0][2][0] = -2;
-        properties[7][2][0] = -2;
         properties[7][2][0] = -2;
     }
+
     //builds field[] that returns all fields player can build on
     public Field[] getPosibillites(int player){
         generatePossibilities(player);

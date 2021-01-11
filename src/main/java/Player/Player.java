@@ -12,6 +12,7 @@ public class Player{
     private DynamicArr<Cards> jailCards = new DynamicArr<Cards>();
     private DynamicArr<Integer[]> playerOwnedFields = new DynamicArr<Integer[]>();
     private int turnsInJail = 0;
+    private int lastRoll;
 
     public Player(String Name)
     {
@@ -39,6 +40,7 @@ public class Player{
     {
         this.oldposition = this.Position;
         this.Position += Position;
+        this.lastRoll = Position;
         if(this.Position >= 40) this.Position -= 40;
         // ved ikke lige om det virker helt
         else if(this.Position < 0) this.Position +=40;
@@ -82,7 +84,9 @@ public class Player{
         this.jailCards.add(jailCard);
     }
 
-
+    public int getLastRoll(){
+        return this.lastRoll;
+    }
 
     public Cards getPlayerSpecific(){
         for (int i = 0; i < jailCards.size; i++) {

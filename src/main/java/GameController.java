@@ -233,7 +233,7 @@ public class GameController {
             //If else statements keeps track of which type of card and acts accordingly
 
             if (currentCard instanceof JailInteractions) {
-                if (currentCard.getCardText().substring(0, 20).equals("Noget med fængsel: I")) {
+                if (currentCard.getCardText().substring(0, 14).equals("I anledning af")) {
                     gameBoard.getCards().removeLast();
                     playerList[i].addJailCard((JailInteractions) currentCard);
                 } else {
@@ -298,7 +298,15 @@ public class GameController {
             } else {
                 ((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), true);
             }
-        } else {
+
+        }
+        else if(gameBoard.getFields()[playerList[i].getPosition()] instanceof PayTax){
+
+        }
+        else if(gameBoard.getFields()[playerList[i].getPosition()] instanceof Brewery){
+
+        }
+        else {
             gameBoard.getFields()[playerList[i].getPosition()].landOnField(playerList, i);
         }
 
