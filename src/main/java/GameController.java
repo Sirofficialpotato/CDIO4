@@ -301,7 +301,8 @@ public class GameController {
 
         }
         else if(gameBoard.getFields()[playerList[i].getPosition()] instanceof PayTax){
-
+            boolean choice = uiController.getGUI().getUserLeftButtonPressed("Vil du betale 4000 eller 10% af dine samlede værdier?", "4000", "10%");
+            ((PayTax)gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), choice);
         }
         else if(gameBoard.getFields()[playerList[i].getPosition()] instanceof Brewery){
 
