@@ -56,6 +56,9 @@ public class PropertyController {
                 }
             }
             else {
+                if (playerNumber == properties[groupChecker][0][0] && playerNumber == properties[groupChecker][1][0]) {
+                    groupOwner = true;
+                }
 
             }
         }
