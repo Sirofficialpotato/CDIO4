@@ -375,6 +375,7 @@ public class GameController {
                                 for (int j = 0; j < playerList[i].getPlayerOwnedFields().current; j++) {
                                     if(propertyToBuyAt.equals(gameBoard.getFields()[playerList[i].getPlayerOwnedFields().atIndex(j)].getFieldName())){
                                         ((Properties)gameBoard.getFields()[playerList[i].getPlayerOwnedFields().atIndex(j)]).buildOnProperty(playerList[i]);
+                                        uiController.buildPropertiesOnGui(i,j,((Properties) gameBoard.getFields()[playerList[i].getPlayerOwnedFields().atIndex(j)]).getBuildOn(),playerList);
                                     }
 
                                 }

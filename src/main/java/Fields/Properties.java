@@ -101,6 +101,7 @@ public class Properties extends Field {
         }
         else if(this.buildOn == 4){
             this.buildOn++;
+            System.out.println(buildOn + " Opnået hotel bygget");
             player.setMoney(-this.price/10);
         }
     }
@@ -138,7 +139,8 @@ public class Properties extends Field {
         switch(buildings){
             case 1:
                 this.priceMulti = 2;
-                System.out.println("Spiller ejer 1 bygning");
+                System.out.println("Du er landet på et felt med hvor en " +
+                        "spiller ejer 1 bygning");
                 break;
             case 2:
                 this.priceMulti = 3;

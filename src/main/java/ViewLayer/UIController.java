@@ -199,8 +199,8 @@ public class UIController {
             }
         } else {
             if(((Properties)fields[field]).getOwnedBy() != -1) {
-                ((GUI_Ownable) this.gui.getFields()[field]).setOwnerName(players[((Properties) fields[field]).getOwnedBy()].getName());
-                ((GUI_Ownable) this.gui.getFields()[field]).setBorder(this.guiPlayers[((Properties)fields[field]).getOwnedBy()].getPrimaryColor());
+                ((GUI_Street) this.gui.getFields()[field]).setOwnerName(players[((Properties) fields[field]).getOwnedBy()].getName());
+                ((GUI_Street) this.gui.getFields()[field]).setBorder(this.guiPlayers[((Properties)fields[field]).getOwnedBy()].getPrimaryColor());
             }
         }
     }
@@ -213,12 +213,19 @@ public class UIController {
         }
         else {
             if(((Properties)fields[field]).getOwnedBy() != -1) {
-                ((GUI_Ownable) this.gui.getFields()[field]).setOwnerName(null);
-                ((GUI_Ownable) this.gui.getFields()[field]).setBorder(Color.lightGray);
+                ((GUI_Street) this.gui.getFields()[field]).setOwnerName(null);
+                ((GUI_Street) this.gui.getFields()[field]).setBorder(Color.lightGray);
             }
         }
     }
 
+    public void buildPropertiesOnGui(int i,int j,int houses, Player[] players){
+        if(houses <= 4)((GUI_Street)getGUI().getFields()[players[i].getPlayerOwnedFields().atIndex(j)]).setHouses(houses);
+        else if(houses == 5){
+            ((GUI_Street)getGUI().getFields()[players[i].getPlayerOwnedFields().atIndex(j)]).setHouses(0);
+            ((GUI_Street)getGUI().getFields()[players[i].getPlayerOwnedFields().atIndex(j)]).setHotel(true);
+        }
+    }
 
     public GUI_Player getGuiPlayer(int playerNumber){
         return guiPlayers[playerNumber];
