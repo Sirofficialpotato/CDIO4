@@ -6,11 +6,13 @@ public class Brewery extends Field{
     int ownedBy = -1;
     int index;
     int price;
+    String color;
 
-    public Brewery(String fieldName, String fieldDescription, int index, int price) {
+    public Brewery(String fieldName, String fieldDescription, String color, int index, int price) {
         super(fieldName, fieldDescription);
         this.index = index;
         this.price = price;
+        this.color = color;
     }
 
     @Override
@@ -23,7 +25,6 @@ public class Brewery extends Field{
             players[player].setMoney(-this.getPrice());
             this.setOwnedBy(player);
         }
-        else if(!wantToBuyBool) {}
         //case if you dont own meaning someone else owns
         else if(this.getOwnedBy() != player){
             if(((Brewery)fields[12]).getOwnedBy() == ((Brewery)fields[28]).getOwnedBy()){

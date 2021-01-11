@@ -304,11 +304,20 @@ public class GameController {
             boolean choice = uiController.getGUI().getUserLeftButtonPressed("Vil du betale 4000 eller 10% af dine samlede værdier?", "4000", "10%");
             ((PayTax)gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), choice);
         }
-        else if(gameBoard.getFields()[playerList[i].getPosition()] instanceof Brewery){
-
-        }
-        else {
-            gameBoard.getFields()[playerList[i].getPosition()].landOnField(playerList, i);
+        else if(gameBoard.getFields()[playerList[i].getPosition()] instanceof Brewery) {
+            if (((Brewery) gameBoard.getFields()[playerList[i].getPosition()]).getOwnedBy() == -1) {
+                boolean buyOrNot = uiController.getGUI().getUserLeftButtonPressed(playerList[i].getName() + " landede på " + gameBoard.getFields()[playerList[i].getPosition()].getFieldName() + " og har nu muligheden for at købe", "Køb", "Ignorere");
+                if (buyOrNot) {
+                    playerList[i].addToPlayerOwnedFields();
+                    ((Brewery) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), true);
+                } else {
+                    ((Brewery) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), false);
+                }
+                ((Brewery) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), true);
+            }
+            else {
+                ((Brewery)gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), false);
+            }
         }
 
         //***************************************************************************************************************

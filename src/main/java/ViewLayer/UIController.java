@@ -64,6 +64,14 @@ public class UIController {
             else if(fieldArray[i] instanceof FieldShipYard){
                 guiFields[i] = new GUI_Shipping("default", ((FieldShipYard) fieldArray[i]).getFieldName(),/*String.valueOf(((FieldShipYard) fieldArray[i]).getPrice())*/"M4000", ((FieldShipYard) fieldArray[i]).getFieldDescription(), String.valueOf(((FieldShipYard) fieldArray[i]).getRent()), Color.WHITE, Color.BLACK);
             }
+            //String picture, String title, String subText, String description, String rent, Color bgColor, Color fgColor
+            else if(fieldArray[i] instanceof Brewery){
+                guiFields[i] = new GUI_Brewery("default", fieldArray[i].getFieldName(), fieldArray[i].getFieldDescription(), fieldArray[i].getFieldDescription(), "100/200 times roll", Color.RED, Color.BLACK);
+            }
+            //String title, String subText, String description, Color bgColor, Color fgColor
+            else if(fieldArray[i] instanceof PayTax){
+                guiFields[i] = new GUI_Tax(fieldArray[i].getFieldName(), fieldArray[i].getFieldDescription(), fieldArray[i].getFieldDescription(), Color.RED, Color.BLACK);
+            }
 
             else if(fieldArray[i] instanceof Properties) {
                 Color color, txtcolor;

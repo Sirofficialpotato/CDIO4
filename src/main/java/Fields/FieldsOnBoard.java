@@ -19,7 +19,7 @@ public class FieldsOnBoard {
         //allFields[2] = new String[]{"Chance", "Tag et kort"};
 
         allFields[3] = new String[]{"Hvidovrevej", "M1200", "blå"};
-        allFields[4] = new String[]{"Betal indkomst-skat", "M4000", ""};
+        allFields[4] = new String[]{"Betal indkomst-skat", "M4000 / 10%", ""};
         allFields[5] = new String[]{"Redderi", "Øresundsredderiet", "M4000", "lyseblå", "M4000"};
         allFields[6] = new String[]{"Roskildevej", "M2000", "orange"};
 
@@ -30,7 +30,7 @@ public class FieldsOnBoard {
         allFields[9] = new String[]{"Allégade", "M2400", "orange"};
         allFields[10] = new String[]{"I fængsel", "På besøg"};
         allFields[11] = new String[]{"Frederiksberg Allé", "M2800", "grøn"};
-        allFields[12] = new String[]{"Tuborg bryggeri", "M3000", "pink"};
+        allFields[12] = new String[]{"Squash", "M3000", "pink"};
         allFields[13] = new String[]{"Bülowsvej", "M2800", "grøn"};
         allFields[14] = new String[]{"Gammel Kongevej", "M3200", "grøn"};
         allFields[15] = new String[]{"Redderi", "D.F.D.S.", "M4000", "lyseblå", "M4000"};
@@ -98,10 +98,15 @@ public class FieldsOnBoard {
             else if(allFields[i][0].equals("Redderi")){
                 this.fieldArr[i] = new FieldShipYard(allFields[i][1], allFields[i][1], allFields[i][3], parseInt(allFields[i][4].substring(1)));
             }
+            else if(allFields[i][0].equals("Coca Cola") || allFields[i][0].equals("Squash")){
+                this.fieldArr[i] = new Brewery(allFields[i][0], allFields[i][1], allFields[i][2], parseInt(allFields[i][1].substring(1)), i);
+            }
+            else if(allFields[i][0].equals("Betal indkomst-skat") || allFields[i][0].equals("Ekstra-ordinærstatsskat")){
+                this.fieldArr[i] = new PayTax(allFields[i][0], allFields[i][1]);
+            }
 
             else {
                 this.fieldArr[i] = new Properties(allFields[i][0], allFields[i][1], allFields[i][2], parseInt(allFields[i][1].substring(1)), i);
-
             }
         }
 
