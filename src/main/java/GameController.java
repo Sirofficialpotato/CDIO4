@@ -13,10 +13,7 @@ public class GameController {
     String ready;
     int Losers = 0;
     private Player[] playerList;
-    //nye terninger?
-    Die d1 = new Die(2);
-    Die d2 = new Die(2);
-    Rafflecup rafflecup = new Rafflecup(d1, d2);
+    Rafflecup rafflecup = new Rafflecup();
     private boolean GameOver = false;
     private PropertyController pController;
 
@@ -30,16 +27,18 @@ public class GameController {
     }
 
     private int SetPlayerAmount() {
-        String numbofplayers = uiController.getGUI().getUserString(currentLang[0]);
-        if (numbofplayers.equals("")) {
-            numberOfPlayers = 1;
-        }
-        else{
-            numberOfPlayers = Integer.parseInt(numbofplayers);
-        }
         while (numberOfPlayers > 6 || numberOfPlayers < 3) {
-            uiController.getGUI().showMessage(currentLang[1]);
-            numberOfPlayers = uiController.getGUI().getUserInteger(currentLang[0]);
+            String numbofplayerstring = uiController.getGUI().getUserString(currentLang[0]);
+            try {
+                numberOfPlayers = Integer.parseInt(numbofplayerstring);
+                if (numbofplayerstring.equals("")) {
+                    numberOfPlayers = 0;
+                    uiController.getGUI().showMessage(currentLang[1]);
+                }
+            } catch (NumberFormatException e) {
+                numberOfPlayers = 0;
+                uiController.getGUI().showMessage(currentLang[1]);
+            }
         }
         return numberOfPlayers;
     }
@@ -199,7 +198,7 @@ public class GameController {
             } else {
 
                 rafflecup.useRafflecup();
-                uiController.getGUI().setDice(d1.getFaceValue(), d2.getFaceValue());
+                uiController.getGUI().setDice(rafflecup.getD1(), rafflecup.getD2());
 
                 if (rafflecup.SameDie()) {
                     playerList[i].setInJail(false);
@@ -236,7 +235,7 @@ public class GameController {
             //If else statements keeps track of which type of card and acts accordingly
 
             if (currentCard instanceof JailInteractions) {
-                if (currentCard.getCardText().substring(0, 20).equals("Noget med fængsel: I")) {
+                if (currentCard.getCardText().substring(0, 14).equals("I anledning af")) {
                     gameBoard.getCards().removeLast();
                     playerList[i].addJailCard((JailInteractions) currentCard);
                 } else {
@@ -301,8 +300,26 @@ public class GameController {
             } else {
                 ((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), true);
             }
-        } else {
-            gameBoard.getFields()[playerList[i].getPosition()].landOnField(playerList, i);
+
+        }
+        else if(gameBoard.getFields()[playerList[i].getPosition()] instanceof PayTax){
+            boolean choice = uiController.getGUI().getUserLeftButtonPressed("Vil du betale 4000 eller 10% af dine samlede værdier?", "4000", "10%");
+            ((PayTax)gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), choice);
+        }
+        else if(gameBoard.getFields()[playerList[i].getPosition()] instanceof Brewery) {
+            if (((Brewery) gameBoard.getFields()[playerList[i].getPosition()]).getOwnedBy() == -1) {
+                boolean buyOrNot = uiController.getGUI().getUserLeftButtonPressed(playerList[i].getName() + " landede på " + gameBoard.getFields()[playerList[i].getPosition()].getFieldName() + " og har nu muligheden for at købe", "Køb", "Ignorere");
+                if (buyOrNot) {
+                    playerList[i].addToPlayerOwnedFields();
+                    ((Brewery) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), true);
+                } else {
+                    ((Brewery) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), false);
+                }
+                ((Brewery) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), true);
+            }
+            else {
+                ((Brewery)gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), false);
+            }
         }
 
         //***************************************************************************************************************
@@ -360,8 +377,8 @@ public class GameController {
 
                         //Change die on in gui to reflect new roll and update player position
                         rafflecup.useRafflecup();
-                        uiController.getGUI().setDice(d1.getFaceValue(), d2.getFaceValue());
-                        playerList[i].setPosition(+/*rafflecup.RafflecupFaceValue()*/1);
+                        uiController.getGUI().setDice(rafflecup.getD1(), rafflecup.getD2());
+                        playerList[i].setPosition(+rafflecup.RafflecupFaceValue());
 
                         //updates gui player position
                         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());

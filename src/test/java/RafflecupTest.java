@@ -15,7 +15,7 @@ class RafflecupTest {
         Die d2 = new Die(2);
         int[] counterArray = new int[11];
         double[] percentArray = new double[11];
-        Rafflecup tester = new Rafflecup(d1, d2);
+        Rafflecup tester = new Rafflecup();
         ArrayList<Integer> testList = new ArrayList<Integer>();
         // for loop that initialises an integer array to keep track of number of times a specific roll has happened
         for (int i = 0; i < 10; i++) {
