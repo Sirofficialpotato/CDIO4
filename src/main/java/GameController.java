@@ -110,19 +110,19 @@ public class GameController {
                         {
                             continue;
                         }
-                        else if(playerList[k].getPlayerOwnedFields().getArr()[i] != null){
+                        else if(playerList[k].getPlayerOwnedFields().atIndex(i) != null){
 
-                                int deleteField = playerList[k].getPlayerOwnedFields().getArr()[i];
-                                uiController.removeGUIFieldOwner(gameBoard.getFields(), playerList[k].getPlayerOwnedFields().getArr()[i]);
-                                if (deleteField == 5 || deleteField == 15 || deleteField == 25 || deleteField == 35) {
-                                    ((FieldShipYard) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
-                                }
-                                else if(deleteField == 12 || deleteField == 28){
-                                    ((Brewery) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
-                                }
-                                else {
-                                    ((Properties) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
-                                }
+                            int deleteField = playerList[k].getPlayerOwnedFields().atIndex(i);
+                            uiController.removeGUIFieldOwner(gameBoard.getFields(), playerList[k].getPlayerOwnedFields().atIndex(i));
+                            if (deleteField == 5 || deleteField == 15 || deleteField == 25 || deleteField == 35) {
+                                ((FieldShipYard) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
+                            }
+                            else if(deleteField == 12 || deleteField == 28){
+                                ((Brewery) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
+                            }
+                            else {
+                                ((Properties) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
+                            }
                         }
                     }
 
@@ -191,7 +191,7 @@ public class GameController {
             } else if (playerList[i].getTurnsInJail() == 3) {
                 chosenbutton = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + " er i fængsel og kan nu vælge imellem følgende muligheder for at komme ud", "Betal 1000,-");
                 playerList[i].addToTurnsInJail(-3);
-                System.out.println(playerList[i].getTurnsInJail());
+                System.out.println(playerList[i].getName()+ " has been in prison for " + playerList[i].getTurnsInJail());
             } else {
                 chosenbutton = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + " er i fængsel og kan nu vælge imellem følgende muligheder for at komme ud", "Slå 2 ens");
             }
