@@ -24,7 +24,7 @@ public class Brewery extends Field{
         if(this.getOwnedBy() == -1 && wantToBuyBool){
             players[player].setMoney(-this.getPrice());
             this.setOwnedBy(player);
-        } else if(!wantToBuyBool) {}
+        }
         //case if you dont own meaning someone else owns
         else if(this.getOwnedBy() != player && this.getOwnedBy() != -1){
             if(((Brewery)fields[12]).getOwnedBy() == ((Brewery)fields[28]).getOwnedBy()){
