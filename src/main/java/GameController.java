@@ -340,12 +340,6 @@ public class GameController {
 
             for (int i = 0; i < playerList.length; i++) {
                 if (playerList[i] != null) {
-                    // Gotta update Money here to make sure the gui displays the correct amount.
-                    for (int j = 0; j < playerList.length; j++) {
-                        if (playerList[j] != null) {
-                            uiController.getGuiPlayer(j).setBalance(playerList[j].getMoney());
-                        }
-                    }
                     //************************************JAIL************************************
                     Jailfunc(i);
                     //***********************************JAIL************************************
@@ -356,6 +350,7 @@ public class GameController {
                     EndGame();
                     if (GameOver) break;
 
+                    buyOrRoll(i,currentLang[15]);
 
 
 
@@ -414,6 +409,15 @@ public class GameController {
 
                     //here we update the player position again to make sure it's correct if a chancecard has been used
                     uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
+
+                    // Gotta update Money here to make sure the gui displays the correct amount.
+                    for (int j = 0; j < playerList.length; j++) {
+                        if (playerList[j] != null) {
+                            uiController.getGuiPlayer(j).setBalance(playerList[j].getMoney());
+                        }
+                    }
+                    if(pController.getPosibillites(i).length != 0) buyOrRoll(i,"Afslut tur");
+
                 }
             }
 
@@ -431,6 +435,39 @@ public class GameController {
         } else uiController.getGUI().close();
         //****************************************Restart game?!!*******************************************
     }
+
+    private void buyOrRoll(int i, String RollOrEndTurn){
+        //*************************************Player gets the choice to either buy houses/hotels or roll with the dice*******************************************************
+        if (!playerList[i].getInJail() && pController.getPosibillites(i).length != 0) {
+            String[] choiceArr = new String[pController.getPosibillites(i).length];
+            for (int j = 0; j < pController.getPosibillites(i).length; j++) {
+                choiceArr[j] = pController.getPosibillites(i)[j].getFieldName();
+            }
+            ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], RollOrEndTurn, "Køb huse/hoteller");
+
+
+            while(!ready.equals(RollOrEndTurn)) {
+                if(ready.equals("Køb huse/hoteller") && !playerList[i].getInJail()){
+                    String propertyToBuyAt = uiController.getGUI().getUserButtonPressed("Vælg en grund at købe huse/hoteller til", choiceArr);
+
+                    //Loop to check what field the player selected by matching the String propertyTOBuyAt with the fields of which the player owns
+                    for (int j = 0; j < playerList[i].getPlayerOwnedFields().current; j++) {
+                        if(propertyToBuyAt.equals(gameBoard.getFields()[playerList[i].getPlayerOwnedFields().atIndex(j)].getFieldName())){
+                            ((Properties)gameBoard.getFields()[playerList[i].getPlayerOwnedFields().atIndex(j)]).buildOnProperty(playerList[i]);
+                            uiController.buildPropertiesOnGui(i,j,((Properties) gameBoard.getFields()[playerList[i].getPlayerOwnedFields().atIndex(j)]).getBuildOn(),playerList);
+                            uiController.getGuiPlayer(i).setBalance(playerList[i].getMoney());
+                        }
+
+                    }
+                }
+                ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], RollOrEndTurn, "Køb huse/hoteller");
+            }
+        } else if (!playerList[i].getInJail() && pController.getPosibillites(i).length == 0) {
+            ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], RollOrEndTurn);
+        }
+        //*************************************Player gets the choice to either buy houses/hotels or roll with the dice*******************************************************
+    }
+
 
     private void UsefullMaybe() {
     /*int[] a = new int[numberOfPlayers];
