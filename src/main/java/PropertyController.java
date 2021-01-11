@@ -73,7 +73,8 @@ public class PropertyController {
         properties[7][2][0] = -2;
     }
     //builds field[] that returns all fields player can build on
-    public Field[] getPosibillites(){
+    public Field[] getPosibillites(int player){
+        generatePossibilities(player);
         Field[] possibilities;
         int totalPossibilities = 0;
         for (int i = 0; i < canBuy.length; i++) {
