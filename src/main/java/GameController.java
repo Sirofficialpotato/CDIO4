@@ -28,16 +28,18 @@ public class GameController {
     }
 
     private int SetPlayerAmount() {
-        String numbofplayers = uiController.getGUI().getUserString(currentLang[0]);
-        if (numbofplayers.equals("")) {
-            numberOfPlayers = 1;
-        }
-        else{
-            numberOfPlayers = Integer.parseInt(numbofplayers);
-        }
         while (numberOfPlayers > 6 || numberOfPlayers < 3) {
-            uiController.getGUI().showMessage(currentLang[1]);
-            numberOfPlayers = uiController.getGUI().getUserInteger(currentLang[0]);
+            String numbofplayers = uiController.getGUI().getUserString(currentLang[0]);
+            try {
+                numberOfPlayers = Integer.parseInt(numbofplayers);
+                if (numbofplayers.equals("")) {
+                    numberOfPlayers = 0;
+                    uiController.getGUI().showMessage(currentLang[1]);
+                }
+            } catch (NumberFormatException e) {
+                numberOfPlayers = 0;
+                uiController.getGUI().showMessage(currentLang[1]);
+            }
         }
         return numberOfPlayers;
     }

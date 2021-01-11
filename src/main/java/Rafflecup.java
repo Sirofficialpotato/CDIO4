@@ -7,6 +7,7 @@ public class Rafflecup {
     public Rafflecup(Die dice1, Die dice2) {
         this.d1 = dice1;
         this.d2 = dice2;
+
     }
 
     public void useRafflecup() {
