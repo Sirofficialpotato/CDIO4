@@ -18,6 +18,8 @@ public class GameController {
     Die d2 = new Die(2);
     Rafflecup rafflecup = new Rafflecup(d1, d2);
     private boolean GameOver = false;
+    private PropertyController pController;
+
 
     private UIController uiController;
     private String[] currentLang;
@@ -80,6 +82,7 @@ public class GameController {
     }
 
     public void Game() {
+        pController = new PropertyController(gameBoard.getFields());
         uiController = new UIController(gameBoard.getFields());
         GameOver = false;
         //lang = uiController.getGUI().getUserButtonPressed("", /*"WIP English",*/ "Dansk");
@@ -92,7 +95,6 @@ public class GameController {
 
         ChooseColor();
         GameFlow();
-
     }
 
     private void EndGame() {
@@ -339,8 +341,20 @@ public class GameController {
 
 
                     //Guibutton to read the next user input
-                    if (!playerList[i].getInJail())
+
+                    if (!playerList[i].getInJail() && pController.getPosibillites(i).length != 0) {
+                        ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], currentLang[15], "Køb huse/hoteller");
+                        while(!ready.equals(currentLang[15])) {
+                            if(ready.equals("Køb huse/hoteller") && !playerList[i].getInJail()){
+                                uiController.getGUI().getUserButtonPressed("Vælg en grund at købe huse/hoteller til", Arrays.stream(pController.getPosibillites(i)).iterator().next().getFieldName());
+                            }
+                            ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], currentLang[15], "Køb huse/hoteller");
+                        }
+                    } else if (!playerList[i].getInJail() && pController.getPosibillites(i).length == 0) {
                         ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], currentLang[15]);
+                    }
+
+
                     // if statement to check if the user typed in throw
                     if (ready.equals(currentLang[15]) && !playerList[i].getInJail()) {
 

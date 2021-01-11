@@ -135,6 +135,7 @@ public class Properties extends Field {
         switch(buildings){
             case 1:
                 this.priceMulti = 2;
+                System.out.println("Spiller ejer 1 bygning");
                 break;
             case 2:
                 this.priceMulti = 3;
