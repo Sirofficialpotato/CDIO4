@@ -59,7 +59,7 @@ public class PropertyController {
     public void generatePossibilities(int playerNumber){
         updateProperties();
             for (int i = 0; i < fields.length; i++) {
-                if(fields[i] instanceof Properties && isFieldBuildable((Properties) fields[i], playerNumber)){
+                if(fields[i] instanceof Properties && isFieldBuildable((Properties) fields[i], playerNumber) && ((Properties) fields[i]).getBuildOn() < 5){
                     canBuy[i] = true;
                 }
             }
