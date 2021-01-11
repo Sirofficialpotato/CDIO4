@@ -246,10 +246,24 @@ public class GameController {
                 if(currentProp.getOwnedBy() == -1){
                     temp = uiController.getGUI().getUserLeftButtonPressed(playerList[i].getName() + " landede på " + gameBoard.getFields()[playerList[i].getPosition()].getFieldName() + " og har nu muligheden for at købe", "Køb", "Ignorere");
                 }
-
                 ((Properties) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), temp);
-                gameBoard.getFields()[playerList[i].getPosition()].landOnField(playerList, i);
 
+            }
+            else if(gameBoard.getFields()[playerList[i].getPosition()] instanceof Brewery){
+                boolean temp = false;
+                Brewery currentBrew = (Brewery)gameBoard.getFields()[playerList[i].getPosition()];
+                if(currentBrew.getOwnedBy() == -1){
+                    temp = uiController.getGUI().getUserLeftButtonPressed(playerList[i].getName() + " landede på " + gameBoard.getFields()[playerList[i].getPosition()].getFieldName() + " og har nu muligheden for at købe", "Køb", "Ignorere");
+                }
+                ((Brewery) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), temp);
+            }
+            else if(gameBoard.getFields()[playerList[i].getPosition()] instanceof FieldShipYard){
+                boolean temp = false;
+                FieldShipYard currentShipyard = (FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()];
+                if(currentShipyard.getOwnedBy() == -1){
+                    temp = uiController.getGUI().getUserLeftButtonPressed(playerList[i].getName() + " landede på " + gameBoard.getFields()[playerList[i].getPosition()].getFieldName() + " og har nu muligheden for at købe", "Køb", "Ignorere");
+                }
+                ((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), temp);
             }
             gameBoard.getCards().lastItemToFront();
         }
@@ -370,6 +384,7 @@ public class GameController {
                             }
                             ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], currentLang[15], "Køb huse/hoteller");
                         }
+                        choiceArr = new String[0];
                     } else if (!playerList[i].getInJail() && pController.getPosibillites(i).length == 0) {
                         ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], currentLang[15]);
                     }

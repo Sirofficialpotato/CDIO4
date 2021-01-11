@@ -24,11 +24,9 @@ public class PriceIncrease extends Cards
     public void drawCard(Player player)
     {
         int totalValue = 0;
-        for (Integer i:
-                //hvis ikke det virker er det fordi jeg ændrede denne - patrick
-             player.getPlayerOwnedFields().getArr()) {
+        for (int i = 0; i < player.getPlayerOwnedFields().size; i++) {
             if(i < 5){
-                totalValue += i * value;
+                totalValue += player.getPlayerOwnedFields().atIndex(i) * value;
             }
             else{
                 totalValue += value1;

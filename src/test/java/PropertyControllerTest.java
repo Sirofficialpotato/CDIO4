@@ -14,7 +14,7 @@ class PropertyControllerTest {
         ((Properties)controller.getFields()[9]).setOwnedBy(1);
         //used to generate posibillities
        //Used the get the generated posibillities
-       Field[] tester = controller.getPosibillites(2);
+       Field[] tester = controller.getPosibillites(1);
        int i = 0;
     }
 

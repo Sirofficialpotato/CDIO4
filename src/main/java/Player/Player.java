@@ -143,7 +143,7 @@ public class Player{
        return playerAsset;
    }
 
-    public boolean hasPlayerSpecific(){//3720
+    public boolean hasPlayerSpecific(){
         boolean tester = false;
         for (int i = 0; i < jailCards.size; i++) {
             if(jailCards.atIndex(i) instanceof PayTheBank){
