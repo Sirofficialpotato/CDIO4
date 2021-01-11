@@ -72,6 +72,17 @@ public class Properties extends Field {
         return buildOn;
     }
 
+    public void buildOnProperty(Player player){
+        if(this.buildOn < 4){
+            buildOn++;
+            player.setMoney(-this.price/20);
+        }
+        else if(buildOn == 4){
+            buildOn++;
+            player.setMoney(-this.price/10);
+        }
+    }
+
 
 
     public String getFieldName() {
