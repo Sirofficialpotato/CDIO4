@@ -9,8 +9,8 @@ public class Properties extends Field {
     private int price;
     private int buildOn = 0;
     private int index;
-
-
+    private int buildings = 0;
+    int priceMulti = 1;
     // All ownable properties with a value and a color
     public Properties(String name, String description, String color,int value, int index){
         super(name, description);
@@ -27,36 +27,54 @@ public class Properties extends Field {
 
     public void landOnField(Player[] players, int player, Field[] fields, boolean wantToBuyBool) {
         //is 1 if group is not owned by same but 2 if group is owned by same
-        int priceMulti = 1;
+
         //Case when no one owns
         if(this.getOwnedBy() == -1 && wantToBuyBool){
             players[player].setMoney(-this.getPrice());
             this.setOwnedBy(player);
         }
         else if(!wantToBuyBool) {}
+
         //case if you dont own meaning someone else owns
         else if(this.getOwnedBy() != player){
-            if(fields[players[player].getPosition()-1] instanceof Properties){
-                if(((Properties) fields[players[player].getPosition()-1]).getOwnedBy() == this.getOwnedBy()){
-                    priceMulti = 2;
-                }
+
+            switch(players[player].getPosition()){
+                case 1,3:
+                    doubleSizedGroup(fields,1,3);
+                    break;
+                case 6,8,9:
+                    tripleSizedGroup(fields,6,8,9);
+                    break;
+                case 11,13,14:
+                    tripleSizedGroup(fields,11,13,14);
+                    break;
+                case 16,18,19:
+                    tripleSizedGroup(fields,16,18,19);
+                    break;
+                case 21,23,24:
+                    tripleSizedGroup(fields,21,23,24);
+                    break;
+                case 26,27,29:
+                    tripleSizedGroup(fields,26,27,29);
+                    break;
+                case 31,32,34:
+                    tripleSizedGroup(fields,31,32,34);
+                    break;
+                case 37,39:
+                    doubleSizedGroup(fields,37,39);
+                    break;
             }
-            else if(fields[players[player].getPosition()+1] instanceof Properties){
-                if(((Properties) fields[(players[player].getPosition()+1)%40]).getOwnedBy() == this.getOwnedBy()){
-                    priceMulti = 2;
-                }
-            }
-            players[player].setMoney(-this.getPrice() * priceMulti);
-            players[this.getOwnedBy()].setMoney(this.getPrice() * priceMulti);
+
+            players[player].setMoney(-this.getPrice() * this.priceMulti);
+            players[this.getOwnedBy()].setMoney(this.getPrice() * this.priceMulti);
         }
     }
     //methode for when 2 players have the same amount of money in the end of the game
     public int getTotalPropertyValue(Player[] players, int player, Field[] fields)
     {
         int propertiesTotalValue = 0;
-
         for (int i = 1; i <= 39; i++) {
-           // hvis felt i er en property check ellers continue, der er nok en bedre løsning, men virker for nu.
+            // hvis felt i er en property check ellers continue, der er nok en bedre løsning, men virker for nu.
             if (i == 2 || i == 4 ||i == 7 ||i == 10 ||i == 17 ||i == 20 ||i == 22 || i == 30 ||i == 33 ||i == 36)
             {
                 continue;
@@ -77,11 +95,13 @@ public class Properties extends Field {
 
     public void buildOnProperty(Player player){
         if(this.buildOn < 4){
-            buildOn++;
+            this.buildOn++;
             player.setMoney(-this.price/20);
+            System.out.println(buildOn);
         }
-        else if(buildOn == 4){
-            buildOn++;
+        else if(this.buildOn == 4){
+            this.buildOn++;
+            System.out.println(buildOn + " Opnået hotel bygget");
             player.setMoney(-this.price/10);
         }
     }
@@ -135,4 +155,43 @@ public class Properties extends Field {
 
     public int getIndex(){return this.index;}
 
+    public int getBuildings(){return this.buildings;}
+
+    private void buildingSwitch(){
+        switch(buildings){
+            case 1:
+                this.priceMulti = 2;
+                System.out.println("Du er landet på et felt med hvor en " +
+                        "spiller ejer 1 bygning");
+                break;
+            case 2:
+                this.priceMulti = 3;
+                break;
+            case 3:
+                this.priceMulti = 4;
+                break;
+            case 4:
+                this.priceMulti = 5;
+                break;
+            case 5:
+                this.priceMulti = 6;
+                break;
+        }
+    }
+
+    private void doubleSizedGroup(Field[] fields, int fieldToCheck, int fieldToCheck2){
+
+        if(((Properties) fields[fieldToCheck]).getOwnedBy() == this.getOwnedBy() && ((Properties) fields[fieldToCheck2]).getOwnedBy() == this.getOwnedBy()){
+            if(this.buildings > 0) {buildingSwitch();}
+            else if(((Properties) fields[fieldToCheck]).buildings == 0 && ((Properties) fields[fieldToCheck2]).buildings == 0){priceMulti = 2;}
+        }
+    }
+
+    private void tripleSizedGroup(Field[] fields, int fieldToCheck, int fieldToCheck2, int fieldToCheck3){
+
+        if(((Properties) fields[fieldToCheck]).getOwnedBy() == this.getOwnedBy() && ((Properties) fields[fieldToCheck2]).getOwnedBy() == this.getOwnedBy() && ((Properties) fields[fieldToCheck3]).getOwnedBy() == this.getOwnedBy()){
+            if(this.buildings > 0) {buildingSwitch();}
+            else if(((Properties) fields[fieldToCheck]).buildings == 0 && ((Properties) fields[fieldToCheck2]).buildings == 0 && ((Properties) fields[fieldToCheck3]).buildings == 0){priceMulti = 2;}
+        }
+    }
 }
