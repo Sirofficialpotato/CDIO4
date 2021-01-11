@@ -17,9 +17,35 @@ public class FieldChance extends Field {
 
     }
 
-    public void landOnField(Player player) {
-
-        takeChanceCard(player);
+    public void landOnField(Player[] players, int player, Field[] fields, DynamicArr<Cards> cards ) {
+        Cards currentCard = cards.getLast();
+        if (currentCard instanceof JailInteractions) {
+            if (currentCard.getCardText().substring(0, 14).equals("I anledning af")) {
+                cards.removeLast();
+                players[player].addJailCard((JailInteractions) currentCard);
+            } else {
+                players[player].setInJail(true);
+                players[player].setSpecificPosition(10);
+            }
+        } else if (currentCard instanceof GetPaidByPlayers) {
+            ((GetPaidByPlayers) currentCard).drawCard(players, player);
+            cards.lastItemToFront();
+        } else if (currentCard instanceof MoveToField) {
+            currentCard.drawCard(players[player]);
+            cards.lastItemToFront();
+        }
+        else if(currentCard instanceof PayTheBank) {
+            currentCard.drawCard(players[player]);
+            cards.lastItemToFront();
+        }
+        else if(currentCard instanceof GetPaidByBank){
+            currentCard.drawCard(players[player]);
+            cards.lastItemToFront();
+        }
+        else{
+            currentCard.drawCard(players[player]);
+            cards.lastItemToFront();
+        }
     }
 
     public void takeChanceCard(Player player){

@@ -233,52 +233,25 @@ public class GameController {
         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
         //********************checks is player is on a chancefield if so he draws a card***********************************
         if (gameBoard.getFields()[playerList[i].getPosition()] instanceof FieldChance) {
-            /*boolean draw = true;
+            boolean draw = true;
             Cards currentCard = gameBoard.getCards().getLast();
+            ((FieldChance)gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), gameBoard.getCards());
             uiController.getGUI().displayChanceCard(currentCard.getCardText());
             //Loop that draws cards until the last drawn card has drawAgain == false
             //If else statements keeps track of which type of card and acts accordingly
 
-            if (currentCard instanceof JailInteractions) {
-                if (currentCard.getCardText().substring(0, 14).equals("I anledning af")) {
-                    gameBoard.getCards().removeLast();
-                    playerList[i].addJailCard((JailInteractions) currentCard);
-                } else {
-                    playerList[i].setInJail(true);
-                    playerList[i].setSpecificPosition(10);
+            if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties) {
+                boolean temp = false;
+                Properties currentProp = (Properties) gameBoard.getFields()[playerList[i].getPosition()];
+                if(currentProp.getOwnedBy() == -1){
+                    temp = uiController.getGUI().getUserLeftButtonPressed(playerList[i].getName() + " landede på " + gameBoard.getFields()[playerList[i].getPosition()].getFieldName() + " og har nu muligheden for at købe", "Køb", "Ignorere");
                 }
-            } else if (currentCard instanceof GetPaidByPlayers) {
-                ((GetPaidByPlayers) currentCard).drawCard(playerList, i);
-                gameBoard.getCards().lastItemToFront();
-            } else if (currentCard instanceof MoveToField) {
-                currentCard.drawCard(playerList[i]);
-                if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties) {
-                    boolean temp = false;
-                    Properties currentProp = (Properties) gameBoard.getFields()[playerList[i].getPosition()];
-                    if(currentProp.getOwnedBy() == -1){
-                        temp = uiController.getGUI().getUserLeftButtonPressed(playerList[i].getName() + " landede på " + gameBoard.getFields()[playerList[i].getPosition()].getFieldName() + " og har nu muligheden for at købe", "Køb", "Ignorere");
-                    }
 
-                    ((Properties) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), temp);
-                    gameBoard.getFields()[playerList[i].getPosition()].landOnField(playerList, i);
+                ((Properties) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), temp);
+                gameBoard.getFields()[playerList[i].getPosition()].landOnField(playerList, i);
 
-                }
-                gameBoard.getCards().lastItemToFront();
             }
-            else if(currentCard instanceof PayTheBank) {
-                ((PayTheBank)currentCard).drawCard(playerList[i]);
-                gameBoard.getCards().lastItemToFront();
-            }
-            else if(currentCard instanceof GetPaidByBank){
-                ((GetPaidByBank)currentCard).drawCard(playerList[i]);
-                gameBoard.getCards().lastItemToFront();
-            }
-            else{
-                ((PriceIncrease)currentCard).drawCard(playerList[i]);
-            }
-
-*/
-
+            gameBoard.getCards().lastItemToFront();
         }
 
         else if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties) {
@@ -308,8 +281,13 @@ public class GameController {
 
         }
         else if(gameBoard.getFields()[playerList[i].getPosition()] instanceof PayTax){
-            boolean choice = uiController.getGUI().getUserLeftButtonPressed("Vil du betale 4000 eller 10% af dine samlede værdier?", "4000", "10%");
-            ((PayTax)gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), choice);
+            if(gameBoard.getFields()[playerList[i].getPosition()].getFieldName().equals("Betal indkomst-skat")) {
+                boolean choice = uiController.getGUI().getUserLeftButtonPressed("Vil du betale 4000 eller 10% af dine samlede værdier?", "4000", "10%");
+                ((PayTax) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), choice);
+            }
+            else {
+                uiController.getGUI().showMessage("Betal 2000 i skat!");
+            }
         }
         else if(gameBoard.getFields()[playerList[i].getPosition()] instanceof Brewery) {
             if (((Brewery) gameBoard.getFields()[playerList[i].getPosition()]).getOwnedBy() == -1) {
