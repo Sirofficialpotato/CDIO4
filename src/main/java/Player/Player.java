@@ -10,7 +10,7 @@ public class Player{
     private int Position, oldposition;
     private Wallet wallet = new Wallet();
     private DynamicArr<Cards> jailCards = new DynamicArr<Cards>();
-    private DynamicArr<Integer[]> playerOwnedFields = new DynamicArr<Integer[]>();
+    private DynamicArr<Integer> playerOwnedFields = new DynamicArr<Integer>();
     private int turnsInJail = 0;
     private int lastRoll;
 
@@ -23,12 +23,12 @@ public class Player{
         oldposition = 0;
     }
 
-    public DynamicArr<Integer[]> getPlayerOwnedFields(){
+    public DynamicArr<Integer> getPlayerOwnedFields(){
         return playerOwnedFields;
     }
 
     public void addToPlayerOwnedFields(){
-        playerOwnedFields.add(new Integer[]{Position, 0});
+        playerOwnedFields.add(Position);
     }
 
     public int getPosition()

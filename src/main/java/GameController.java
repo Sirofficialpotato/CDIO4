@@ -111,8 +111,8 @@ public class GameController {
                             continue;
                         }
                         else {
-                            int deleteField = playerList[k].getPlayerOwnedFields().getArr()[0][i];
-                            uiController.removeGUIFieldOwner(gameBoard.getFields(),playerList[k].getPlayerOwnedFields().getArr()[0][i]);
+                            int deleteField = playerList[k].getPlayerOwnedFields().getArr()[i];
+                            uiController.removeGUIFieldOwner(gameBoard.getFields(),playerList[k].getPlayerOwnedFields().getArr()[i]);
                             if(deleteField == 5 || deleteField == 15 || deleteField == 25 || deleteField == 35){
                                 ((FieldShipYard) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
                             } else {
@@ -357,13 +357,27 @@ public class GameController {
                     if (GameOver) break;
 
 
-                    //Guibutton to read the next user input
 
+
+                    //Guibutton to read the next user input
                     if (!playerList[i].getInJail() && pController.getPosibillites(i).length != 0) {
+                        String[] choiceArr = new String[pController.getPosibillites(i).length];
+                        for (int j = 0; j < pController.getPosibillites(i).length; j++) {
+                            choiceArr[j] = pController.getPosibillites(i)[j].getFieldName();
+                        }
                         ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], currentLang[15], "Køb huse/hoteller");
+
                         while(!ready.equals(currentLang[15])) {
                             if(ready.equals("Køb huse/hoteller") && !playerList[i].getInJail()){
-                                uiController.getGUI().getUserButtonPressed("Vælg en grund at købe huse/hoteller til", Arrays.stream(pController.getPosibillites(i)).iterator().next().getFieldName());
+                                String propertyToBuyAt = uiController.getGUI().getUserButtonPressed("Vælg en grund at købe huse/hoteller til", choiceArr);
+
+                                //Loop to check what field the player selected
+                                for (int j = 0; j < playerList[i].getPlayerOwnedFields().current; j++) {
+                                    if(propertyToBuyAt.equals(gameBoard.getFields()[playerList[i].getPlayerOwnedFields().atIndex(j)].getFieldName())){
+                                        ((Properties)gameBoard.getFields()[playerList[i].getPlayerOwnedFields().atIndex(j)]).buildOnProperty(playerList[i]);
+                                    }
+
+                                }
                             }
                             ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], currentLang[15], "Køb huse/hoteller");
                         }
@@ -378,7 +392,7 @@ public class GameController {
                         //Change die on in gui to reflect new roll and update player position
                         rafflecup.useRafflecup();
                         uiController.getGUI().setDice(rafflecup.getD1(), rafflecup.getD2());
-                        playerList[i].setPosition(+rafflecup.RafflecupFaceValue());
+                        playerList[i].setPosition(+/*rafflecup.RafflecupFaceValue()*/1);
 
                         //updates gui player position
                         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());

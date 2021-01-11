@@ -73,9 +73,9 @@ public class Properties extends Field {
     public int getTotalPropertyValue(Player[] players, int player, Field[] fields)
     {
         int propertiesTotalValue = 0;
-        for (int i = 1; i <= 23; i++) {
-            // hvis felt i er en property check ellers continue
-            if (i % 3 == 0 )
+        for (int i = 1; i <= 39; i++) {
+            // hvis felt i er en property check ellers continue, der er nok en bedre løsning, men virker for nu.
+            if (i == 2 || i == 4 ||i == 7 ||i == 10 ||i == 17 ||i == 20 ||i == 22 || i == 30 ||i == 33 ||i == 36)
             {
                 continue;
             }
@@ -93,11 +93,12 @@ public class Properties extends Field {
 
     public void buildOnProperty(Player player){
         if(this.buildOn < 4){
-            buildOn++;
+            this.buildOn++;
             player.setMoney(-this.price/20);
+            System.out.println(buildOn);
         }
-        else if(buildOn == 4){
-            buildOn++;
+        else if(this.buildOn == 4){
+            this.buildOn++;
             player.setMoney(-this.price/10);
         }
     }
