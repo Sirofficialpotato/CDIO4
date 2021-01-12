@@ -8,7 +8,7 @@ public class Brewery extends Field{
     int price;
     String color;
 
-    public Brewery(String fieldName, String fieldDescription, String color, int index, int price) {
+    public Brewery(String fieldName, String fieldDescription, String color, int price, int index) {
         super(fieldName, fieldDescription);
         this.index = index;
         this.price = price;
