@@ -24,9 +24,6 @@ public class FieldShipYard extends Field {
     public void landOnField(Player[] players, int player, Field[] fields, boolean wantToBuyBool, boolean gotHereByCard) {
         //is 1 if group is not owned by same but 2 if group is owned by same
         int cardMulti = 1;
-        if(gotHereByCard){
-            cardMulti = 2;
-        }
         int priceMulti = 1;
         //Case when no one owns
         if(this.getOwnedBy() == -1 && wantToBuyBool){
@@ -35,6 +32,9 @@ public class FieldShipYard extends Field {
         }
         //case if you dont own meaning someone else owns
         else if(this.getOwnedBy() != player && this.getOwnedBy() != -1){
+            if(gotHereByCard){
+                cardMulti = 2;
+            }
             switch(players[player].getPosition()) {
                 case 5:
                     if(((FieldShipYard) fields[15]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[25]).getOwnedBy() == this.getOwnedBy()) && (((FieldShipYard) fields[35]).getOwnedBy() == this.getOwnedBy())){priceMulti = 4;}

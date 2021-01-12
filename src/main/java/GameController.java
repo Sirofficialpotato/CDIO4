@@ -238,7 +238,11 @@ public class GameController {
             //Loop that draws cards until the last drawn card has drawAgain == false
             //If else statements keeps track of which type of card and acts accordingly
             gameBoard.getCards().lastItemToFront();
-            DoAfterMove(i, true);
+            boolean shippingCardCheck = false;
+            if(currentCard.getCardText().equals("Ryk frem til det nærmeste rederi og betal ejeren to gange den leje han ellers er berettiget til, hvis selskabet ikke ejes af nogen kan De købe det af banken.")){
+                shippingCardCheck = true;
+            }
+            DoAfterMove(i, shippingCardCheck);
         }
 
         else if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties) {
