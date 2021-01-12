@@ -53,7 +53,7 @@ public class Properties extends Field {
             players[this.getOwnedBy()].setMoney(this.rent * this.priceMulti);
         }
     }
-    //methode for when 2 players have the same amount of money in the end of the game
+    //method for when 2 players have the same amount of money in the end of the game
     public int getTotalPropertyValue()
     {
         return this.price + this.price * 10 / 5 * buildOn;
@@ -67,13 +67,13 @@ public class Properties extends Field {
     public void buildOnProperty(Player player){
         if(this.buildOn < 4){
             this.buildOn++;
-            player.setMoney(-this.price/20);
+            player.setMoney(-this.price/2);
             System.out.println(buildOn);
         }
         else if(this.buildOn == 4){
             this.buildOn++;
             System.out.println(buildOn + " Opnået hotel bygget");
-            player.setMoney(-this.price/10);
+            player.setMoney(-this.price*5/2);
         }
     }
 
