@@ -6,7 +6,7 @@ public class FieldStart extends Field{
     //Starting field
 
     public FieldStart(){
-       super("Start", "Modtag 4000M når du passerer start");
+       super("Start", "Modtag M4000 når du passerer start");
 
     }
 
