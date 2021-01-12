@@ -30,8 +30,9 @@ public class GameBoard {
         Language langSelector = new Language("dk");
         currentLang = langSelector.returnLang();
         generateChanceCards(true);
-        mixCards();
-
+        while(!cards.atIndex(cards.current-4).getCardText().equals("Ryk tre felter tilbage")) {
+            mixCards();
+        }
 
     }
 
