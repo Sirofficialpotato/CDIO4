@@ -368,13 +368,13 @@ public class GameController {
 
                     }
 
-                    if(!rafflecup.SameDie()){
+                    if(rafflecup.SameDie()){
                         if (occurences == 3){
                             playerList[i].setInJail(true);
                             break;
+                            }
                         }
-                        else {break;}
-                    }
+                        else{break;}
                     occurences++;
                 }
             }
