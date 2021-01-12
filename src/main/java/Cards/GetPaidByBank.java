@@ -16,4 +16,14 @@ public class GetPaidByBank extends Cards
     {
         player.setMoney(value);
     }
+
+    public void drawCard(Player player, Field[] fields){
+        if(player.getPlayerAssets(fields) + player.getMoney() < 15000){
+            player.setMoney(40000);
+        }
+    }
+
+    public int getValue(){
+        return this.value;
+    }
 }

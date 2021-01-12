@@ -39,8 +39,14 @@ public class FieldChance extends Field {
             cards.lastItemToFront();
         }
         else if(currentCard instanceof GetPaidByBank){
-            currentCard.drawCard(players[player]);
-            cards.lastItemToFront();
+            if(((GetPaidByBank)currentCard).getValue() == 40000){
+                ((GetPaidByBank)currentCard).drawCard(players[player], fields);
+                cards.lastItemToFront();
+            }
+            else {
+                currentCard.drawCard(players[player]);
+                cards.lastItemToFront();
+            }
         }
         else{
             currentCard.drawCard(players[player]);

@@ -378,8 +378,9 @@ public class GameController {
                                 }
                             }
                             ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], currentLang[15], "Køb huse/hoteller");
+
                         }
-                        choiceArr = new String[0];
+
                     } else if (!playerList[i].getInJail() && pController.getPosibillites(i).length == 0) {
                         ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], currentLang[15]);
                     }

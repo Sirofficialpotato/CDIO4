@@ -15,6 +15,7 @@ class PropertyControllerTest {
         //used to generate posibillities
        //Used the get the generated posibillities
        Field[] tester = controller.getPosibillites(1);
+       tester = controller.getPosibillites(2);
        int i = 0;
     }
 
