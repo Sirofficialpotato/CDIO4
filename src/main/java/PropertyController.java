@@ -1,4 +1,6 @@
 import Fields.*;
+
+import java.util.Arrays;
 //[group][Property][info]
 /*
 * Info in properties[x][y] = {owner, buildOn, index}
@@ -6,9 +8,9 @@ import Fields.*;
 
 
 public class PropertyController {
-    private int[][][] properties = new int[8][3][3];
-    private Field[] fields = new Field[40];
-    private boolean[] canBuy = new boolean[40];
+    private final int[][][] properties = new int[8][3][3];
+    private final Field[] fields;
+    private final boolean[] canBuy = new boolean[40];
 
     public PropertyController(Field[] fields){
         this.fields = fields;
@@ -22,13 +24,13 @@ public class PropertyController {
         for (int i = 0; i < properties.length; i++) {
             int probCounter = 0;
             //for each group in propeties loops through fields to find coresponding fields
-            for (int j = 0; j < fields.length; j++) {
+            for (Field field : fields) {
                 //Checks if field is Properties and if the
-                if(fields[j] instanceof Properties){
-                    if(((Properties) fields[j]).getGroup() == i) {
-                        properties[i][probCounter][0] = ((Properties) fields[j]).getOwnedBy();
-                        properties[i][probCounter][1] = ((Properties) fields[j]).getBuildOn();
-                        properties[i][probCounter][2] = ((Properties) fields[j]).getIndex();
+                if (field instanceof Properties) {
+                    if (((Properties) field).getGroup() == i) {
+                        properties[i][probCounter][0] = ((Properties) field).getOwnedBy();
+                        properties[i][probCounter][1] = ((Properties) field).getBuildOn();
+                        properties[i][probCounter][2] = ((Properties) field).getIndex();
                         probCounter++;
                     }
                 }
@@ -87,15 +89,15 @@ public class PropertyController {
         generatePossibilities(player);
         Field[] possibilities;
         int totalPossibilities = 0;
-        for (int i = 0; i < canBuy.length; i++) {
-            if (canBuy[i] == true) {
+        for (boolean b : canBuy) {
+            if (b) {
                 totalPossibilities++;
             }
         }
         possibilities = new Field[totalPossibilities];
         int fieldCounter = 0;
         for (int i = 0; i < fields.length; i++) {
-            if(canBuy[i] == true){
+            if(canBuy[i]){
                 possibilities[fieldCounter] = fields[i];
                 fieldCounter++;
             }
@@ -104,9 +106,7 @@ public class PropertyController {
     }
 
     public void initCanBuy(){
-        for (int i = 0; i < canBuy.length; i++) {
-            canBuy[i] = false;
-        }
+        Arrays.fill(canBuy, false);
     }
 
     public int[][][] getProperties() {

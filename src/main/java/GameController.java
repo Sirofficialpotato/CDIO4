@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.Arrays;
 
 public class GameController {
-    private GameBoard gameBoard = new GameBoard();
+    private final GameBoard gameBoard = new GameBoard();
     private int numberOfPlayers = 0;
     String ready;
     int Losers = 0;
@@ -71,10 +71,7 @@ public class GameController {
             }
             //Sets the players money according the rules
             switch (numberOfPlayers) {
-                case 3 -> player.setMoney(30000);
-                case 4 -> player.setMoney(30000);
-                case 5 -> player.setMoney(30000);
-                case 6 -> player.setMoney(30000);
+                case 3, 4, 5, 6 -> player.setMoney(30000);
             }
             playerList[i - 1] = player;
         }
@@ -169,9 +166,9 @@ public class GameController {
             temp = new String[choiceArr.length - 1];
             int tempCount = 0;
             //Creates new array where player choice has been removed and update choiceArr so it no longer contains choice
-            for (int j = 0; j < choiceArr.length; j++) {
-                if (!choiceArr[j].equals(color)) {
-                    temp[tempCount] = choiceArr[j];
+            for (String s : choiceArr) {
+                if (!s.equals(color)) {
+                    temp[tempCount] = s;
                     tempCount++;
                 }
             }
@@ -234,7 +231,6 @@ public class GameController {
         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
         //********************checks is player is on a chancefield if so he draws a card***********************************
         if (gameBoard.getFields()[playerList[i].getPosition()] instanceof FieldChance) {
-            boolean draw = true;
             Cards currentCard = gameBoard.getCards().getLast();
             ((FieldChance)gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), gameBoard.getCards());
             uiController.getGUI().displayChanceCard(currentCard.getCardText());
@@ -397,9 +393,9 @@ public class GameController {
             }
         }
         //The last remaining player is found here and made the winner
-        for (int j = 0; j < playerList.length; j++) {
-            if (playerList[j] != null) {
-                uiController.getGUI().showMessage("Den sidste spiller tilbage og derved vinderen er..... " + playerList[j].getName() + "!!!");
+        for (Player player : playerList) {
+            if (player != null) {
+                uiController.getGUI().showMessage("Den sidste spiller tilbage og derved vinderen er..... " + player.getName() + "!!!");
             }
         }
         //****************************************Restart game?!!*******************************************

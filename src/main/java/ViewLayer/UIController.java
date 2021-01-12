@@ -2,16 +2,15 @@ package ViewLayer;
 
 import Cards.Cards;
 import Fields.*;
-import Player.*;
+import Player.Player;
 import gui_fields.*;
 import gui_main.GUI;
-import javax.swing.BorderFactory;
-import javax.swing.*;
+
 import java.awt.*;
 
 
 public class UIController {
-    private GUI gui;
+    private final GUI gui;
     private GUI_Player[] guiPlayers;
     // Constructer that automatically generates GUI with all the players
     public UIController(Field[] fields){
@@ -52,17 +51,17 @@ public class UIController {
         for (int i = 0; i < fieldArray.length; i++) {
 
             if(fieldArray[i] instanceof FieldStart){
-                guiFields[i] = new GUI_Start(((FieldStart) fieldArray[i]).getFieldName(), ((FieldStart) fieldArray[i]).getFieldDescription(), ((FieldStart) fieldArray[i]).getFieldDescription(), Color.white, Color.BLACK);
+                guiFields[i] = new GUI_Start(fieldArray[i].getFieldName(), fieldArray[i].getFieldDescription(), fieldArray[i].getFieldDescription(), Color.white, Color.BLACK);
             }
             else if(fieldArray[i] instanceof FieldChance) {
-                guiFields[i] = new GUI_Chance(((FieldChance) fieldArray[i]).getFieldName(), ((FieldChance) fieldArray[i]).getFieldDescription(), ((FieldChance) fieldArray[i]).getFieldDescription(), Color.WHITE, Color.BLACK);
+                guiFields[i] = new GUI_Chance(fieldArray[i].getFieldName(), fieldArray[i].getFieldDescription(), fieldArray[i].getFieldDescription(), Color.WHITE, Color.BLACK);
 
             }
             else if(fieldArray[i] instanceof Jail) {
-                guiFields[i] = new GUI_Jail( "default",((Jail) fieldArray[i]).getFieldName(), ((Jail) fieldArray[i]).getFieldDescription(), ((Jail) fieldArray[i]).getFieldDescription(), Color.RED, Color.BLACK);
+                guiFields[i] = new GUI_Jail( "default", fieldArray[i].getFieldName(), fieldArray[i].getFieldDescription(), fieldArray[i].getFieldDescription(), Color.RED, Color.BLACK);
             }
             else if(fieldArray[i] instanceof FieldShipYard){
-                guiFields[i] = new GUI_Shipping("default", ((FieldShipYard) fieldArray[i]).getFieldName(),/*String.valueOf(((FieldShipYard) fieldArray[i]).getPrice())*/"M4000", ((FieldShipYard) fieldArray[i]).getFieldDescription(), String.valueOf(((FieldShipYard) fieldArray[i]).getRent()), Color.WHITE, Color.BLACK);
+                guiFields[i] = new GUI_Shipping("default", fieldArray[i].getFieldName(),/*String.valueOf(((FieldShipYard) fieldArray[i]).getPrice())*/"M4000", fieldArray[i].getFieldDescription(), String.valueOf(((FieldShipYard) fieldArray[i]).getRent()), Color.WHITE, Color.BLACK);
             }
             //String picture, String title, String subText, String description, String rent, Color bgColor, Color fgColor
             else if(fieldArray[i] instanceof Brewery){
@@ -79,48 +78,30 @@ public class UIController {
                 txtcolor = Color.black;
                 color = Color.red;
 
-                if(((Properties)((Properties) fieldArray[i])).getFieldColor().equals("blå")){
-                    color = Color.blue;
-                    txtcolor = Color.white;
-                }
-                else if(((Properties)((Properties) fieldArray[i])).getFieldColor().equals("lilla")){
-                    color = Color.magenta;
-                }
-                else if(((Properties)((Properties) fieldArray[i])).getFieldColor().equals("grå")){
-                    color = Color.gray;
-                }
-                else if(((Properties)((Properties) fieldArray[i])).getFieldColor().equals("rød")){
-                    color = Color.red;
-                }
-                else if(((Properties)((Properties) fieldArray[i])).getFieldColor().equals("gul")){
-                    color = Color.yellow;
-                }
-                else if(((Properties)((Properties) fieldArray[i])).getFieldColor().equals("orange")){
-                    color = OrangeColor;
-                }
-                else if(((Properties)((Properties) fieldArray[i])).getFieldColor().equals("lyseblå")){
-                    color = Color.cyan;
-                }
-                else if(((Properties)((Properties) fieldArray[i])).getFieldColor().equals("grøn")){
-                    color = Color.green;
-                }
-                else if(((Properties)((Properties) fieldArray[i])).getFieldColor().equals("hvid")){
-                    color = Color.white;
-                }
-                else if(((Properties)((Properties) fieldArray[i])).getFieldColor().equals("pink")){
-                    color = Color.PINK;
-                }
-                else if(((Properties)((Properties) fieldArray[i])).getFieldColor().equals("sort")){
-                    color = Color.black;
+                switch (((Properties) fieldArray[i]).getFieldColor()) {
+                    case "blå" -> {
+                        color = Color.blue;
+                        txtcolor = Color.white;
+                    }
+                    case "lilla" -> color = Color.magenta;
+                    case "grå" -> color = Color.gray;
+                    case "rød" -> color = Color.red;
+                    case "gul" -> color = Color.yellow;
+                    case "orange" -> color = OrangeColor;
+                    case "lyseblå" -> color = Color.cyan;
+                    case "grøn" -> color = Color.green;
+                    case "hvid" -> color = Color.white;
+                    case "pink" -> color = Color.PINK;
+                    case "sort" -> color = Color.black;
                 }
 
-                guiFields[i] = new GUI_Street(((Properties) fieldArray[i]).getFieldName(), ((Properties) fieldArray[i]).getFieldDescription(), (fieldArray[i]).getFieldName(), String.valueOf(((Properties) fieldArray[i]).getPrice()), color, txtcolor);
+                guiFields[i] = new GUI_Street(fieldArray[i].getFieldName(), fieldArray[i].getFieldDescription(), (fieldArray[i]).getFieldName(), String.valueOf(((Properties) fieldArray[i]).getPrice()), color, txtcolor);
             }
-            else if(fieldArray[i] instanceof FieldInfo && ((FieldInfo)fieldArray[i]).getFieldName().equals("I fængsel")) {
-                guiFields[i] = new GUI_Jail("default",((FieldInfo) fieldArray[i]).getFieldName(), ((FieldInfo) fieldArray[i]).getFieldDescription(), ((FieldInfo) fieldArray[i]).getFieldDescription(), Color.RED, Color.BLACK);
+            else if(fieldArray[i] instanceof FieldInfo && fieldArray[i].getFieldName().equals("I fængsel")) {
+                guiFields[i] = new GUI_Jail("default", fieldArray[i].getFieldName(), fieldArray[i].getFieldDescription(), fieldArray[i].getFieldDescription(), Color.RED, Color.BLACK);
             }
-            else if(fieldArray[i] instanceof FieldInfo && ((FieldInfo)fieldArray[i]).getFieldName().equals("Gratis")) {
-                guiFields[i] = new GUI_Refuge("default",((FieldInfo) fieldArray[i]).getFieldName(), ((FieldInfo) fieldArray[i]).getFieldDescription(), ((FieldInfo) fieldArray[i]).getFieldDescription(), Color.WHITE, Color.BLACK);
+            else if(fieldArray[i] instanceof FieldInfo && fieldArray[i].getFieldName().equals("Gratis")) {
+                guiFields[i] = new GUI_Refuge("default", fieldArray[i].getFieldName(), fieldArray[i].getFieldDescription(), fieldArray[i].getFieldDescription(), Color.WHITE, Color.BLACK);
             }
 
         }
@@ -129,10 +110,10 @@ public class UIController {
         //Updates GUI_Player according to corresponding Player
         public void updateGUIPlayerPos(Player player, int oldPosition,int newPosition){
 
-            for (int i = 0; i < guiPlayers.length; i++) {
-                if(guiPlayers[i].getName().equals(player.getName())){
-                    gui.getFields()[oldPosition].setCar(guiPlayers[i], false);
-                    gui.getFields()[newPosition].setCar(guiPlayers[i], true);
+            for (GUI_Player guiPlayer : guiPlayers) {
+                if (guiPlayer.getName().equals(player.getName())) {
+                    gui.getFields()[oldPosition].setCar(guiPlayer, false);
+                    gui.getFields()[newPosition].setCar(guiPlayer, true);
 
                 }
             }
@@ -153,36 +134,44 @@ public class UIController {
                     else{return 1;}
                 case("8:"):
                     choice = this.gui.getUserButtonPressed("Vælg dit felt", "Skaterparken", "Swimmingpoolen", "Bowlinghallen", "Zoologisk have");
-                    if(choice.equals("Skaterparken")){return 0;}
-                    else if(choice.equals("Swimmingpoolen")){return 1;}
-                    else if(choice.equals("Bowlinghallen")){return 2;}
-                    else{return 3;}
+                    return switch (choice) {
+                        case "Skaterparken" -> 0;
+                        case "Swimmingpoolen" -> 1;
+                        case "Bowlinghallen" -> 2;
+                        default -> 3;
+                    };
                 case("9:"):
                     choice = this.gui.getUserButtonPressed("Vælg dit felt", "Godtebutikken", "Iskiosken");
                     if(choice.equals("Godtebutikken")){return 0;}
                     else{return 1;}
                 case("15"):
                     choice = this.gui.getUserButtonPressed("Vælg dit felt", "Museet", "Biblioteket", "Vandlandet", "Strandpromenaden");
-                    if(choice.equals("Museet")){return 0;}
-                    else if(choice.equals("Biblioteket")){return 1;}
-                    else if(choice.equals("Vandlandet")){return 2;}
-                    else{return 3;}
+                    return switch (choice) {
+                        case "Museet" -> 0;
+                        case "Biblioteket" -> 1;
+                        case "Vandlandet" -> 2;
+                        default -> 3;
+                    };
                 case("17"):
                     choice = this.gui.getUserButtonPressed("Vælg dit felt", "Spillehallen", "Biografen");
                     if(choice.equals("Spillehallen")){return 0;}
                     else{return 1;}
                 case("19"):
                     choice = this.gui.getUserButtonPressed("Vælg dit felt", "Godtebutikken", "Iskiosken", "Spillehallen", "Biografen");
-                    if(choice.equals("Godtebutikken")){return 0;}
-                    else if(choice.equals("Iskiosken")){return 1;}
-                    else if(choice.equals("Spillehallen")){return 2;}
-                    else{return 3;}
+                    return switch (choice) {
+                        case "Godtebutikken" -> 0;
+                        case "Iskiosken" -> 1;
+                        case "Spillehallen" -> 2;
+                        default -> 3;
+                    };
                 case("20"):
                     choice = this.gui.getUserButtonPressed("Vælg dit felt", "Burgerbar", "Pizzahus", "Lejetøjsbutikken", "Dyrehandlen");
-                    if(choice.equals("Burgerbar")){return 0;}
-                    else if(choice.equals("Pizzahus")){return 1;}
-                    else if(choice.equals("Lejetøjsbutikken")){return 2;}
-                    else{return 3;}
+                    return switch (choice) {
+                        case "Burgerbar" -> 0;
+                        case "Pizzahus" -> 1;
+                        case "Lejetøjsbutikken" -> 2;
+                        default -> 3;
+                    };
                 default:
                     return -1;
 

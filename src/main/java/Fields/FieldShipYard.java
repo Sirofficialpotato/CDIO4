@@ -5,7 +5,7 @@ import Player.Player;
 public class FieldShipYard extends Field {
     private String fieldColor;
     private int ownedBy;
-    private int price;
+    private final int price;
     private int rent;
 
     public FieldShipYard(String fieldName, String fieldDescription, String color,int value) {
@@ -28,7 +28,6 @@ public class FieldShipYard extends Field {
             players[player].setMoney(-this.getPrice());
             this.setOwnedBy(player);
         }
-        else if(!wantToBuyBool) {}
         //case if you dont own meaning someone else owns
         else if(this.getOwnedBy() != player && this.getOwnedBy() != -1){
             switch(players[player].getPosition()) {

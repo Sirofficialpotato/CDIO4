@@ -1,14 +1,10 @@
 package Fields;
 
-import Fields.Field;
-
-import java.util.Arrays;
-
 import static java.lang.Integer.parseInt;
 
 
 public class FieldsOnBoard {
-    private Field[] fieldArr = new Field[40];
+    private final Field[] fieldArr = new Field[40];
 
     public FieldsOnBoard(){
         String[][] allFields = new String[40][];
@@ -73,40 +69,44 @@ public class FieldsOnBoard {
 
         //Creates a field array based on Strings
         for (int i = 0; i < allFields.length; i++) {
-            if(allFields[i][0].equals("Start")){
-                this.fieldArr[i] = new FieldStart();
-            }
-            else if(allFields[i][0].equals("Prøv lykken")){
-                if (i == 2) {
-                    //initialises first FieldChance
-                    this.fieldArr[i] = new FieldChance();
+            switch (allFields[i][0]) {
+                case "Start":
+                    this.fieldArr[i] = new FieldStart();
+                    break;
+                case "Prøv lykken":
+                    if (i == 2) {
+                        //initialises first FieldChance
+                        this.fieldArr[i] = new FieldChance();
+                    }
 
-                }
-                //makes all chanceFields the same object reference
-                else{fieldArr[i] = fieldArr[2];}
+                    //makes all chanceFields the same object reference
+                    else {
+                        fieldArr[i] = fieldArr[2];
+                    }
+                    break;
+                case "I fængsel":
+                case "Gratis":
+                    this.fieldArr[i] = new FieldInfo(allFields[i][0], allFields[i][1]);
 
+                    break;
+                case "Gå i fængsel":
+                    this.fieldArr[i] = new Jail("Fængsel", allFields[i][0], "test");
 
-            }
-            else if(allFields[i][0].equals("I fængsel") || allFields[i][0].equals("Gratis")){
-                this.fieldArr[i] = new FieldInfo(allFields[i][0], allFields[i][1]);
-
-            }
-            else if(allFields[i][0].equals("Gå i fængsel")){
-                this.fieldArr[i] = new Jail("Fængsel", allFields[i][0], "test");
-
-            }
-            else if(allFields[i][0].equals("Redderi")){
-                this.fieldArr[i] = new FieldShipYard(allFields[i][1], allFields[i][1], allFields[i][3], parseInt(allFields[i][4].substring(1)));
-            }
-            else if(allFields[i][0].equals("Coca Cola") || allFields[i][0].equals("Squash")){
-                this.fieldArr[i] = new Brewery(allFields[i][0], allFields[i][1], allFields[i][2], parseInt(allFields[i][1].substring(1)), i);
-            }
-            else if(allFields[i][0].equals("Betal indkomst-skat") || allFields[i][0].equals("Ekstra-ordinærstatsskat")){
-                this.fieldArr[i] = new PayTax(allFields[i][0], allFields[i][1]);
-            }
-
-            else {
-                this.fieldArr[i] = new Properties(allFields[i][0], allFields[i][1], allFields[i][2], parseInt(allFields[i][1].substring(1)), i);
+                    break;
+                case "Redderi":
+                    this.fieldArr[i] = new FieldShipYard(allFields[i][1], allFields[i][1], allFields[i][3], parseInt(allFields[i][4].substring(1)));
+                    break;
+                case "Coca Cola":
+                case "Squash":
+                    this.fieldArr[i] = new Brewery(allFields[i][0], allFields[i][1], allFields[i][2], parseInt(allFields[i][1].substring(1)), i);
+                    break;
+                case "Betal indkomst-skat":
+                case "Ekstra-ordinærstatsskat":
+                    this.fieldArr[i] = new PayTax(allFields[i][0], allFields[i][1]);
+                    break;
+                default:
+                    this.fieldArr[i] = new Properties(allFields[i][0], allFields[i][1], allFields[i][2], parseInt(allFields[i][1].substring(1)), i);
+                    break;
             }
         }
 
@@ -116,8 +116,8 @@ public class FieldsOnBoard {
     @Override
     public String toString() {
         String fieldString = "";
-        for (int i = 0; i < fieldArr.length; i++) {
-            fieldString+= fieldArr[i].getFieldName() + ": " + fieldArr[i].getFieldDescription()+"\n";
+        for (Field field : fieldArr) {
+            fieldString += field.getFieldName() + ": " + field.getFieldDescription() + "\n";
         }
         return fieldString;
     }

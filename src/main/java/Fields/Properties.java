@@ -4,12 +4,11 @@ package Fields;
 import Player.Player;
 
 public class Properties extends Field {
-    private String fieldColor;
+    private final String fieldColor;
     private int ownedBy;
-    private int price;
+    private final int price;
     private int buildOn = 0;
-    private int index;
-    private int buildings = 0;
+    private final int index;
     int priceMulti = 1;
     // All ownable properties with a value and a color
     public Properties(String name, String description, String color,int value, int index){
@@ -33,36 +32,19 @@ public class Properties extends Field {
             players[player].setMoney(-this.getPrice());
             this.setOwnedBy(player);
         }
-        else if(!wantToBuyBool) {}
 
         //case if you dont own meaning someone else owns
-        else if(this.getOwnedBy() != player){
+        else if(this.getOwnedBy() != player && this.ownedBy != -1){
 
-            switch(players[player].getPosition()){
-                case 1,3:
-                    doubleSizedGroup(fields,1,3);
-                    break;
-                case 6,8,9:
-                    tripleSizedGroup(fields,6,8,9);
-                    break;
-                case 11,13,14:
-                    tripleSizedGroup(fields,11,13,14);
-                    break;
-                case 16,18,19:
-                    tripleSizedGroup(fields,16,18,19);
-                    break;
-                case 21,23,24:
-                    tripleSizedGroup(fields,21,23,24);
-                    break;
-                case 26,27,29:
-                    tripleSizedGroup(fields,26,27,29);
-                    break;
-                case 31,32,34:
-                    tripleSizedGroup(fields,31,32,34);
-                    break;
-                case 37,39:
-                    doubleSizedGroup(fields,37,39);
-                    break;
+            switch (players[player].getPosition()) {
+                case 1, 3 -> doubleSizedGroup(fields, 1, 3);
+                case 6, 8, 9 -> tripleSizedGroup(fields, 6, 8, 9);
+                case 11, 13, 14 -> tripleSizedGroup(fields, 11, 13, 14);
+                case 16, 18, 19 -> tripleSizedGroup(fields, 16, 18, 19);
+                case 21, 23, 24 -> tripleSizedGroup(fields, 21, 23, 24);
+                case 26, 27, 29 -> tripleSizedGroup(fields, 26, 27, 29);
+                case 31, 32, 34 -> tripleSizedGroup(fields, 31, 32, 34);
+                case 37, 39 -> doubleSizedGroup(fields, 37, 39);
             }
 
             players[player].setMoney(-this.getPrice() * this.priceMulti);
@@ -94,26 +76,17 @@ public class Properties extends Field {
     }
 
     public int getGroup(){
-        switch (this.getFieldColor()) {
-            case "blå":
-                return 0;
-            case "orange":
-                return 1;
-            case "grøn":
-                return 2;
-            case "grå":
-                return 3;
-            case "rød":
-                return 4;
-            case "hvid":
-                return 5;
-            case "gul":
-                return 6;
-            case "lilla":
-                return 7;
-            default:
-                return -1;
-        }
+        return switch (this.getFieldColor()) {
+            case "blå" -> 0;
+            case "orange" -> 1;
+            case "grøn" -> 2;
+            case "grå" -> 3;
+            case "rød" -> 4;
+            case "hvid" -> 5;
+            case "gul" -> 6;
+            case "lilla" -> 7;
+            default -> -1;
+        };
 
     }
 
@@ -123,9 +96,6 @@ public class Properties extends Field {
 
     public String getFieldDescription() {
         return fieldDescription;
-    }
-    public int getFieldValue() {
-        return getFieldValue();
     }
 
     public String getFieldColor() {
@@ -142,43 +112,33 @@ public class Properties extends Field {
 
     public int getIndex(){return this.index;}
 
-    public int getBuildings(){return this.buildings;}
-
     private void buildingSwitch(){
-        switch(buildings){
-            case 1:
+        switch (buildOn) {
+            case 1 -> {
                 this.priceMulti = 2;
                 System.out.println("Du er landet på et felt med hvor en " +
                         "spiller ejer 1 bygning");
-                break;
-            case 2:
-                this.priceMulti = 3;
-                break;
-            case 3:
-                this.priceMulti = 4;
-                break;
-            case 4:
-                this.priceMulti = 5;
-                break;
-            case 5:
-                this.priceMulti = 6;
-                break;
+            }
+            case 2 -> this.priceMulti = 3;
+            case 3 -> this.priceMulti = 4;
+            case 4 -> this.priceMulti = 5;
+            case 5 -> this.priceMulti = 6;
         }
     }
 
     private void doubleSizedGroup(Field[] fields, int fieldToCheck, int fieldToCheck2){
 
         if(((Properties) fields[fieldToCheck]).getOwnedBy() == this.getOwnedBy() && ((Properties) fields[fieldToCheck2]).getOwnedBy() == this.getOwnedBy()){
-            if(this.buildings > 0) {buildingSwitch();}
-            else if(((Properties) fields[fieldToCheck]).buildings == 0 && ((Properties) fields[fieldToCheck2]).buildings == 0){priceMulti = 2;}
+            if(this.buildOn > 0) {buildingSwitch();}
+            else if(((Properties) fields[fieldToCheck]).buildOn == 0 && ((Properties) fields[fieldToCheck2]).buildOn == 0){priceMulti = 2;}
         }
     }
 
     private void tripleSizedGroup(Field[] fields, int fieldToCheck, int fieldToCheck2, int fieldToCheck3){
 
         if(((Properties) fields[fieldToCheck]).getOwnedBy() == this.getOwnedBy() && ((Properties) fields[fieldToCheck2]).getOwnedBy() == this.getOwnedBy() && ((Properties) fields[fieldToCheck3]).getOwnedBy() == this.getOwnedBy()){
-            if(this.buildings > 0) {buildingSwitch();}
-            else if(((Properties) fields[fieldToCheck]).buildings == 0 && ((Properties) fields[fieldToCheck2]).buildings == 0 && ((Properties) fields[fieldToCheck3]).buildings == 0){priceMulti = 2;}
+            if(this.buildOn > 0) {buildingSwitch();}
+            else if(((Properties) fields[fieldToCheck]).buildOn == 0 && ((Properties) fields[fieldToCheck2]).buildOn == 0 && ((Properties) fields[fieldToCheck3]).buildOn == 0){priceMulti = 2;}
         }
     }
 }
