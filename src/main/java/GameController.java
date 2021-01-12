@@ -3,6 +3,7 @@ import Fields.*;
 
 import Player.Player;
 import ViewLayer.UIController;
+import gui_fields.GUI_Ownable;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -88,7 +89,6 @@ public class GameController {
 
         PlayerCreator();
         uiController.addPlayers(playerList);
-
         ChooseColor();
         GameFlow();
     }
