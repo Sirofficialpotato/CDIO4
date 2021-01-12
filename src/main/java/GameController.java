@@ -316,6 +316,7 @@ public class GameController {
         while (!GameOver) {
 
             for (int i = 0; i < playerList.length; i++) {
+                int occurences = 0; //same die counter
                 while(true) {
 
 
@@ -339,7 +340,7 @@ public class GameController {
                             //Change die on in gui to reflect new roll and update player position
                             rafflecup.useRafflecup();
                             uiController.getGUI().setDice(rafflecup.getD1(), rafflecup.getD2());
-                            playerList[i].setPosition(+/*rafflecup.RafflecupFaceValue()*/1);
+                            playerList[i].setPosition(+rafflecup.RafflecupFaceValue());
 
                             //updates gui player position
                             uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
@@ -367,8 +368,14 @@ public class GameController {
 
                     }
 
-                    if(!rafflecup.SameDie()){break;}
-
+                    if(!rafflecup.SameDie()){
+                        if (occurences == 3){
+                            playerList[i].setInJail(true);
+                            break;
+                        }
+                        else {break;}
+                    }
+                    occurences++;
                 }
             }
         }
@@ -379,10 +386,10 @@ public class GameController {
             }
         }
         //****************************************Restart game?!!*******************************************
-        if (uiController.getGUI().getUserLeftButtonPressed(currentLang[16], currentLang[17], currentLang[18])) {
+       /* if (uiController.getGUI().getUserLeftButtonPressed(currentLang[16], currentLang[17], currentLang[18])) {
             uiController.getGUI().close();
             Game();
-        } else uiController.getGUI().close();
+        } else uiController.getGUI().close();*/
         //****************************************Restart game?!!*******************************************
     }
 
