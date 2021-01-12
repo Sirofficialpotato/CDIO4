@@ -325,7 +325,7 @@ public class GameController {
 
         //***************************************************************************************************************
 
-        if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties || gameBoard.getFields()[playerList[i].getPosition()] instanceof FieldShipYard) {
+        if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties || gameBoard.getFields()[playerList[i].getPosition()] instanceof FieldShipYard || gameBoard.getFields()[playerList[i].getPosition()] instanceof Brewery) {
             uiController.updateGUIFieldOwner(playerList, gameBoard.getFields(), playerList[i].getPosition());
 
             //Part 2 of landOnField test

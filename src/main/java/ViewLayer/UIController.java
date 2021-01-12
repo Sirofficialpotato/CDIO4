@@ -197,7 +197,14 @@ public class UIController {
                 ((GUI_Shipping) this.gui.getFields()[field]).setBorder(this.guiPlayers[((FieldShipYard) fields[field]).getOwnedBy()].getPrimaryColor());
                 //((GUI_Shipping) this.gui.getFields()[field]).setRent("M500");
             }
-        } else {
+        }
+        else if(field == 12 || field == 28){
+            if (((Brewery) fields[field]).getOwnedBy() != -1) {
+                ((GUI_Brewery) this.gui.getFields()[field]).setOwnerName(players[((Brewery) fields[field]).getOwnedBy()].getName());
+                ((GUI_Brewery) this.gui.getFields()[field]).setBorder(this.guiPlayers[((Brewery) fields[field]).getOwnedBy()].getPrimaryColor());
+            }
+        }
+        else {
             if(((Properties)fields[field]).getOwnedBy() != -1) {
                 ((GUI_Street) this.gui.getFields()[field]).setOwnerName(players[((Properties) fields[field]).getOwnedBy()].getName());
                 ((GUI_Street) this.gui.getFields()[field]).setBorder(this.guiPlayers[((Properties)fields[field]).getOwnedBy()].getPrimaryColor());
