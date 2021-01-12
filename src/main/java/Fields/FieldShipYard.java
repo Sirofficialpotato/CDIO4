@@ -13,6 +13,7 @@ public class FieldShipYard extends Field {
         this.fieldColor = color;
         this.price = value;
         this.ownedBy = -1;
+        this.rent = 500;
     }
 
     @Override
@@ -65,8 +66,8 @@ public class FieldShipYard extends Field {
                     break;
             }
             System.out.println(priceMulti);
-            players[player].setMoney(-this.getPrice() * priceMulti * cardMulti);
-            players[this.getOwnedBy()].setMoney(this.getPrice() * priceMulti * cardMulti);
+            players[player].setMoney(-this.rent * priceMulti * cardMulti);
+            players[this.getOwnedBy()].setMoney(this.rent * priceMulti * cardMulti);
         }
     }
 
