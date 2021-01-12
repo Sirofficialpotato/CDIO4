@@ -240,33 +240,8 @@ public class GameController {
             uiController.getGUI().displayChanceCard(currentCard.getCardText());
             //Loop that draws cards until the last drawn card has drawAgain == false
             //If else statements keeps track of which type of card and acts accordingly
-
-            if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties) {
-                boolean temp = false;
-                Properties currentProp = (Properties) gameBoard.getFields()[playerList[i].getPosition()];
-                if(currentProp.getOwnedBy() == -1){
-                    temp = uiController.getGUI().getUserLeftButtonPressed(playerList[i].getName() + " landede på " + gameBoard.getFields()[playerList[i].getPosition()].getFieldName() + " og har nu muligheden for at købe", "Køb", "Ignorere");
-                }
-                ((Properties) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), temp);
-
-            }
-            else if(gameBoard.getFields()[playerList[i].getPosition()] instanceof Brewery){
-                boolean temp = false;
-                Brewery currentBrew = (Brewery)gameBoard.getFields()[playerList[i].getPosition()];
-                if(currentBrew.getOwnedBy() == -1){
-                    temp = uiController.getGUI().getUserLeftButtonPressed(playerList[i].getName() + " landede på " + gameBoard.getFields()[playerList[i].getPosition()].getFieldName() + " og har nu muligheden for at købe", "Køb", "Ignorere");
-                }
-                ((Brewery) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), temp);
-            }
-            else if(gameBoard.getFields()[playerList[i].getPosition()] instanceof FieldShipYard){
-                boolean temp = false;
-                FieldShipYard currentShipyard = (FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()];
-                if(currentShipyard.getOwnedBy() == -1){
-                    temp = uiController.getGUI().getUserLeftButtonPressed(playerList[i].getName() + " landede på " + gameBoard.getFields()[playerList[i].getPosition()].getFieldName() + " og har nu muligheden for at købe", "Køb", "Ignorere");
-                }
-                ((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), temp);
-            }
             gameBoard.getCards().lastItemToFront();
+            DoAfterMove(i);
         }
 
         else if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties) {
