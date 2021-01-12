@@ -354,36 +354,7 @@ public class GameController {
 
 
 
-                    //*************************************Player gets the choice to either buy houses/hotels or roll with the dice*******************************************************
-                    if (!playerList[i].getInJail() && pController.getPosibillites(i).length != 0) {
-                        String[] choiceArr = new String[pController.getPosibillites(i).length];
-                        for (int j = 0; j < pController.getPosibillites(i).length; j++) {
-                            choiceArr[j] = pController.getPosibillites(i)[j].getFieldName();
-                        }
-                        ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], currentLang[15], "Køb huse/hoteller");
 
-
-                        while(!ready.equals(currentLang[15])) {
-                            if(ready.equals("Køb huse/hoteller") && !playerList[i].getInJail()){
-                                String propertyToBuyAt = uiController.getGUI().getUserButtonPressed("Vælg en grund at købe huse/hoteller til", choiceArr);
-
-                                //Loop to check what field the player selected by matching the String propertyTOBuyAt with the fields of which the player owns
-                                for (int j = 0; j < playerList[i].getPlayerOwnedFields().current; j++) {
-                                    if(propertyToBuyAt.equals(gameBoard.getFields()[playerList[i].getPlayerOwnedFields().atIndex(j)].getFieldName())){
-                                        ((Properties)gameBoard.getFields()[playerList[i].getPlayerOwnedFields().atIndex(j)]).buildOnProperty(playerList[i]);
-                                        uiController.buildPropertiesOnGui(i,j,((Properties) gameBoard.getFields()[playerList[i].getPlayerOwnedFields().atIndex(j)]).getBuildOn(),playerList);
-                                        uiController.getGuiPlayer(i).setBalance(playerList[i].getMoney());
-                                    }
-
-                                }
-                            }
-                            ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], currentLang[15], "Køb huse/hoteller");
-
-                        }
-
-                    } else if (!playerList[i].getInJail() && pController.getPosibillites(i).length == 0) {
-                        ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], currentLang[15]);
-                    }
                     //*************************************Player gets the choice to either buy houses/hotels or roll with the dice*******************************************************
 
 
