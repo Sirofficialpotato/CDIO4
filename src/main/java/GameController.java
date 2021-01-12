@@ -416,7 +416,7 @@ public class GameController {
                 choiceArr[j] = pController.getPosibillites(i)[j].getFieldName();
             }
             ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], RollOrEndTurn, "Køb huse/hoteller");
-
+            choiceArr = new String[0];
 
             while(!ready.equals(RollOrEndTurn)) {
                 if(ready.equals("Køb huse/hoteller") && !playerList[i].getInJail()){
@@ -434,51 +434,13 @@ public class GameController {
                 }
                 ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], RollOrEndTurn, "Køb huse/hoteller");
             }
+
         } else if (!playerList[i].getInJail() && pController.getPosibillites(i).length == 0) {
             ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], RollOrEndTurn);
         }
+
         //*************************************Player gets the choice to either buy houses/hotels or roll with the dice*******************************************************
     }
 
 
-    private void UsefullMaybe() {
-    /*int[] a = new int[numberOfPlayers];
-                int max = 0;
-                int lastmax = max;
-                GameOver = true;
-                uiController.getGUI().showMessage("Gameover! " + uiController.getGuiPlayer(k).getName() + currentLang[12]);
-
-                //first loop to check for game winner
-                for (int j = 0; j < numberOfPlayers; j++) {
-                    a[j] = uiController.getGuiPlayer(j).getBalance();
-                    if (a[j] > max) {
-                        max = a[j];
-                        lastmax = j;
-                    }
-                    //if 2 players have the same amount of money at the end of the game SLET FRA HER
-                    else if (a[j] == max){
-                        uiController.getGUI().showMessage("player: " + j + " propertyvalue: " + ((Properties) gameBoard.getFields()[2]).getTotalPropertyValue(playerList,j, gameBoard.getFields()) + " player: " + lastmax + " propertyvalue: " +((Properties) gameBoard.getFields()[2]).getTotalPropertyValue(playerList,lastmax, gameBoard.getFields()));
-                        //System.out.println("player: " + j + " propertyvalue: " + ((Properties) gameBoard.getFields()[2]).getTotalPropertyValue(playerList,j, gameBoard.getFields()) + " player: " + lastmax + " propertyvalue: " +((Properties) gameBoard.getFields()[2]).getTotalPropertyValue(playerList,lastmax, gameBoard.getFields()));
-                        if (((Properties) gameBoard.getFields()[2]).getTotalPropertyValue(playerList,j, gameBoard.getFields()) > ((Properties) gameBoard.getFields()[2]).getTotalPropertyValue(playerList,lastmax, gameBoard.getFields())){
-                            uiController.getGuiPlayer(j).setBalance(max + 1);
-                            max = a[j];
-                        }
-                        else if ((((Properties) gameBoard.getFields()[2]).getTotalPropertyValue(playerList,j, gameBoard.getFields()) < ((Properties) gameBoard.getFields()[2]).getTotalPropertyValue(playerList,lastmax, gameBoard.getFields()))){
-                            uiController.getGuiPlayer(lastmax).setBalance(max+1);
-                            max = a[j];
-                        }
-                        else
-                        {
-                            uiController.getGUI().showMessage("begge spillere har samme værdi i egendomme... I begge vinder!!!");
-                        }
-                    }
-                    //SLET TIL HER
-                }
-                // second loop to announce winner
-                for (int j = 0; j < a.length; j++) {
-                    if (uiController.getGuiPlayer(j).getBalance() == max)
-                        uiController.getGUI().showMessage(currentLang[13] + uiController.getGuiPlayer(j).getName() + " !!!");
-                }
-                break;*/
-    }
 }
