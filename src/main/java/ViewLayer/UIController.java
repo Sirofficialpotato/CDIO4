@@ -197,6 +197,7 @@ public class UIController {
             if(((Properties)fields[field]).getOwnedBy() != -1) {
                 ((GUI_Street) this.gui.getFields()[field]).setOwnerName(players[((Properties) fields[field]).getOwnedBy()].getName());
                 ((GUI_Street) this.gui.getFields()[field]).setBorder(this.guiPlayers[((Properties)fields[field]).getOwnedBy()].getPrimaryColor());
+                ((GUI_Street)getGUI().getFields()[field]).setRent("M"+ ((Properties)fields[field]).getRent());
             }
         }
     }
@@ -207,10 +208,18 @@ public class UIController {
                 ((GUI_Shipping) this.gui.getFields()[field]).setBorder(Color.lightGray);
             }
         }
+        if(field == 12 || field == 28) {
+            if (((FieldShipYard) fields[field]).getOwnedBy() != -1) {
+                ((GUI_Brewery) this.gui.getFields()[field]).setOwnerName(null);
+                ((GUI_Brewery) this.gui.getFields()[field]).setBorder(Color.lightGray);
+            }
+        }
         else {
             if(((Properties)fields[field]).getOwnedBy() != -1) {
                 ((GUI_Street) this.gui.getFields()[field]).setOwnerName(null);
                 ((GUI_Street) this.gui.getFields()[field]).setBorder(Color.lightGray);
+                ((GUI_Street) this.gui.getFields()[field]).setHotel(false);
+                ((GUI_Street) this.gui.getFields()[field]).setHouses(0);
             }
         }
     }
@@ -229,5 +238,13 @@ public class UIController {
     }
 
     public GUI getGUI(){return this.gui;}
+
+    public void updateRent(int currentField, Field[] fields){
+        if(fields[currentField] instanceof Properties){
+            ((GUI_Street)getGUI().getFields()[currentField]).setRent("M"+ ((Properties)fields[currentField]).getRent());
+        } else if(fields[currentField] instanceof FieldShipYard){
+            ((GUI_Shipping)getGUI().getFields()[currentField]).setRent("M"+ ((FieldShipYard)fields[currentField]).getRent());
+        }
+    }
 
 }

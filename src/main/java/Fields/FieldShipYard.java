@@ -8,6 +8,7 @@ public class FieldShipYard extends Field {
     private final int price;
     private int rent;
 
+
     public FieldShipYard(String fieldName, String fieldDescription, String color,int value) {
         super(fieldName, fieldDescription);
         this.fieldColor = color;
