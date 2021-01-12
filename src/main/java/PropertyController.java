@@ -75,7 +75,6 @@ public class PropertyController {
                     canBuy[i] = true;
                 }
             }
-
     }
     //sets fields not to be used to -2
     public void set3rdSpaceIn2PropGroupsToN2(){

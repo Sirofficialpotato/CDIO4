@@ -229,6 +229,7 @@ public class GameController {
             uiController.getGUI().showMessage(playerList[i].getName() + currentLang[21]);
         }
     }
+
     private void DoAfterMove(int i){
         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
         //********************checks is player is on a chancefield if so he draws a card***********************************
@@ -354,10 +355,6 @@ public class GameController {
 
 
 
-
-                    //*************************************Player gets the choice to either buy houses/hotels or roll with the dice*******************************************************
-
-
                     // if statement to check if the user typed in throw
                     if (ready.equals(currentLang[15]) && !playerList[i].getInJail()) {
 
@@ -433,7 +430,9 @@ public class GameController {
                     }
                 }
                 ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], RollOrEndTurn, "Køb huse/hoteller");
+
             }
+        pController.initCanBuy();
         } else if (!playerList[i].getInJail() && pController.getPosibillites(i).length == 0) {
             ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], RollOrEndTurn);
         }
