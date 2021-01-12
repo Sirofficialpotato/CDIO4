@@ -93,6 +93,7 @@ public class DynamicArr<T> {
 
     }
 
+    // Hver gang kort bliver trukket.
     public void lastItemToFront(){
         T temp = arr[size-1];
         for (int i = size-1; i > 0; i--) {

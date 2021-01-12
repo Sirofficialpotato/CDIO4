@@ -340,56 +340,61 @@ public class GameController {
         while (!GameOver) {
 
             for (int i = 0; i < playerList.length; i++) {
-                if (playerList[i] != null) {
-                    //************************************JAIL************************************
-                    Jailfunc(i);
-                    //***********************************JAIL************************************
-                    //Check for if player has a player specific card and gives them the choice
+                while(true) {
 
 
-                    //loop to check if a player as reached 0
-                    EndGame();
-                    if (GameOver) break;
+                    if (playerList[i] != null) {
+                        //************************************JAIL************************************
+                        Jailfunc(i);
+                        //***********************************JAIL************************************
+                        //Check for if player has a player specific card and gives them the choice
 
-                    buyOrRoll(i,currentLang[15]);
+
+                        //loop to check if a player as reached 0
+                        EndGame();
+                        if (GameOver) break;
+
+                        buyOrRoll(i, currentLang[15]);
 
 
+                        // if statement to check if the user typed in throw
+                        if (ready.equals(currentLang[15]) && !playerList[i].getInJail()) {
 
-                    // if statement to check if the user typed in throw
-                    if (ready.equals(currentLang[15]) && !playerList[i].getInJail()) {
+                            //Change die on in gui to reflect new roll and update player position
+                            rafflecup.useRafflecup();
+                            uiController.getGUI().setDice(rafflecup.getD1(), rafflecup.getD2());
+                            playerList[i].setPosition(+/*rafflecup.RafflecupFaceValue()*/1);
 
-                        //Change die on in gui to reflect new roll and update player position
-                        rafflecup.useRafflecup();
-                        uiController.getGUI().setDice(rafflecup.getD1(), rafflecup.getD2());
-                        playerList[i].setPosition(+/*rafflecup.RafflecupFaceValue()*/1);
+                            //updates gui player position
+                            uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
 
-                        //updates gui player position
+                            if (playerList[i].getPosition() == 30) {
+                                uiController.getGUI().showMessage(playerList[i].getName() + " landede på gå i fængsel feltet og bliver derfor smidt direkte i fængsel!");
+                            }
+                        }
+                        //Part 1 of landOnField test see part 2
+                        //System.out.println(playerList[i].getName() + " before landing on field: " + playerList[i].getMoney());
+
+
+                        DoAfterMove(i);
+
+                        //here we update the player position again to make sure it's correct if a chancecard has been used
                         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
 
-                        if (playerList[i].getPosition() == 30) {
-                            uiController.getGUI().showMessage(playerList[i].getName() + " landede på gå i fængsel feltet og bliver derfor smidt direkte i fængsel!");
+                        // Gotta update Money here to make sure the gui displays the correct amount.
+                        for (int j = 0; j < playerList.length; j++) {
+                            if (playerList[j] != null) {
+                                uiController.getGuiPlayer(j).setBalance(playerList[j].getMoney());
+                            }
                         }
+                        if (pController.getPosibillites(i).length != 0) buyOrRoll(i, "Afslut tur");
+
                     }
-                    //Part 1 of landOnField test see part 2
-                    //System.out.println(playerList[i].getName() + " before landing on field: " + playerList[i].getMoney());
 
-
-                    DoAfterMove(i);
-
-                    //here we update the player position again to make sure it's correct if a chancecard has been used
-                    uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
-
-                    // Gotta update Money here to make sure the gui displays the correct amount.
-                    for (int j = 0; j < playerList.length; j++) {
-                        if (playerList[j] != null) {
-                            uiController.getGuiPlayer(j).setBalance(playerList[j].getMoney());
-                        }
-                    }
-                    if(pController.getPosibillites(i).length != 0) buyOrRoll(i,"Afslut tur");
+                    if(!rafflecup.SameDie()){break;}
 
                 }
             }
-
         }
         //The last remaining player is found here and made the winner
         for (int j = 0; j < playerList.length; j++) {
