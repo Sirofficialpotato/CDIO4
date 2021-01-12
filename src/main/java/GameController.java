@@ -232,7 +232,7 @@ public class GameController {
         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
         //********************checks is player is on a chancefield if so he draws a card***********************************
         if (gameBoard.getFields()[playerList[i].getPosition()] instanceof FieldChance) {
-            Cards currentCard = gameBoard.getCards().getLast();
+            /*Cards currentCard = gameBoard.getCards().getLast();
             ((FieldChance)gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), gameBoard.getCards());
             uiController.getGUI().displayChanceCard(currentCard.getCardText());
             //Loop that draws cards until the last drawn card has drawAgain == false
@@ -242,7 +242,7 @@ public class GameController {
             if(currentCard.getCardText().equals("Ryk frem til det nærmeste rederi og betal ejeren to gange den leje han ellers er berettiget til, hvis selskabet ikke ejes af nogen kan De købe det af banken.")){
                 shippingCardCheck = true;
             }
-            DoAfterMove(i, shippingCardCheck);
+            DoAfterMove(i, shippingCardCheck);*/
         }
 
         else if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties) {
@@ -404,7 +404,7 @@ public class GameController {
                     for (int j = 0; j < playerList[i].getPlayerOwnedFields().current; j++) {
                         if(propertyToBuyAt.equals(gameBoard.getFields()[playerList[i].getPlayerOwnedFields().atIndex(j)].getFieldName())){
                             ((Properties)gameBoard.getFields()[playerList[i].getPlayerOwnedFields().atIndex(j)]).buildOnProperty(playerList[i]);
-                            uiController.buildPropertiesOnGui(i,j,((Properties) gameBoard.getFields()[playerList[i].getPlayerOwnedFields().atIndex(j)]).getBuildOn(),playerList);
+                            uiController.buildPropertiesOnGui(i,j,((Properties) gameBoard.getFields()[playerList[i].getPlayerOwnedFields().atIndex(j)]).getBuildOn(),playerList, gameBoard.getFields());
                             uiController.getGuiPlayer(i).setBalance(playerList[i].getMoney());
                         }
 

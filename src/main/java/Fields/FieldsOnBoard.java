@@ -105,7 +105,7 @@ public class FieldsOnBoard {
                     this.fieldArr[i] = new PayTax(allFields[i][0], allFields[i][1]);
                     break;
                 default:
-                    this.fieldArr[i] = new Properties(allFields[i][0], allFields[i][1], allFields[i][2], parseInt(allFields[i][1].substring(1)), i);
+                    this.fieldArr[i] = new Properties(allFields[i][0], "Leje af grund : M" + (parseInt(allFields[i][1].substring(1))/4) + "\n Leje m/ 1 hus: M" + (parseInt(allFields[i][1].substring(1))/4*3) + "\n =====> 2 huse: M" + (parseInt(allFields[i][1].substring(1))/4*4) + "\n =====> 3 huse: M" + (parseInt(allFields[i][1].substring(1))/4*5) + "\n =====> 4 huse: M" + (parseInt(allFields[i][1].substring(1))/4*6) + "\n ======> hotel: M" + (parseInt(allFields[i][1].substring(1))/4*8), allFields[i][2], parseInt(allFields[i][1].substring(1)), i);
                     break;
             }
         }

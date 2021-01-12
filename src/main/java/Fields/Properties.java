@@ -116,15 +116,11 @@ public class Properties extends Field {
 
     private void buildingSwitch(){
         switch (buildOn) {
-            case 1 -> {
-                this.priceMulti = 2;
-                System.out.println("Du er landet på et felt med hvor en " +
-                        "spiller ejer 1 bygning");
-            }
-            case 2 -> this.priceMulti = 3;
-            case 3 -> this.priceMulti = 4;
-            case 4 -> this.priceMulti = 5;
-            case 5 -> this.priceMulti = 6;
+            case 1 -> this.priceMulti = 3;
+            case 2 -> this.priceMulti = 4;
+            case 3 -> this.priceMulti = 5;
+            case 4 -> this.priceMulti = 6;
+            case 5 -> this.priceMulti = 8;
         }
     }
 
@@ -142,5 +138,28 @@ public class Properties extends Field {
             if(this.buildOn > 0) {buildingSwitch();}
             else if(((Properties) fields[fieldToCheck]).buildOn == 0 && ((Properties) fields[fieldToCheck2]).buildOn == 0 && ((Properties) fields[fieldToCheck3]).buildOn == 0){priceMulti = 2;}
         }
+    }
+
+    public int getRent(){
+        int tempRent = rent;
+        switch (buildOn) {
+            case 1 -> {
+                tempRent = rent * 3;
+            }
+            case 2 -> {
+                tempRent = rent * 4;
+            }
+            case 3 -> {
+                tempRent = rent * 5;
+            }
+            case 4 -> {
+                tempRent = rent * 6;
+            }
+            case 5 -> {
+                tempRent = rent * 8;
+            }
+
+        }
+        return tempRent;
     }
 }

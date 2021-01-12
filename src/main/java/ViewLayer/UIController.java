@@ -95,7 +95,7 @@ public class UIController {
                     case "sort" -> color = Color.black;
                 }
 
-                guiFields[i] = new GUI_Street(fieldArray[i].getFieldName(), fieldArray[i].getFieldDescription(), (fieldArray[i]).getFieldName(), String.valueOf(((Properties) fieldArray[i]).getPrice()), color, txtcolor);
+                guiFields[i] = new GUI_Street(fieldArray[i].getFieldName(),"M" + ((Properties) fieldArray[i]).getPrice(), (fieldArray[i]).getFieldDescription(), String.valueOf(((Properties) fieldArray[i]).getRent()), color, txtcolor);
             }
             else if(fieldArray[i] instanceof FieldInfo && fieldArray[i].getFieldName().equals("I fængsel")) {
                 guiFields[i] = new GUI_Jail("default", fieldArray[i].getFieldName(), fieldArray[i].getFieldDescription(), fieldArray[i].getFieldDescription(), Color.RED, Color.BLACK);
@@ -215,12 +215,13 @@ public class UIController {
         }
     }
 
-    public void buildPropertiesOnGui(int i,int j,int houses, Player[] players){
+    public void buildPropertiesOnGui(int i,int j,int houses, Player[] players, Field[] fields){
         if(houses <= 4)((GUI_Street)getGUI().getFields()[players[i].getPlayerOwnedFields().atIndex(j)]).setHouses(houses);
         else if(houses == 5){
             ((GUI_Street)getGUI().getFields()[players[i].getPlayerOwnedFields().atIndex(j)]).setHouses(0);
             ((GUI_Street)getGUI().getFields()[players[i].getPlayerOwnedFields().atIndex(j)]).setHotel(true);
         }
+        ((GUI_Street)getGUI().getFields()[players[i].getPlayerOwnedFields().atIndex(j)]).setRent("M"+ ((Properties)fields[players[i].getPlayerOwnedFields().atIndex(j)]).getRent());
     }
 
     public GUI_Player getGuiPlayer(int playerNumber){
