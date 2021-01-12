@@ -207,7 +207,7 @@ public class GameController {
                     playerList[i].setPosition(+rafflecup.RafflecupFaceValue());
                     //updates gui player position
                     uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
-                    DoAfterMove(i);
+                    DoAfterMove(i, false);
 
                 } else if (!rafflecup.SameDie() && playerList[i].getTurnsInJail() == 3) {
                     playerList[i].setInJail(false);
@@ -227,7 +227,8 @@ public class GameController {
         }
     }
 
-    private void DoAfterMove(int i){
+    private void DoAfterMove(int i, boolean gotHereByCard){
+
         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
         //********************checks is player is on a chancefield if so he draws a card***********************************
         if (gameBoard.getFields()[playerList[i].getPosition()] instanceof FieldChance) {
@@ -237,7 +238,7 @@ public class GameController {
             //Loop that draws cards until the last drawn card has drawAgain == false
             //If else statements keeps track of which type of card and acts accordingly
             gameBoard.getCards().lastItemToFront();
-            DoAfterMove(i);
+            DoAfterMove(i, true);
         }
 
         else if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties) {
@@ -257,12 +258,12 @@ public class GameController {
                 boolean buyOrNot = uiController.getGUI().getUserLeftButtonPressed(playerList[i].getName() + " landede på " + gameBoard.getFields()[playerList[i].getPosition()].getFieldName() + " og har nu muligheden for at købe", "Køb", "Ignorere");
                 if (buyOrNot) {
                     playerList[i].addToPlayerOwnedFields();
-                    ((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), true);
+                    ((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), true, gotHereByCard);
                 } else {
-                    ((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), false);
+                    ((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), false, gotHereByCard);
                 }
             } else {
-                ((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), true);
+                ((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), true, gotHereByCard);
             }
 
         }
@@ -347,7 +348,7 @@ public class GameController {
                         //System.out.println(playerList[i].getName() + " before landing on field: " + playerList[i].getMoney());
 
 
-                        DoAfterMove(i);
+                        DoAfterMove(i, false);
 
                         //here we update the player position again to make sure it's correct if a chancecard has been used
                         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
