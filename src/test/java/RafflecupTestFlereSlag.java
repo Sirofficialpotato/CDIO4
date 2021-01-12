@@ -1,16 +1,14 @@
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.ArrayList;
 
+import static org.junit.jupiter.api.Assertions.*;
 
-class RafflecupTest {
+class RafflecupTestFlereSlag {
 
     @Test
     void useRafflecup() {
-
-
-
-      final int NUMBEROFTRIES = 100000;
+        final int NUMBEROFTRIES = 100000;
         Die d1 = new Die(2);
         Die d2 = new Die(2);
         int[] counterArray = new int[11];
@@ -42,16 +40,13 @@ class RafflecupTest {
         }
 
         System.out.println("Samme slag?");
-            if (tester.SameDie() == true)
-            {
-                System.out.println("Same");
-            }
-            else
-                System.out.println("not same");
-
-
-
+        if (tester.SameDie() == true)
+        {
+            System.out.println("Same");
+        }
+        else
+            System.out.println("not same");
     }
+
+
 }
-
-
