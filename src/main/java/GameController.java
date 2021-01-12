@@ -184,16 +184,16 @@ public class GameController {
             //if the player has over 1000 gives both opportunities:
             String chosenbutton;
             if (uiController.getGuiPlayer(i).getBalance() > 999 && playerList[i].getTurnsInJail() != 3) {
-                chosenbutton = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + " er i fængsel og kan nu vælge imellem følgende muligheder for at komme ud", "Betal 1000,-", "Slå 2 ens");
+                chosenbutton = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + " er i fængsel og kan nu vælge imellem følgende muligheder for at komme ud", "Betal M1000", "Slå 2 ens");
             } else if (playerList[i].getTurnsInJail() == 3) {
-                chosenbutton = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + " er i fængsel og kan nu vælge imellem følgende muligheder for at komme ud", "Betal 1000,-");
+                chosenbutton = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + " er i fængsel og kan nu vælge imellem følgende muligheder for at komme ud", "Betal M1000");
                 playerList[i].addToTurnsInJail(-3);
                 System.out.println(playerList[i].getName()+ " has been in prison for " + playerList[i].getTurnsInJail());
             } else {
                 chosenbutton = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + " er i fængsel og kan nu vælge imellem følgende muligheder for at komme ud", "Slå 2 ens");
             }
 
-            if (chosenbutton.equals("Betal 1000,-")) {
+            if (chosenbutton.equals("Betal M1000")) {
                 playerList[i].setMoney(+-1000);
                 uiController.getGuiPlayer(i).setBalance(playerList[i].getMoney());
                 playerList[i].setInJail(false);
