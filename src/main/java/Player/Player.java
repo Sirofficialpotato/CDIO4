@@ -142,7 +142,6 @@ public class Player{
         }
        return playerAsset;
    }
-
     public boolean hasPlayerSpecific(){
         boolean tester = false;
         for (int i = 0; i < jailCards.size; i++) {
