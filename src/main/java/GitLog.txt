@@ -1,0 +1,210 @@
+samme slut penge 2.o Martin 9 minutes ago
+ændret playerMoney tilbage til 16 ved 4 spillere Sealnpenguin 18 minutes ago
+Har løst fejl hvor player returnere null til cardarray som medføre nullpointer exception Sealnpenguin 20 minutes ago
+Har fjernet ubrugte metoder samt udkommenteret kode Sealnpenguin Today 15:03
+Merge remote-tracking branch 'origin/Development' into Development Sealnpenguin Today 13:56
+Opdateret kommentar inde i FieldsOnBoard Sealnpenguin Today 13:56
+Lavet Gitlog og JarFil zPadduz Today 13:34
+Merge remote-tracking branch 'origin/Development' into master zPadduz 5 minutes ago
+Sidste små rettelserp p1 zPadduz 8 minutes ago
+Merge remote-tracking branch 'origin/Development' into Development zPadduz 44 minutes ago
+Samme penge slut opdateret med console checker2 Martin Today 12:27
+Rettede ChooseColor så man kan vælge hvid igen zPadduz Today 12:20
+Samme penge slut opdateret med console checker Martin Today 12:16
+Samme penge slut opdateret Martin Today 12:12
+Fikset fejl hvor feltowner ikke passede overens - opstod når man trykkede spil igen zPadduz Today 12:11
+Merge remote-tracking branch 'origin/Development' into Development zPadduz Today 11:58
+Redigere i feltfarve så der ikke er flere med ens farver, fjernet engelsk som sprogmulighed da denne ikke er færdig, små rettelser i kommentarer zPadduz Today 11:58
+Merge remote-tracking branch 'origin/Development' into Development Martin Today 11:47
+Hvis to spillere ender med samme penge checker den Properties og finder en vinder. Martin Today 11:47
+Har implementeret toString metode i FieldsOnBoard der udskriver fieldArrayet. Sealnpenguin Today 11:43
+Redigere i baggrundsfarven zPadduz Yesterday 21:09
+Har færdiggjordt funktionen af PlayerSpecific cards. Kan ikke finde flere fejl Sealnpenguin Yesterday 16:23
+Merge branch 'Development' into master Sealnpenguin Yesterday 13:25
+Indsat ting der forsvandt efter merge zPadduz Yesterday 13:20
+Har tilføjet ny metode i GameBoard der skal håndtere når en spiller har et PlayerSpecific Card. Har ikke testet den endnu. har videre tilføjet en metode til player, som tjekker om spilleren har et PlayerSpecific kort Sealnpenguin Yesterday 11:49
+Kommentar tilføjet Sealnpenguin Yesterday 10:26
+Har rettet navnetjek så man ikke kan vælge samme navn Sealnpenguin Yesterday 10:25
+rettede farve lysegul til orange Sealnpenguin Yesterday 10:05
+Implmenteret så flere spillere ikke kan vælge samme farve Sealnpenguin Yesterday 09:58
+Merge remote-tracking branch 'origin/Development' into Development Sealnpenguin Yesterday 09:56
+Implmenteret så flere spillere ikke kan vælge samme farve Sealnpenguin Yesterday 09:53
+Delt choosecolor() op i to et til check om 2 spillere har samme farve og en til at vælge farve. udkommentaret navnetjekkeren fordi den ikke er nødvendig? zPadduz Yesterday 00:19
+Fjernet overflødige kode, rettet i tanker, rettet på opstillingen zPadduz 24-11-2020 18:05
+Merge remote-tracking branch 'origin/Development' into Development zPadduz 24-11-2020 17:49
+hotfix - der var ikke sat tuborgklamme ved den nye updateguifieldowner zPadduz 24-11-2020 17:49
+Opdateret Player.setSpecificPosition så den tager højde for om man passere start Sealnpenguin 24-11-2020 17:44
+Merge remote-tracking branch 'origin/Development' into Development zPadduz 24-11-2020 17:24
+Indstart så man får penge når man passere start - denne skal testes ikke sikker på det virker, og påbegyndt at gøre så man kan se owner i gui zPadduz 24-11-2020 17:22
+Opdateret UIController.updateGUIFieldOwner så border color ændre sig på felt Sealnpenguin 24-11-2020 17:21
+Merge remote-tracking branch 'origin/Development' into Development Sealnpenguin 24-11-2020 16:38
+Tilføjet beskrivelse af UIController.updateGUIFieldOwner som kommentar Sealnpenguin 24-11-2020 16:38
+Merge remote-tracking branch 'origin/Development' into Development [zPaddyz] 24-11-2020 16:36
+Implmenteret ny metode til UiController. Den kan bruges til at opdatere ejere i GUI hvor gang en spiller har haft sin tur Sealnpenguin 24-11-2020 16:35
+indsat for loop til at opdatere gui spiller beholdning [zPaddyz] 24-11-2020 16:34
+ommbytning af burgerbar og pizza hus samt forkerte navne rettet Sealnpenguin 24-11-2020 13:30
+Merge remote-tracking branch 'origin/Development' into Development Sealnpenguin 24-11-2020 11:58
+Rettede en fejl i ChooseToMove jeg selv havde introduceret Sealnpenguin 24-11-2020 11:55
+Merge remote-tracking branch 'origin/Development' into Development ASBP 24-11-2020 11:44
+Har omskrevet landOnField for Propeties så den tager højde for om alle felter i en gruppe er ejet af samme spiller. Har videre delt landOnField kaldet i GameBoard op i 3 cases. FieldChance, Propeties og alle andre Sealnpenguin 24-11-2020 09:52
+JailTest + setInJail-justeringer ASBP 23-11-2020 23:26
+Har færdiggjordt ChooseToMove test og har rettet nogle fejl i den Sealnpenguin 23-11-2020 21:16
+har rettet loop så det virker Sealnpenguin 23-11-2020 19:21
+Har indsat loop i GameBoard der undersøger om der skal trækkes et chancekort mere Sealnpenguin 23-11-2020 19:20
+Tilføjet tanker og mangler - Se GameBoard zPadduz 23-11-2020 19:10
+Opdateret Language til at stemme overens med chancekort zPadduz 23-11-2020 18:41
+Merge remote-tracking branch 'origin/Development' into Development zPadduz 23-11-2020 18:37
+Tilføjet Figur navne til hver person - rettet at kortene ikke var blandet zPadduz 23-11-2020 18:37
+5 tests med 100% coverage fixet array out of bounds ved 2 spillere Martin 23-11-2020 18:34
+Test merge fra new development branch Martin 23-11-2020 17:57
+Merge remote-tracking branch 'origin/NewDevelopment' into Development Martin 23-11-2020 17:54
+Merge remote-tracking branch 'origin/Development' into Development zPadduz 23-11-2020 17:32
+Indsat felters landOnField funktioner i GameBoard, samt lavet et if-statement til at checke om spilleren skal trække et chancekort. derudover - rettet Jail til at sende spiller til den rigtige position. Rettet rullebrætsparken til skaterparken zPadduz 23-11-2020 17:32
+Test: PlayerSpecific 100% coverage. Martin 23-11-2020 17:03
+Test: GetOutOfJail 100% coverage. Test: GetPaidOrPay 100% coverage. Martin 23-11-2020 16:23
+Tilføjet ChooseToMovetest Sealnpenguin 23-11-2020 16:08
+Fejl rettet så FieldGenerator ikke længere giver karakterens asciværdi til ejendommen Sealnpenguin 23-11-2020 15:27
+Er begyndt test af chancekort underklasser og har tilføjet kode til FieldChance så den fjerne fængselskort fra bunke hvis det trækkes fra bunken Sealnpenguin 23-11-2020 11:31
+Merge remote-tracking branch 'origin/Development' into NewDevelopment zPadduz 22-11-2020 17:36
+Løst Merge konflikt zPadduz 22-11-2020 17:36
+Merge remote-tracking branch 'origin/ClassDevelopment' into Development zPadduz 22-11-2020 17:32
+Har testet om chancekort opdatere spillerposition. Det virker umiddelbart Sealnpenguin 22-11-2020 14:24
+Er begyndt at skrive test til chancekort Sealnpenguin 22-11-2020 14:07
+Har ændret takeChanceCard fra chanceField så kortet puttes ned i bunden Sealnpenguin 22-11-2020 12:31
+renskrev noget kod i SpecificField så den bruger landOnFields metoden Sealnpenguin 22-11-2020 12:20
+DrawCard metode for ChooseToMove kalder også field hvis man lander på det Sealnpenguin 22-11-2020 11:27
+Implementeret drawCard for ChooseToMove Sealnpenguin 22-11-2020 11:19
+Har opdateret landOnField metoden for chancefeltet. Man bliver nød til at tjekke for hvert slag om det ændre playposistion til et chancefelt da man så skal kalde landOnField med ekstra parameter som UIController.getGuiInput kan levere Sealnpenguin 22-11-2020 10:57
+Tilføjet stor switch til getGuiInput som undersøger om det næst trukne kort er et valg kort og beder bruger om input baseret på det hvilket kort det er Sealnpenguin 22-11-2020 10:38
+Lavet for loopet og switchen der styrer tilføjelsen af spillerne om til playercreator(), rettet jail functionen til at afspejle reglerne bedre zPadduz 21-11-2020 23:07
+Test Import af development og classdevelopment zPadduz 21-11-2020 22:09
+Merge remote-tracking branch 'origin/Development' into NewDevelopment zPadduz 21-11-2020 22:05
+fandt nogle småfejl i noget logik i SpecificField så rettede det Sealnpenguin 21-11-2020 20:16
+har opdateret FieldChance.takeChanceCard så den selv holder styr på om man har været bunken gennem og blander hvis man har været det Sealnpenguin 21-11-2020 19:44
+har opdateret FieldChance.generateChanceCards so den nu tager en boolean der bestemmer om fængselskort skal med eller ej Sealnpenguin 21-11-2020 19:41
+Har implementeret og testet mixCards i fieldChance metoden da den nu indeholder vores chancekort Sealnpenguin 21-11-2020 19:34
+Gjort så 2 spillere ikke kan have det samme navn, oprettet setName metode i player for dette kunne opnås zPadduz 21-11-2020 19:28
+Har indsat jail funktionen som enten springer spillers tur over eller bruger jailcard - har ændret Jailcard til boolean i player zPadduz 21-11-2020 18:43
+har implementeret removeAt metode for DynamicArr. Sidder og fejlfinder da det giver nogle problemer Sealnpenguin 21-11-2020 18:42
+Ændret alle nødvendige attributer i GameBoard til private zPadduz 21-11-2020 18:02
+Begyndt implmentering af chanceField Sealnpenguin 21-11-2020 17:47
+Indsat spil igen string i language og brugt dem i GameBoard zPadduz 21-11-2020 17:45
+Opdelt game() i flere metoder så det er nemmere at holde styr på den enkelte - Oprettet restart game funktion zPadduz 21-11-2020 17:41
+Startet på implmentering af landOnField metoder i de forskellige subkclasses af Field Sealnpenguin 21-11-2020 17:34
+Har tilføjet abstract metode til Fields samt indskrevet grundskelet så der ikke var fejl Sealnpenguin 21-11-2020 16:55
+Har lappet Development så vi har et program der begynder at kunne køre derinde. Det skulle være ens med new Development. Videre har jeg opdelt classes i packages Sealnpenguin 21-11-2020 16:47
+Merge branch 'ClassDevelopment' into Development Sealnpenguin 21-11-2020 16:35
+Merge remote-tracking branch 'origin/Development' into Development SAA.DK 21-11-2020 14:32
+Push hvis der har været nogle ændringer SAA.DK 21-11-2020 14:31
+Kopieret ClassDevelopment GameBoard in i development Sealnpenguin 21-11-2020 14:24
+tilføjet PlayerTest og FieldsOnBoardTest til git Sealnpenguin 21-11-2020 14:14
+Ændring i chancekort 18 SAA.DK 21-11-2020 14:11
+added uiDesigner.xml til git Sealnpenguin 21-11-2020 14:07
+Merge remote-tracking branch 'origin/Development' into Development SAA.DK 21-11-2020 14:03
+Chancekortet Strandpromenaden er implementeret SAA.DK 21-11-2020 14:02
+Tilføjet boolean drawAgain i Cards. Den kan man kalde for at undersøge om flere kort skal trækkes fra GameBoard Sealnpenguin 21-11-2020 13:58
+Merge remote-tracking branch 'origin/Development' into Development SAA.DK 21-11-2020 13:38
+Chancekort 2, 3 og 18 er nu implementeret SAA.DK 21-11-2020 13:38
+GetOutOfJail card implementeret Sealnpenguin 21-11-2020 13:38
+Har implementeret en del af "PlayerSpecific" kort. Kat/Hund osv. Har gjordt så de gives videre til den rigtige spiller. Mangler dog kald tilbage til GUI så man trækker et kort mere Sealnpenguin 21-11-2020 13:29
+Opdateret spiller så hver har et dynamicarray af Cards Sealnpenguin 21-11-2020 13:23
+implementering af kort: 7, 14, 16. Uden hensyn til bank endnu Sealnpenguin 21-11-2020 13:12
+Merge remote-tracking branch 'origin/Development' into Development Sealnpenguin 21-11-2020 13:02
+Implementering af kort "14" Sealnpenguin 21-11-2020 13:01
+Skateparken er færdig SAA.DK 21-11-2020 13:00
+Opdateret propeties mere Sealnpenguin 21-11-2020 12:47
+Opdateret propeties mere Sealnpenguin 21-11-2020 12:24
+Opdateret propeties så ownedBy er integer der referere til player[] index Sealnpenguin 21-11-2020 12:16
+Lagt alle fields i samme package, samt opdateret de andre subclasses der bruger Field package SAA.DK 21-11-2020 12:11
+Går igang med Switch statement omkring de forskellige chancekort SAA.DK 21-11-2020 12:03
+Merget new development til development Sealnpenguin 21-11-2020 11:33
+DrawCard modtager nu player index SAA.DK 21-11-2020 11:15
+Merget new development til development Sealnpenguin 21-11-2020 11:11
+Merge branch 'NewDevelopment' into Development Sealnpenguin 21-11-2020 11:07
+Merge remote-tracking branch 'origin/Development' into Development Sealnpenguin 21-11-2020 11:01
+Subclasses i Cards SAA.DK 21-11-2020 11:00
+Merge remote-tracking branch 'origin/Development' into Development Sealnpenguin 21-11-2020 10:41
+tilføjet kommentar Sealnpenguin 21-11-2020 10:41
+Har oprettet muligheden for at vælge sprog zPadduz 20-11-2020 15:48
+Oprettet taber betingelsen (hvis en spiller rammer 0 så slutter spillet) zPadduz 20-11-2020 15:13
+Oprettet taber betingelsen (hvis en spiller rammer 0 så slutter spillet) zPadduz 20-11-2020 15:11
+ændret jail beskrivelse til dansk, rykket updateGUIPlayerPos() ind i for loopet over zPadduz 20-11-2020 14:19
+Tilføjede for loop i GameBoard der placere spillere på start feltet inden man slår med terningen Sealnpenguin 20-11-2020 13:41
+Har tilføjet farver til UIFieldGen Sealnpenguin 20-11-2020 13:34
+Har ændret i GameBoard så den nu opretter "mere rigtige felter" Sealnpenguin 20-11-2020 11:46
+Har merget new Development ind til classDevelopment for at få oprettet det rigtige fieldArray og få det til at virke. Har begyndt at lave videre på FieldsOnBoard til brug som data for de rigtige fields Sealnpenguin 20-11-2020 11:28
+Har merget new Development ind til classDevelopment for at få oprettet det rigtige fieldArray og få det til at virke Sealnpenguin 20-11-2020 09:28
+Merge branch 'NewDevelopment' into ClassDevelopment Sealnpenguin 20-11-2020 09:26
+Fjernet udkommentering i UIControllerTest Sealnpenguin 20-11-2020 09:24
+EIRJHIJE Martin 19-11-2020 14:30
+Test af kommentar Martin 19-11-2020 13:59
+Merge remote-tracking branch 'origin/Development' into Development SAA.DK 19-11-2020 13:55
+Ædret JailCard til boolean og false. Samt oprettet Cards, CardsTest og CatCard SAA.DK 19-11-2020 13:54
+implmenteret jans metode Martin 19-11-2020 13:53
+Rykket oprettelse af GUI_Player[] til en metode frem for konstrukter i UIController Sealnpenguin 19-11-2020 13:16
+rollbACK1 Martin 19-11-2020 12:50
+Merge remote-tracking branch 'origin/Development' into Development Sealnpenguin 19-11-2020 12:38
+Påbegyndt at bruge ui controller til at styre gui. ændret i Player så når player position rammer 24 resetter den zPadduz* 18-11-2020 15:26
+Merge remote-tracking branch 'origin/Development' into Development Martin 19-11-2020 12:03
+Arraylist ygiew Martin 19-11-2020 12:00
+Arralist constructer overloadet så array kan være input Sealnpenguin 19-11-2020 11:24
+Har ændret UIController til at bruge vores egen Arraylist Sealnpenguin 19-11-2020 10:59
+allFields[] færdigt, indeholdende alle felter angivet på brættet med navn og beskrivelse. Oprettet i klassen FieldsOnBoard. ASBP 18-11-2020 20:38
+Protected attributter i Fields. Problemer med nedarvning. Påbegyndt navngivning af felter i ny klasse FieldsOnBoard. ASBP 18-11-2020 20:26
+Påbegyndt at bruge ui controller til at styre gui. ændret i Player så når player position rammer 24 resetter den zPadduz 18-11-2020 15:26
+Har lavet en test af UIController.updateGUIPlayerPos. Fandt derefter en række fejl i UIController som jeg rettede Sealnpenguin 18-11-2020 14:32
+Ændrede GameBoard så alle dens referencer til player.wallet nu bruger de nye metoder i Player class Sealnpenguin 18-11-2020 13:29
+Tilføjede setMoney metode til player så vi kan kalde den i stedet for player.wallet.setMoney. updaterede GameBoard så det reflekterede denne ændring Sealnpenguin 18-11-2020 13:28
+Har tilføjet updateGUIPlayerPos metode der opdatere GUI i forhold til en spiller nye position. Sealnpenguin 18-11-2020 13:14
+Constructer tilføjet til UIController Sealnpenguin 18-11-2020 11:19
+Har rykket wallet i player op til attribute. Videre har jeg tilføjet en UIPlayerGen til UIController. Jeg har også tilføjet en metode i player så man kan returnere Money fra dens wallet Sealnpenguin 18-11-2020 11:11
+Lavet en farve switch til mulig brug og oprettet gameover boolean til at stoppe spillet zPadduz 18-11-2020 00:32
+Fjernet hasTurn boolean igen, justeret GameBoard til at virke uden uicontroller for nu og fikset Wallets setMoney metode zPadduz 17-11-2020 23:24
+Rodet rundt i de forskellige klasser og tilføjet de, ihvertfald midlertige løsninger zPadduz 17-11-2020 20:10
+Merge remote-tracking branch 'origin/Development' into Development zPadduz 17-11-2020 17:48
+Brugt gui i gameboard for at se funktioner zPadduz 11-11-2020 14:38
+Merge branch 'ClassDevelopment' into Development Sealnpenguin 17-11-2020 16:40
+Merge branch 'UI' into ClassDevelopment Sealnpenguin 17-11-2020 16:40
+Merge branch 'ClassDevelopment' into Development Sealnpenguin 17-11-2020 16:38
+Arraylist Sletter sidste element Martin 17-11-2020 15:50
+Git overleaf fjernet Lucas Arleth Lykke 17-11-2020 12:38
+Arraylist med templates (nem klasse initialisering: String, integer osv...) Martin 16-11-2020 19:49
+Arraylist med templates (nem klasse initialisering: String, integer osv..) Martin 16-11-2020 19:45
+Arraylist efter test (virker) Martin 16-11-2020 18:07
+Arraylist udvide funktioner og fuld(?) test Martin 16-11-2020 15:55
+arraylist test2 Martin 16-11-2020 15:22
+arraylist test Martin 16-11-2020 15:05
+arraylist4 Martin 16-11-2020 14:27
+arraylist3 Martin 16-11-2020 14:23
+arraylist2 Martin 16-11-2020 14:19
+Tilføjede kommentarer og GUI_player field metode til UIController Sealnpenguin 16-11-2020 14:16
+arraylist Martin 16-11-2020 14:15
+Properties max value, GameBoard getname() Martin 14-11-2020 18:31
+Die - needs playerCount Wallet - "minus money"? sirofficialpotato 13-11-2020 19:42
+Tilføjede getter metode for fieldDescription i den abstrakte klasse Field. Så behøver de ikke implementeres i underklasserne. Har også ændret UIController så den nu bruger FieldChance i stedet for FieldInfo. Sealnpenguin 13-11-2020 17:03
+Merge branch 'ClassDevelopment' into UI Sealnpenguin 13-11-2020 16:58
+Har tilføjet FieldChance så chancekort er deres egen specialisering af Field Sealnpenguin 13-11-2020 16:57
+Er begyndt på at lave FieldGenerator hvor man parser et array. Mangler stadig at få finpusset detaljerne Sealnpenguin 13-11-2020 13:34
+Merge branch 'ClassDevelopment' into UI Sealnpenguin 13-11-2020 13:00
+getter metoder tilføjet til Field relaterede klasser. Attributter kan stadig tilgås udefra. ASBP 13-11-2020 11:53
+Tilføjet ownedBy i Properties. ASBP 13-11-2020 09:48
+Første færdige udkast til Field-relaterede klasser. Obs. Felterne Start og Jail kan stadig ændres udefra. ASBP 13-11-2020 09:45
+Field gjort abstrakt. ASBP 13-11-2020 09:27
+Påbegyndt extentions til Field. ASBP 13-11-2020 09:00
+Ejendomme til UI. Højst ufærdigt. ASBP 12-11-2020 21:22
+Forsøg på beskrivelse af ejendomme (virker ikke) ASBP 12-11-2020 20:30
+Forberedelse til udviklingen af Field. ASBP 12-11-2020 19:04
+Oprettelse af Field-relaterede klasser ASBP 11-11-2020 22:39
+testede om GUI_Jail gjorde det forventede Sealnpenguin 11-11-2020 19:57
+player class - setproperties, jailCard, Martin 11-11-2020 18:52
+Rettelser i GameBoard zPadduz 11-11-2020 13:42
+Tilpasset GameBoard til mere til Player klassen og videreudviklet på den zPadduz 11-11-2020 12:52
+UIFieldGen test. Virker med at oprette 24 start felter. Sealnpenguin 11-11-2020 12:22
+Oprettet GameBoard påbegyndt kodning zPadduz 11-11-2020 12:11
+UIFieldGen test Sealnpenguin 11-11-2020 12:03
+basalt skelet af UIFieldGenerator Sealnpenguin 11-11-2020 11:55
+poperties array Martin 11-11-2020 11:29
+Player Class Martin 11-11-2020 11:24
+Tilføjet overleaf?? zPadduz 09-11-2020 15:04
+test til gui Sealnpenguin 08-11-2020 12:04
+Initial commit Sealnpenguin 05-11-2020 10:32
