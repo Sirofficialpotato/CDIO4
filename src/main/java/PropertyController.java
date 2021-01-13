@@ -94,6 +94,7 @@ public class PropertyController {
     //Generates boolean field with true for all fields that player can build on
     public void generatePossibilities(int playerNumber){
         updateProperties();
+        Arrays.fill(canBuy, false);
             for (int i = 0; i < fields.length; i++) {
                 if(fields[i] instanceof Properties && isFieldBuildable((Properties) fields[i], playerNumber) && ((Properties) fields[i]).getBuildOn() < 5){
                     canBuy[i] = true;
@@ -156,6 +157,7 @@ public class PropertyController {
         return possibilities;
     }
     public void generateSellingPossibilities(int player){
+        Arrays.fill(canSell, false);
         for (int i = 0; i < fields.length; i++) {
             if(fields[i] instanceof Properties){
                 if(((Properties) fields[i]).getOwnedBy() == player && ((Properties) fields[i]).getBuildOn() > 0){
