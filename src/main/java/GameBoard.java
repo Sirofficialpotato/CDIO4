@@ -27,10 +27,8 @@ public class GameBoard {
         Language langSelector = new Language("dk");
         currentLang = langSelector.returnLang();
         generateChanceCards(true);
-        ((FieldShipYard)myFields[5]).setOwnedBy(1);
-        while(!cards.getLast().getCardText().equals("Ryk frem til det nærmeste rederi og betal ejeren to gange den leje han ellers er berettiget til, hvis selskabet ikke ejes af nogen kan De købe det af banken.")) {
-            mixCards();
-        }
+        mixCards();
+
 
     }
 
