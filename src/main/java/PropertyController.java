@@ -11,6 +11,7 @@ public class PropertyController {
     private final int[][][] properties = new int[8][3][3];
     private final Field[] fields;
     private final boolean[] canBuy = new boolean[40];
+    private boolean[] canPawn = new boolean[40];
 
     public PropertyController(Field[] fields){
         this.fields = fields;
@@ -68,6 +69,24 @@ public class PropertyController {
 
         return groupOwner;
     }
+    public boolean hasGroupBuildingsOnIt(Properties field){
+        boolean hasBuildings = false;
+        for (int i = 0; i < properties[field.getGroup()].length; i++) {
+            if(properties[field.getGroup()][i][1] != 0){
+                hasBuildings = true;
+            }
+        }
+        return hasBuildings;
+    }
+    public boolean isFieldPawnable(Properties field, int playerNumber){
+        boolean pawnable = false;
+        if(field.getOwnedBy() == playerNumber && !hasGroupBuildingsOnIt(field)){
+            pawnable = true;
+        }
+
+
+        return pawnable;
+    }
 
     //Generates boolean field with true for all fields that player can build on
     public void generatePossibilities(int playerNumber){
@@ -77,6 +96,14 @@ public class PropertyController {
                     canBuy[i] = true;
                 }
             }
+    }
+    public void generatePawningPossibilities(int playerNumber){
+        updateProperties();
+        for (int i = 0; i < fields.length; i++) {
+            if(fields[i] instanceof Properties && isFieldPawnable((Properties) fields[i], playerNumber)){
+                canPawn[i] = true;
+            }
+        }
     }
     //sets fields not to be used to -2
     public void set3rdSpaceIn2PropGroupsToN2(){
@@ -104,7 +131,24 @@ public class PropertyController {
         }
         return possibilities;
     }
-
+    public Field[] getPawningPossibilites(int player){
+        Field[] possibilities;
+        int totalPossibilities = 0;
+        for (boolean b : canPawn) {
+            if (b) {
+                totalPossibilities++;
+            }
+        }
+        possibilities = new Field[totalPossibilities];
+        int fieldCounter = 0;
+        for (int i = 0; i < fields.length; i++) {
+            if(canPawn[i]){
+                possibilities[fieldCounter] = fields[i];
+                fieldCounter++;
+            }
+        }
+        return possibilities;
+    }
     public void initCanBuy(){
         Arrays.fill(canBuy, false);
     }
