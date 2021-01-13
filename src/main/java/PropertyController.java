@@ -69,6 +69,7 @@ public class PropertyController {
 
         return groupOwner;
     }
+    //Checks if any building are present on the group of the field that is parsed
     public boolean hasGroupBuildingsOnIt(Properties field){
         boolean hasBuildings = false;
         for (int i = 0; i < properties[field.getGroup()].length; i++) {
@@ -78,6 +79,7 @@ public class PropertyController {
         }
         return hasBuildings;
     }
+    //Checks if the player that is parsed can pawn the field that is parsed
     public boolean isFieldPawnable(Properties field, int playerNumber){
         boolean pawnable = false;
         if(field.getOwnedBy() == playerNumber && !hasGroupBuildingsOnIt(field)){
@@ -97,7 +99,9 @@ public class PropertyController {
                 }
             }
     }
+    //Generates a boolean array where indecies are true if the field can be pawned
     public void generatePawningPossibilities(int playerNumber){
+        Arrays.fill(canPawn, false);
         updateProperties();
         for (int i = 0; i < fields.length; i++) {
             if(fields[i] instanceof Properties && isFieldPawnable((Properties) fields[i], playerNumber)){
@@ -132,6 +136,7 @@ public class PropertyController {
         return possibilities;
     }
     public Field[] getPawningPossibilites(int player){
+        generatePawningPossibilities(player);
         Field[] possibilities;
         int totalPossibilities = 0;
         for (boolean b : canPawn) {
