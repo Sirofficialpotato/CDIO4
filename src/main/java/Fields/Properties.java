@@ -11,6 +11,7 @@ public class Properties extends Field {
     private final int index;
     int priceMulti = 1;
     int rent;
+    boolean pawned = false;
     // All ownable properties with a value and a color
     public Properties(String name, String description, String color,int value, int index){
         super(name, description);
@@ -125,6 +126,16 @@ public class Properties extends Field {
 
     }
 
+    public void pawnBuilding(Player player){
+        if(pawned == false) {
+            pawned = true;
+            player.setMoney(this.price);
+        }
+        else{
+            pawned = false;
+            player.setMoney(-this.price*110/100);
+        }
+    }
     public String getFieldName() {
         return fieldName;
     }
