@@ -85,7 +85,7 @@ public class PropertyController {
     }
 
     //builds field[] that returns all fields player can build on
-    public Field[] getPosibillites(int player){
+    public Field[] getBuyingPosibillites(int player){
         generatePossibilities(player);
         Field[] possibilities;
         int totalPossibilities = 0;

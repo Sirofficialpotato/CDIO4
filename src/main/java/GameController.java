@@ -365,7 +365,7 @@ public class GameController {
                             }
                         }
 
-                        if (pController.getPosibillites(i).length != 0) {
+                        if (pController.getBuyingPosibillites(i).length != 0) {
                             buyHouseOrRoll(i, "Afslut tur");
                         }
 
@@ -398,10 +398,10 @@ public class GameController {
 
     private void buyHouseOrRoll(int i, String RollOrEndTurn){
         //*************************************Player gets the choice to either buy houses/hotels or roll with the dice*******************************************************
-        if (!playerList[i].getInJail() && pController.getPosibillites(i).length != 0) {
-            String[] choiceArr = new String[pController.getPosibillites(i).length];
-            for (int j = 0; j < pController.getPosibillites(i).length; j++) {
-                choiceArr[j] = pController.getPosibillites(i)[j].getFieldName();
+        if (!playerList[i].getInJail() && pController.getBuyingPosibillites(i).length != 0) {
+            String[] choiceArr = new String[pController.getBuyingPosibillites(i).length];
+            for (int j = 0; j < pController.getBuyingPosibillites(i).length; j++) {
+                choiceArr[j] = pController.getBuyingPosibillites(i)[j].getFieldName();
             }
             ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], RollOrEndTurn, "Køb huse/hoteller");
 
@@ -425,7 +425,7 @@ public class GameController {
 
             }
         pController.initCanBuy();
-        } else if (!playerList[i].getInJail() && pController.getPosibillites(i).length == 0) {
+        } else if (!playerList[i].getInJail() && pController.getBuyingPosibillites(i).length == 0) {
             ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], RollOrEndTurn);
         }
         //*************************************Player gets the choice to either buy houses/hotels or roll with the dice*******************************************************
