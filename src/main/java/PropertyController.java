@@ -12,6 +12,7 @@ public class PropertyController {
     private final Field[] fields;
     private final boolean[] canBuy = new boolean[40];
     private boolean[] canPawn = new boolean[40];
+    private boolean[] canSell = new boolean[40];
 
     public PropertyController(Field[] fields){
         this.fields = fields;
@@ -153,6 +154,36 @@ public class PropertyController {
             }
         }
         return possibilities;
+    }
+    public void generateSellingPossibilities(int player){
+        for (int i = 0; i < fields.length; i++) {
+            if(fields[i] instanceof Properties){
+                if(((Properties) fields[i]).getOwnedBy() == player && ((Properties) fields[i]).getBuildOn() > 0){
+                    canSell[i] = true;
+                }
+            }
+        }
+    }
+    public Field[] getSellingPossibilities(int player){
+        generateSellingPossibilities(player);
+        Field[] possibilities;
+        int totalPossibilities = 0;
+        for (boolean b : canSell  ) {
+            if (b) {
+                totalPossibilities++;
+            }
+        }
+        possibilities = new Field[totalPossibilities];
+        int fieldCounter = 0;
+        for (int i = 0; i < fields.length; i++) {
+            if(canSell[i]){
+                possibilities[fieldCounter] = fields[i];
+                fieldCounter++;
+            }
+        }
+
+        return possibilities;
+
     }
     public void initCanBuy(){
         Arrays.fill(canBuy, false);
