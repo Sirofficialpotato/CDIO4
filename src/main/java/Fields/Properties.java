@@ -137,7 +137,7 @@ public class Properties extends Field {
 
     }
 
-    public void pawnBuilding(Player player){
+    public void pawnProperties(Player player){
         if(pawned == false) {
             pawned = true;
             player.setMoney(this.price);
