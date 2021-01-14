@@ -7,7 +7,7 @@ public class FieldShipYard extends Field {
     private int ownedBy;
     private final int price;
     private int rent;
-
+    int priceMulti = 1;
 
     public FieldShipYard(String fieldName, String fieldDescription, String color,int value) {
         super(fieldName, fieldDescription);
@@ -25,7 +25,6 @@ public class FieldShipYard extends Field {
     public void landOnField(Player[] players, int player, Field[] fields, boolean wantToBuyBool, boolean gotHereByCard) {
         //is 1 if group is not owned by same but 2 if group is owned by same
         int cardMulti = 1;
-        int priceMulti = 1;
         //Case when no one owns
         if(this.getOwnedBy() == -1 && wantToBuyBool){
             players[player].setMoney(-this.getPrice());
@@ -36,36 +35,9 @@ public class FieldShipYard extends Field {
             if(gotHereByCard){
                 cardMulti = 2;
             }
-            switch(players[player].getPosition()) {
-                case 5:
-                    if(((FieldShipYard) fields[15]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[25]).getOwnedBy() == this.getOwnedBy()) && (((FieldShipYard) fields[35]).getOwnedBy() == this.getOwnedBy())){priceMulti = 4;}
-                    else if(((FieldShipYard) fields[15]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[25]).getOwnedBy() == this.getOwnedBy())){priceMulti = 3;}
-                    else if(((FieldShipYard) fields[25]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[35]).getOwnedBy() == this.getOwnedBy())){priceMulti = 3;}
-                    else if(((FieldShipYard) fields[15]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[35]).getOwnedBy() == this.getOwnedBy())){priceMulti = 3;}
-                    else if(((FieldShipYard) fields[15]).getOwnedBy() == this.getOwnedBy() || (((FieldShipYard) fields[25]).getOwnedBy() == this.getOwnedBy()) || (((FieldShipYard) fields[35]).getOwnedBy() == this.getOwnedBy())){priceMulti = 2;}
-                    break;
-                case 15:
-                    if(((FieldShipYard) fields[5]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[25]).getOwnedBy() == this.getOwnedBy()) && (((FieldShipYard) fields[35]).getOwnedBy() == this.getOwnedBy())){priceMulti = 4;}
-                    else if(((FieldShipYard) fields[5]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[25]).getOwnedBy() == this.getOwnedBy())){priceMulti = 3;}
-                    else if(((FieldShipYard) fields[25]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[35]).getOwnedBy() == this.getOwnedBy())){priceMulti = 3;}
-                    else if(((FieldShipYard) fields[5]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[35]).getOwnedBy() == this.getOwnedBy())){priceMulti = 3;}
-                    else if(((FieldShipYard) fields[5]).getOwnedBy() == this.getOwnedBy() || (((FieldShipYard) fields[25]).getOwnedBy() == this.getOwnedBy()) || (((FieldShipYard) fields[35]).getOwnedBy() == this.getOwnedBy())){priceMulti = 2;}
-                    break;
-                case 25:
-                    if(((FieldShipYard) fields[5]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[15]).getOwnedBy() == this.getOwnedBy()) && (((FieldShipYard) fields[35]).getOwnedBy() == this.getOwnedBy())){priceMulti = 4;}
-                    else if(((FieldShipYard) fields[5]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[15]).getOwnedBy() == this.getOwnedBy())){priceMulti = 3;}
-                    else if(((FieldShipYard) fields[5]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[35]).getOwnedBy() == this.getOwnedBy())){priceMulti = 3;}
-                    else if(((FieldShipYard) fields[15]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[35]).getOwnedBy() == this.getOwnedBy())){priceMulti = 3;}
-                    else if(((FieldShipYard) fields[5]).getOwnedBy() == this.getOwnedBy() || (((FieldShipYard) fields[15]).getOwnedBy() == this.getOwnedBy()) || (((FieldShipYard) fields[35]).getOwnedBy() == this.getOwnedBy())){priceMulti = 2;}
-                    break;
-                case 35:
-                    if(((FieldShipYard) fields[5]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[15]).getOwnedBy() == this.getOwnedBy()) && (((FieldShipYard) fields[25]).getOwnedBy() == this.getOwnedBy())){priceMulti = 4;}
-                    else if(((FieldShipYard) fields[5]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[25]).getOwnedBy() == this.getOwnedBy())){priceMulti = 3;}
-                    else if(((FieldShipYard) fields[5]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[15]).getOwnedBy() == this.getOwnedBy())){priceMulti = 3;}
-                    else if(((FieldShipYard) fields[15]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[25]).getOwnedBy() == this.getOwnedBy())){priceMulti = 3;}
-                    else if(((FieldShipYard) fields[5]).getOwnedBy() == this.getOwnedBy() || (((FieldShipYard) fields[15]).getOwnedBy() == this.getOwnedBy()) || (((FieldShipYard) fields[25]).getOwnedBy() == this.getOwnedBy())){priceMulti = 2;}
-                    break;
-            }
+
+            checkIfSameShippingOwner(players[player].getPosition(), fields);
+
             System.out.println(priceMulti);
             players[player].setMoney(-this.rent * priceMulti * cardMulti);
             players[this.getOwnedBy()].setMoney(this.rent * priceMulti * cardMulti);
@@ -73,22 +45,92 @@ public class FieldShipYard extends Field {
     }
 
 
-    public void setOwnedBy(int ownerIndex){this.ownedBy = ownerIndex;}
+    public void setOwnedBy(int ownerIndex){
+        this.ownedBy = ownerIndex;
+    }
 
     public String getFieldDescription() {
         return fieldDescription;
     }
 
     public int getPrice() {
-        return price;
+        return this.price;
     }
 
     public int getRent() {
-        return price;
-        //return rent;
+        return this.rent;
+    }
+
+    public int getRentTimesMulti(){
+        return (this.rent*this.priceMulti);
     }
 
     public int getOwnedBy() {
-        return ownedBy;
+        return this.ownedBy;
+    }
+
+    public void checkIfSameShippingOwner(int fieldToCheck, Field[] fields){
+        switch(fieldToCheck) {
+        case 5:
+            if (((FieldShipYard) fields[15]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[25]).getOwnedBy() == this.getOwnedBy()) && (((FieldShipYard) fields[35]).getOwnedBy() == this.getOwnedBy())) {
+                this.priceMulti = 4;
+            } else if (((FieldShipYard) fields[15]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[25]).getOwnedBy() == this.getOwnedBy())) {
+                this.priceMulti = 3;
+            } else if (((FieldShipYard) fields[25]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[35]).getOwnedBy() == this.getOwnedBy())) {
+                this.priceMulti = 3;
+            } else if (((FieldShipYard) fields[15]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[35]).getOwnedBy() == this.getOwnedBy())) {
+                this.priceMulti = 3;
+            } else if (((FieldShipYard) fields[15]).getOwnedBy() == this.getOwnedBy() || (((FieldShipYard) fields[25]).getOwnedBy() == this.getOwnedBy()) || (((FieldShipYard) fields[35]).getOwnedBy() == this.getOwnedBy())) {
+                this.priceMulti = 2;
+            } else if (((FieldShipYard) fields[15]).getOwnedBy() != this.getOwnedBy() && (((FieldShipYard) fields[25]).getOwnedBy() != this.getOwnedBy()) && (((FieldShipYard) fields[35]).getOwnedBy() != this.getOwnedBy())) {
+                this.priceMulti = 1;
+            }
+            break;
+        case 15:
+            if (((FieldShipYard) fields[5]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[25]).getOwnedBy() == this.getOwnedBy()) && (((FieldShipYard) fields[35]).getOwnedBy() == this.getOwnedBy())) {
+                this.priceMulti = 4;
+            } else if (((FieldShipYard) fields[5]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[25]).getOwnedBy() == this.getOwnedBy())) {
+                this.priceMulti = 3;
+            } else if (((FieldShipYard) fields[25]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[35]).getOwnedBy() == this.getOwnedBy())) {
+                this.priceMulti = 3;
+            } else if (((FieldShipYard) fields[5]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[35]).getOwnedBy() == this.getOwnedBy())) {
+                this.priceMulti = 3;
+            } else if (((FieldShipYard) fields[5]).getOwnedBy() == this.getOwnedBy() || (((FieldShipYard) fields[25]).getOwnedBy() == this.getOwnedBy()) || (((FieldShipYard) fields[35]).getOwnedBy() == this.getOwnedBy())) {
+                this.priceMulti = 2;
+            } else if (((FieldShipYard) fields[5]).getOwnedBy() != this.getOwnedBy() && (((FieldShipYard) fields[25]).getOwnedBy() != this.getOwnedBy()) && (((FieldShipYard) fields[35]).getOwnedBy() != this.getOwnedBy())) {
+                this.priceMulti = 1;
+            }
+            break;
+        case 25:
+            if (((FieldShipYard) fields[5]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[15]).getOwnedBy() == this.getOwnedBy()) && (((FieldShipYard) fields[35]).getOwnedBy() == this.getOwnedBy())) {
+                this.priceMulti = 4;
+            } else if (((FieldShipYard) fields[5]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[15]).getOwnedBy() == this.getOwnedBy())) {
+                this.priceMulti = 3;
+            } else if (((FieldShipYard) fields[5]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[35]).getOwnedBy() == this.getOwnedBy())) {
+                this.priceMulti = 3;
+            } else if (((FieldShipYard) fields[15]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[35]).getOwnedBy() == this.getOwnedBy())) {
+                this.priceMulti = 3;
+            } else if (((FieldShipYard) fields[5]).getOwnedBy() == this.getOwnedBy() || (((FieldShipYard) fields[15]).getOwnedBy() == this.getOwnedBy()) || (((FieldShipYard) fields[35]).getOwnedBy() == this.getOwnedBy())) {
+                this.priceMulti = 2;
+            } else if (((FieldShipYard) fields[5]).getOwnedBy() != this.getOwnedBy() && (((FieldShipYard) fields[15]).getOwnedBy() != this.getOwnedBy()) && (((FieldShipYard) fields[35]).getOwnedBy() != this.getOwnedBy())) {
+                this.priceMulti = 1;
+            }
+            break;
+        case 35:
+            if (((FieldShipYard) fields[5]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[15]).getOwnedBy() == this.getOwnedBy()) && (((FieldShipYard) fields[25]).getOwnedBy() == this.getOwnedBy())) {
+                this.priceMulti = 4;
+            } else if (((FieldShipYard) fields[5]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[25]).getOwnedBy() == this.getOwnedBy())) {
+                this.priceMulti = 3;
+            } else if (((FieldShipYard) fields[5]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[15]).getOwnedBy() == this.getOwnedBy())) {
+                this.priceMulti = 3;
+            } else if (((FieldShipYard) fields[15]).getOwnedBy() == this.getOwnedBy() && (((FieldShipYard) fields[25]).getOwnedBy() == this.getOwnedBy())) {
+                this.priceMulti = 3;
+            } else if (((FieldShipYard) fields[5]).getOwnedBy() == this.getOwnedBy() || (((FieldShipYard) fields[15]).getOwnedBy() == this.getOwnedBy()) || (((FieldShipYard) fields[25]).getOwnedBy() == this.getOwnedBy())) {
+                this.priceMulti = 2;
+            } else if (((FieldShipYard) fields[5]).getOwnedBy() != this.getOwnedBy() && (((FieldShipYard) fields[15]).getOwnedBy() != this.getOwnedBy()) && (((FieldShipYard) fields[25]).getOwnedBy() != this.getOwnedBy())) {
+                this.priceMulti = 1;
+            }
+            break;
+        }
     }
 }

@@ -111,6 +111,7 @@ public class GameController {
                             uiController.removeGUIFieldOwner(gameBoard.getFields(), playerList[k].getPlayerOwnedFields().atIndex(i));
                             if (deleteField == 5 || deleteField == 15 || deleteField == 25 || deleteField == 35) {
                                 ((FieldShipYard) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
+                                ((FieldShipYard) gameBoard.getFields()[deleteField]).checkIfSameShippingOwner(deleteField, gameBoard.getFields());
                             }
                             else if(deleteField == 12 || deleteField == 28){
                                 ((Brewery) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
@@ -339,7 +340,7 @@ public class GameController {
                             //Change die on in gui to reflect new roll and update player position
                             rafflecup.useRafflecup();
                             uiController.getGUI().setDice(rafflecup.getD1(), rafflecup.getD2());
-                            playerList[i].setPosition(+rafflecup.RafflecupFaceValue());
+                            playerList[i].setPosition(+/*rafflecup.RafflecupFaceValue()*/5);
 
                             //updates gui player position
                             uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());

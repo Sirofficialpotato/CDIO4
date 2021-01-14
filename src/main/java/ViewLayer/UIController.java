@@ -184,7 +184,7 @@ public class UIController {
             if (((FieldShipYard) fields[field]).getOwnedBy() != -1) {
                 ((GUI_Shipping) this.gui.getFields()[field]).setOwnerName(players[((FieldShipYard) fields[field]).getOwnedBy()].getName());
                 ((GUI_Shipping) this.gui.getFields()[field]).setBorder(this.guiPlayers[((FieldShipYard) fields[field]).getOwnedBy()].getPrimaryColor());
-                //((GUI_Shipping) this.gui.getFields()[field]).setRent("M500");
+                ((GUI_Shipping) this.gui.getFields()[field]).setRent("M"+ ((FieldShipYard) fields[field]).getRentTimesMulti());
             }
         }
         else if(field == 12 || field == 28){
@@ -206,6 +206,8 @@ public class UIController {
             if (((FieldShipYard) fields[field]).getOwnedBy() != -1) {
                 ((GUI_Shipping) this.gui.getFields()[field]).setOwnerName(null);
                 ((GUI_Shipping) this.gui.getFields()[field]).setBorder(Color.lightGray);
+                ((FieldShipYard) fields[field]).checkIfSameShippingOwner(field,fields);
+                ((GUI_Shipping) this.gui.getFields()[field]).setRent("M" + ((FieldShipYard) fields[field]).getRentTimesMulti());
             }
         }
         if(field == 12 || field == 28) {
