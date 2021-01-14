@@ -9,9 +9,9 @@ public class Properties extends Field {
     private final int price;
     private int buildOn = 0;
     private final int index;
-    int priceMulti = 1;
-    int rent;
-    boolean pawned = false;
+    private int priceMulti = 1;
+    private int rent;
+    private boolean pawned = false;
     // All ownable properties with a value and a color
     public Properties(String name, String description, String color,int value, int index){
         super(name, description);
@@ -72,8 +72,16 @@ public class Properties extends Field {
                 case 37, 39 -> doubleSizedGroup(fields, 37, 39);
             }*/
 
-            players[player].setMoney(-this.rent * this.priceMulti);
-            players[this.getOwnedBy()].setMoney(this.rent * this.priceMulti);
+            if(pawned == false){
+                players[player].setMoney(-this.rent * this.priceMulti);
+                players[this.getOwnedBy()].setMoney(this.rent * this.priceMulti);
+            }
+            else{
+                players[player].setMoney(-this.rent * this.priceMulti);
+                players[this.getOwnedBy()].setMoney(this.rent * this.priceMulti * (100/110));
+            }
+
+
         }
     }
     //method for when 2 players have the same amount of money in the end of the game
