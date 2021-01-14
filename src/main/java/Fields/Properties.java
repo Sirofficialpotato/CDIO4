@@ -58,8 +58,8 @@ public class Properties extends Field {
             }*/
         }
 
-        //case if you dont own meaning someone else owns
-        else if(this.getOwnedBy() != player && this.ownedBy != -1){
+        //case if you dont own meaning someone else owns, case if the player is in jail, don't pay rent
+        else if(this.getOwnedBy() !=player && this.ownedBy != -1 && !players[this.getOwnedBy()].getInJail()){
 
             /*switch (players[player].getPosition()) {
                 case 1, 3 -> doubleSizedGroup(fields, 1, 3);

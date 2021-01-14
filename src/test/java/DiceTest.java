@@ -6,8 +6,6 @@ import java.util.ArrayList;
 public class DiceTest {
     public static void DiceTest() {
         final int NUMBEROFTRIES = 100000;
-        Die d1 = new Die(2);
-        Die d2 = new Die(2);
         int[] counterArray = new int[11];
         double[] percentArray = new double[11];
         Rafflecup tester = new Rafflecup();
