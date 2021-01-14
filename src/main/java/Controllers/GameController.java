@@ -373,7 +373,7 @@ public class GameController {
                             }
                         }
 
-                        if (pController.getBuyingPosibillites(i).length != 0) {
+                        if (pController.getBuyingPosibillites(i).length + pController.getPawningPossibilites(i).length + pController.getSellingPossibilities(i).length > 0) {
                             buyHouseOrRoll(i, "Afslut tur");
                         }
 
@@ -410,14 +410,14 @@ public class GameController {
         String[] choicePawnArr = this.initPawnArray(i);
         String[] choiceSellArr = this.initSellArray(i);
 
-        if (!this.playerList[i].getInJail()) {
-            this.ready = this.getBuyOrSellChoice(i, RollOrEndTurn, choiceBuyArr, choiceSellArr, choicePawnArr);
-            while (!ready.equals(RollOrEndTurn)) {
+            do {
+                this.ready = this.getBuyOrSellChoice(i, RollOrEndTurn, choiceBuyArr, choiceSellArr, choicePawnArr);
                 if (this.ready.equals("Køb huse/hoteller") && !this.playerList[i].getInJail()) {
                     this.buyHouse(i, choiceBuyArr);
                     choiceBuyArr = this.initBuyArray(i);
                     choicePawnArr = this.initPawnArray(i);
                     choiceSellArr = this.initSellArray(i);
+
                 } else if (this.ready.equals("Sælg/Pantsæt")) {
                     this.sellOrPawn(i, "Tilbage", choiceSellArr, choicePawnArr);
                     choiceBuyArr = this.initBuyArray(i);
@@ -425,9 +425,15 @@ public class GameController {
                     choiceSellArr = this.initSellArray(i);
 
                 }
-                this.ready = this.getBuyOrSellChoice(i, RollOrEndTurn, choiceBuyArr, choiceSellArr, choicePawnArr);
-            }
-        }
+                else if(this.ready.equals("Kast")){
+                    break;
+                }
+
+
+            }while (!ready.equals("Afslut tur"));
+
+
+
 
 
         this.updateAllGuiFields();
@@ -535,7 +541,7 @@ public class GameController {
         return choicePawnArr;
     }
 
-    public String getBuyOrSellChoice(int i, String RollOrEndTurn, String[] choiceBuyArr, String[] choiceSellArr, String[] choicePawnArr) {
+    public String getBuyOrSellChoice( int i, String RollOrEndTurn, String[] choiceBuyArr, String[] choiceSellArr, String[] choicePawnArr) {
         String choice;
         if (choiceBuyArr.length > 0 && choicePawnArr.length + choiceSellArr.length > 0) {
             choice = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(i).getName() + this.currentLang[14], new String[]{RollOrEndTurn, "Køb huse/hoteller", "Sælg/Pantsæt"});
