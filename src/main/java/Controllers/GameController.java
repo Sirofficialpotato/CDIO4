@@ -489,7 +489,15 @@ public class GameController {
         for(int j = 0; j < this.playerList[i].getPlayerOwnedFields().current; ++j) {
             int currentField = (Integer)this.playerList[i].getPlayerOwnedFields().atIndex(j);
             if (propertyToPawn.equals(this.gameBoard.getFields()[currentField].getFieldName())) {
-                ((Properties)this.gameBoard.getFields()[currentField]).pawnProperties(this.playerList[i]);
+                if(gameBoard.getFields()[currentField] instanceof Properties) {
+                    ((Properties) this.gameBoard.getFields()[currentField]).pawnProperties(this.playerList[i]);
+                }
+                else if(gameBoard.getFields()[currentField] instanceof Brewery){
+                    ((Brewery) this.gameBoard.getFields()[currentField]).pawnBrewery(this.playerList[i]);
+                }
+                else if(gameBoard.getFields()[currentField] instanceof FieldShipYard){
+                    ((FieldShipYard) this.gameBoard.getFields()[currentField]).pawnShipYard(this.playerList[i]);
+                }
                 ((GUI_Ownable)this.uiController.getGUI().getFields()[currentField]).setRent("Pantsat");
                 this.uiController.getGuiPlayer(i).setBalance(this.playerList[i].getMoney());
             }

@@ -76,10 +76,7 @@ public class Properties extends Field {
                 players[player].setMoney(-this.rent * this.priceMulti);
                 players[this.getOwnedBy()].setMoney(this.rent * this.priceMulti);
             }
-            else{
-                players[player].setMoney(-this.rent * this.priceMulti);
-                players[this.getOwnedBy()].setMoney(this.rent * this.priceMulti * (10/100));
-            }
+
 
 
         }

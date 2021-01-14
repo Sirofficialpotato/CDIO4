@@ -40,8 +40,10 @@ public class FieldShipYard extends Field {
             checkIfSameShippingOwner(players[player].getPosition(), fields);
 
             System.out.println(priceMulti);
-            players[player].setMoney(-this.rent * priceMulti * cardMulti);
-            players[this.getOwnedBy()].setMoney(this.rent * priceMulti * cardMulti);
+            if(pawned == false) {
+                players[player].setMoney(-this.rent * priceMulti * cardMulti);
+                players[this.getOwnedBy()].setMoney(this.rent * priceMulti * cardMulti);
+            }
         }
     }
 

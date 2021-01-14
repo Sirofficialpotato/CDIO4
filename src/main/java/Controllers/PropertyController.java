@@ -124,6 +124,12 @@ public class PropertyController {
             if(fields[i] instanceof Properties && isFieldPawnable((Properties) fields[i], playerNumber)){
                 canPawn[i] = true;
             }
+            else if(fields[i] instanceof Brewery && ((Brewery) fields[i]).getOwnedBy() == playerNumber){
+                canPawn[i] = true;
+            }
+            else if(fields[i] instanceof FieldShipYard && ((FieldShipYard) fields[i]).getOwnedBy() == playerNumber){
+                canPawn[i] = true;
+            }
         }
     }
     //sets fields not to be used to -2
