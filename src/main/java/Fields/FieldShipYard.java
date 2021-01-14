@@ -8,6 +8,7 @@ public class FieldShipYard extends Field {
     private final int price;
     private int rent;
     int priceMulti = 1;
+    boolean pawned = false;
 
     public FieldShipYard(String fieldName, String fieldDescription, String color,int value) {
         super(fieldName, fieldDescription);
@@ -68,6 +69,17 @@ public class FieldShipYard extends Field {
     public int getOwnedBy() {
         return this.ownedBy;
     }
+
+    public void pawnShipYard(Player player) {
+        if (pawned == false) {
+            pawned = true;
+            player.setMoney(this.price);
+        } else {
+            pawned = false;
+            player.setMoney(-this.price * 110 / 100);
+        }
+    }
+
 
     public void checkIfSameShippingOwner(int fieldToCheck, Field[] fields){
         switch(fieldToCheck) {
