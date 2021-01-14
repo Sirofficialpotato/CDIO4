@@ -212,7 +212,7 @@ public class GameController {
                     playerList[i].setPosition(+rafflecup.RafflecupFaceValue());
                     //updates gui player position
                     uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
-                    fieldchanceCheck(i);
+                    fieldChanceCheck(i);
 
                 } else if (!rafflecup.SameDie() && playerList[i].getTurnsInJail() == 3) {
                     playerList[i].setInJail(false);
@@ -232,7 +232,7 @@ public class GameController {
         }
     }
 
-    private void fieldchanceCheck(int i) {
+    private void fieldChanceCheck(int i) {
 
         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
         //********************checks is player is on a chancefield if so he draws a card***********************************
@@ -241,6 +241,7 @@ public class GameController {
             ((FieldChance) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), gameBoard.getCards());
             uiController.getGUI().displayChanceCard(currentCard.getCardText());
             uiController.getGUI().showMessage(playerList[i].getName() + " trækker et lykkekort! ");
+            uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
             //Loop that draws cards until the last drawn card has drawAgain == false
             //If else statements keeps track of which type of card and acts accordingly
             gameBoard.getCards().lastItemToFront();
@@ -359,7 +360,7 @@ public class GameController {
                         //Part 1 of landOnField test see part 2
                         //System.out.println(playerList[i].getName() + " before landing on field: " + playerList[i].getMoney());
 
-                        fieldchanceCheck(i);
+                        fieldChanceCheck(i);
                         updateAllGuiFields();
                         //here we update the player position again to make sure it's correct if a chancecard has been used
                         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
