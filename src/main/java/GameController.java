@@ -207,7 +207,7 @@ public class GameController {
                     playerList[i].setPosition(+rafflecup.RafflecupFaceValue());
                     //updates gui player position
                     uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
-                    DoAfterMove(i, false);
+                    fieldchanceCheck(i);
 
                 } else if (!rafflecup.SameDie() && playerList[i].getTurnsInJail() == 3) {
                     playerList[i].setInJail(false);
@@ -227,25 +227,28 @@ public class GameController {
         }
     }
 
-    private void DoAfterMove(int i, boolean gotHereByCard){
+    private void fieldchanceCheck(int i) {
 
         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
         //********************checks is player is on a chancefield if so he draws a card***********************************
         if (gameBoard.getFields()[playerList[i].getPosition()] instanceof FieldChance) {
             Cards currentCard = gameBoard.getCards().getLast();
-            ((FieldChance)gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), gameBoard.getCards());
+            ((FieldChance) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), gameBoard.getCards());
             uiController.getGUI().displayChanceCard(currentCard.getCardText());
+            uiController.getGUI().showMessage(playerList[i].getName() + " trækker et lykkekort! ");
             //Loop that draws cards until the last drawn card has drawAgain == false
             //If else statements keeps track of which type of card and acts accordingly
             gameBoard.getCards().lastItemToFront();
             boolean shippingCardCheck = false;
-            if(currentCard.getCardText().equals("Ryk frem til det nærmeste rederi og betal ejeren to gange den leje han ellers er berettiget til, hvis selskabet ikke ejes af nogen kan De købe det af banken.")){
+            if (currentCard.getCardText().equals("Ryk frem til det nærmeste rederi og betal ejeren to gange den leje han ellers er berettiget til, hvis selskabet ikke ejes af nogen kan De købe det af banken.")) {
                 shippingCardCheck = true;
             }
             DoAfterMove(i, shippingCardCheck);
         }
-
-        else if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties) {
+        DoAfterMove(i, false);
+    }
+    private void DoAfterMove(int i, boolean gotHereByCard){
+        if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties) {
             if (((Properties) gameBoard.getFields()[playerList[i].getPosition()]).getOwnedBy() == -1) {
                 boolean buyOrNot = uiController.getGUI().getUserLeftButtonPressed(playerList[i].getName() + " landede på " + gameBoard.getFields()[playerList[i].getPosition()].getFieldName() + " og har nu muligheden for at købe", "Køb", "Ignorere");
                 if (buyOrNot) {
@@ -341,7 +344,7 @@ public class GameController {
                             //Change die on in gui to reflect new roll and update player position
                             rafflecup.useRafflecup();
                             uiController.getGUI().setDice(rafflecup.getD1(), rafflecup.getD2());
-                            playerList[i].setPosition(+/*rafflecup.RafflecupFaceValue()*/5);
+                            playerList[i].setPosition(+/*rafflecup.RafflecupFaceValue()*/1);
 
                             //updates gui player position
                             uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
@@ -353,8 +356,7 @@ public class GameController {
                         //Part 1 of landOnField test see part 2
                         //System.out.println(playerList[i].getName() + " before landing on field: " + playerList[i].getMoney());
 
-
-                        DoAfterMove(i, false);
+                        fieldchanceCheck(i);
                         updateAllGuiFields();
                         //here we update the player position again to make sure it's correct if a chancecard has been used
                         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
