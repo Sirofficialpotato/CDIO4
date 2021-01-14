@@ -1,3 +1,7 @@
+package DiceStuff;
+
+import DiceStuff.Die;
+
 public class Rafflecup {
 
     private Die d1, d2;

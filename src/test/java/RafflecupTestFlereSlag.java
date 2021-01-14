@@ -1,8 +1,8 @@
+import DiceStuff.Die;
+import DiceStuff.Rafflecup;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class RafflecupTestFlereSlag {
 

@@ -1,3 +1,5 @@
+package Language;
+
 //Class that takes care of language support by returning the array that holds the wanted language
 public class Language {
 

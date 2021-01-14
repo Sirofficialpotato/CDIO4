@@ -1,8 +1,7 @@
+import Controllers.GameBoard;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 import Player.*;
-import Cards.*;
 import Fields.*;
 import ViewLayer.*;
 

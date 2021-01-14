@@ -9,6 +9,8 @@
 // Sebastian A. Almfort - s163922
 //**********************************************************************************************************************
 
+import Controllers.GameController;
+
 public class Main {
     public static void main(String[] args) {
         GameController gameController = new GameController();

@@ -1,3 +1,6 @@
+import DiceStuff.Die;
+import DiceStuff.Rafflecup;
+
 import java.util.ArrayList;
 
 public class DiceTest {

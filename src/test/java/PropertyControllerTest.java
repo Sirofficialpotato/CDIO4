@@ -1,3 +1,5 @@
+import Controllers.GameBoard;
+import Controllers.PropertyController;
 import org.junit.jupiter.api.Test;
 import Fields.*;
 

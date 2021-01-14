@@ -1,22 +1,23 @@
 package Cards;
 
+import Controllers.GameBoard;
 import Fields.Field;
 import Fields.FieldChance;
 import Player.Player;
 import org.junit.jupiter.api.Test;
 
-class GetPaidOrPayTest {
+class GetPaidByBankTest {
 
     @Test
     void drawCard() {
         Player[] players = new Player[]{new Player("test1"), new Player("test2"), new Player("test3"), new Player("test4")};
         Field[] f2 = new Field[0];
-        FieldChance f1 = new FieldChance();
-        players[0].setMoney(10);
-        players[1].setMoney(10);
-        players[2].setMoney(10);
-        players[3].setMoney(10);
-        System.out.println("spiller1:" + players[0].getMoney() + " spiller2:" + players[1].getMoney() + " spiller3:" + players[2].getMoney() + " spiller4:" + players[3].getMoney());
+        GameBoard f1 = new GameBoard();
+        players[0].setMoney(10000);
+        players[1].setMoney(10000);
+        players[2].setMoney(10000);
+        players[3].setMoney(10000);
+        System.out.println("spiller1:" + players[0].getMoney());
         DynamicArr<GetPaidByBank> choiceCards = new DynamicArr<GetPaidByBank>();
         int choiceCounter = 0;
         for (int i = 0; i < f1.getCards().size; i++) {
@@ -29,7 +30,7 @@ class GetPaidOrPayTest {
 
             System.out.print(choiceCards.getLast().getCardText());
             choiceCards.getLast().drawCard(players[0]);
-            System.out.println("Spiller1:" + players[0].getMoney() + " Spiller2:" + players[1].getMoney() + " Spiller3:" + players[2].getMoney() + " Spiller4:" + players[3].getMoney());
+            System.out.println(" Spiller 1:" + players[0].getMoney());
             choiceCards.lastItemToFront();
         }
 

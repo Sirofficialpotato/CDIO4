@@ -1,3 +1,5 @@
+package DiceStuff;
+
 public class Die {
 
     private int MAX = 6; // max value of a die
