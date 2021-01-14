@@ -94,7 +94,7 @@ public class FieldsOnBoard {
 
                     break;
                 case "Redderi":
-                    this.fieldArr[i] = new FieldShipYard(allFields[i][1], allFields[i][1], allFields[i][3], parseInt(allFields[i][4].substring(1)));
+                    this.fieldArr[i] = new FieldShipYard(allFields[i][1], allFields[i][1] +"\n Leje af redderi : M500" + "\n ==> 2 redderier: M1000" + "\n ==> 2 redderier: M1500" + "\n ==> 4 redderier: M2000", allFields[i][3], parseInt(allFields[i][4].substring(1)));
                     break;
                 case "Coca Cola":
                 case "Squash":

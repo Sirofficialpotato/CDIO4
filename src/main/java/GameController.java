@@ -111,7 +111,7 @@ public class GameController {
                             int deleteField = playerList[k].getPlayerOwnedFields().atIndex(i);
                             uiController.removeGUIFieldOwner(gameBoard.getFields(), playerList[k].getPlayerOwnedFields().atIndex(i));
                             if (deleteField == 5 || deleteField == 15 || deleteField == 25 || deleteField == 35) {
-                                ((FieldShipYard) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
+                                ((FieldShipYard) gameBoard.getFields()[deleteField]).setOwnedBy(-1, gameBoard.getFields(),deleteField);
                                 ((FieldShipYard) gameBoard.getFields()[deleteField]).checkIfSameShippingOwner(deleteField, gameBoard.getFields());
                             }
                             else if(deleteField == 12 || deleteField == 28){
@@ -355,7 +355,7 @@ public class GameController {
 
 
                         DoAfterMove(i, false);
-                        updateGuiFields();
+                        updateAllGuiFields();
                         //here we update the player position again to make sure it's correct if a chancecard has been used
                         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
 
@@ -417,7 +417,7 @@ public class GameController {
                             ((Properties)gameBoard.getFields()[playerList[i].getPlayerOwnedFields().atIndex(j)]).buildOnProperty(playerList[i], gameBoard.getFields());
                             uiController.buildPropertiesOnGui(i,j,((Properties) gameBoard.getFields()[playerList[i].getPlayerOwnedFields().atIndex(j)]).getBuildOn(),playerList, gameBoard.getFields());
                             uiController.getGuiPlayer(i).setBalance(playerList[i].getMoney());
-                            updateGuiFields();
+                            updateAllGuiFields();
                         }
 
                     }
@@ -430,10 +430,10 @@ public class GameController {
             ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], RollOrEndTurn);
         }
         //*************************************Player gets the choice to either buy houses/hotels or roll with the dice*******************************************************
-        updateGuiFields();
+        updateAllGuiFields();
     }
 
-    private void updateGuiFields(){
+    private void updateAllGuiFields(){
         for (int j = 0; j < gameBoard.getFields().length; j++) {
             uiController.updateRent(j, gameBoard.getFields());
         }

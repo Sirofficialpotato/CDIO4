@@ -230,7 +230,7 @@ public class Properties extends Field {
         }
     }
 
-    public int getRent(){
+    /*public int getRent(){
         int tempRent = rent;
         switch (buildOn) {
             case 0 -> tempRent = rent * priceMulti;
@@ -252,5 +252,8 @@ public class Properties extends Field {
 
         }
         return tempRent;
+    */
+    public int getRentTimesMulti(){
+        return (this.rent*this.priceMulti);
     }
 }
