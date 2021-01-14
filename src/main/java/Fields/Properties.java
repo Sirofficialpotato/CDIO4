@@ -71,14 +71,14 @@ public class Properties extends Field {
                 case 31, 32, 34 -> tripleSizedGroup(fields, 31, 32, 34);
                 case 37, 39 -> doubleSizedGroup(fields, 37, 39);
             }*/
-
+            //Chek if a ground is pledge, and thereafter pay the right rent.
             if(pawned == false){
                 players[player].setMoney(-this.rent * this.priceMulti);
                 players[this.getOwnedBy()].setMoney(this.rent * this.priceMulti);
             }
             else{
                 players[player].setMoney(-this.rent * this.priceMulti);
-                players[this.getOwnedBy()].setMoney(this.rent * this.priceMulti * (100/110));
+                players[this.getOwnedBy()].setMoney(this.rent * this.priceMulti * (10/100));
             }
 
 
