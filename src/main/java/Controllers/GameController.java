@@ -458,13 +458,13 @@ public class GameController {
     public String sellOrPawnChoice(int player, String RollOrEndTurn, String[] choiceSellArr, String[] choicePawnArr) {
         String sellOrPawn;
         if (choicePawnArr.length == 0 && choiceSellArr.length != 0) {
-            sellOrPawn = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(player).getName() + this.currentLang[14], new String[]{RollOrEndTurn, "Sælg"});
+            sellOrPawn = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(player).getName() + ": Vælg en mulighed", new String[]{RollOrEndTurn, "Sælg"});
         } else if (choiceSellArr.length == 0 && choicePawnArr.length != 0) {
-            sellOrPawn = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(player).getName() + this.currentLang[14], new String[]{RollOrEndTurn, "Pantsæt"});
+            sellOrPawn = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(player).getName() + ": Vælg en mulighed", new String[]{RollOrEndTurn, "Pantsæt"});
         } else if (choicePawnArr.length != 0 && choiceSellArr.length != 0) {
-            sellOrPawn = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(player).getName() + this.currentLang[14], new String[]{RollOrEndTurn, "Sælg", "Pantsæt"});
+            sellOrPawn = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(player).getName() + ": Vælg en mulighed", new String[]{RollOrEndTurn, "Sælg", "Pantsæt"});
         } else {
-            sellOrPawn = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(player).getName() + this.currentLang[14], new String[]{RollOrEndTurn});
+            sellOrPawn = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(player).getName() + ": Vælg en mulighed", new String[]{RollOrEndTurn});
         }
 
         return sellOrPawn;
@@ -552,13 +552,13 @@ public class GameController {
     public String getBuyOrSellChoice( int i, String RollOrEndTurn, String[] choiceBuyArr, String[] choiceSellArr, String[] choicePawnArr) {
         String choice;
         if (choiceBuyArr.length > 0 && choicePawnArr.length + choiceSellArr.length > 0) {
-            choice = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(i).getName() + this.currentLang[14], new String[]{RollOrEndTurn, "Køb huse/hoteller", "Sælg/Pantsæt"});
+            choice = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(i).getName() + ": Vælg en mulighed", new String[]{RollOrEndTurn, "Køb huse/hoteller", "Sælg/Pantsæt"});
         } else if (choiceBuyArr.length > 0 && choicePawnArr.length + choiceSellArr.length == 0) {
-            choice = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(i).getName() + this.currentLang[14], new String[]{RollOrEndTurn, "Køb huse/hoteller"});
+            choice = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(i).getName() + ": Vælg en mulighed", new String[]{RollOrEndTurn, "Køb huse/hoteller"});
         } else if (choiceBuyArr.length == 0 && choicePawnArr.length + choiceSellArr.length > 0) {
-            choice = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(i).getName() + this.currentLang[14], new String[]{RollOrEndTurn, "Sælg/Pantsæt"});
+            choice = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(i).getName() + ": Vælg en mulighed", new String[]{RollOrEndTurn, "Sælg/Pantsæt"});
         } else {
-            choice = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(i).getName() + this.currentLang[14], new String[]{RollOrEndTurn});
+            choice = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(i).getName() + ": Vælg en mulighed", new String[]{RollOrEndTurn});
         }
 
         return choice;
