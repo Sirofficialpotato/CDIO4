@@ -111,6 +111,17 @@ public class Properties extends Field {
         }
     }
 
+    public void sellBuilding(Player player){
+        if(this.buildOn == 5){
+            this.buildOn = 0;
+            player.setMoney(this.price*5/4);
+        }
+        else if(this.buildOn > 0){
+            this.buildOn--;
+            player.setMoney(this.price/4);
+        }
+    }
+
     public int getGroup(){
         return switch (this.getFieldColor()) {
             case "blå" -> 0;
