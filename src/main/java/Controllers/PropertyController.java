@@ -72,6 +72,19 @@ public class PropertyController {
 
         return groupOwner;
     }
+
+    public boolean hasGroupPawnedProperties(Properties field){
+        boolean pawnedProps = false;
+        for (int i = 0; i < properties[field.getGroup()].length; i++) {
+            if(properties[field.getGroup()][i][0] != -2){
+                if(((Properties)fields[properties[field.getGroup()][i][2]]).getPawned()){
+                    pawnedProps = true;
+                }
+            }
+
+        }
+        return pawnedProps;
+    }
     //Checks if any building are present on the group of the field that is parsed
     public boolean hasGroupBuildingsOnIt(Properties field){
         boolean hasBuildings = false;
@@ -98,7 +111,7 @@ public class PropertyController {
         updateProperties();
         Arrays.fill(canBuy, false);
             for (int i = 0; i < fields.length; i++) {
-                if(fields[i] instanceof Properties && isFieldBuildable((Properties) fields[i], playerNumber) && ((Properties) fields[i]).getBuildOn() < 5){
+                if(fields[i] instanceof Properties && isFieldBuildable((Properties) fields[i], playerNumber) && ((Properties) fields[i]).getBuildOn() < 5 && !hasGroupPawnedProperties((Properties) fields[i])){
                     canBuy[i] = true;
                 }
             }
