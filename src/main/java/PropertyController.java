@@ -83,7 +83,7 @@ public class PropertyController {
     //Checks if the player that is parsed can pawn the field that is parsed
     public boolean isFieldPawnable(Properties field, int playerNumber){
         boolean pawnable = false;
-        if(field.getOwnedBy() == playerNumber && !hasGroupBuildingsOnIt(field)){
+        if(field.getOwnedBy() == playerNumber && field.getBuildOn() == 0){
             pawnable = true;
         }
 

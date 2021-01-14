@@ -156,6 +156,10 @@ public class Properties extends Field {
         return price;
     }
 
+    public void setBuildOn(int numberOfBuildings){
+        this.buildOn = numberOfBuildings;
+    }
+
     public int getIndex(){return this.index;}
 
     private void buildingSwitch(){
