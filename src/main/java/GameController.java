@@ -322,8 +322,6 @@ public class GameController {
             for (int i = 0; i < playerList.length; i++) {
                 int occurences = 0; //same die counter
                 while(true) {
-
-
                     if (playerList[i] != null) {
                         //************************************JAIL************************************
                         Jailfunc(i);
@@ -376,6 +374,7 @@ public class GameController {
 
                     if(rafflecup.SameDie()){
                         if (occurences == 3){
+                            uiController.getGUI().showMessage(playerList[i].getName() + " har slået 2 ens tre gange og er blevet smidt i fængsel");
                             playerList[i].setInJail(true);
                             break;
                             }
