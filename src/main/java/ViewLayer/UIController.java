@@ -61,7 +61,7 @@ public class UIController {
                 guiFields[i] = new GUI_Jail( "default", fieldArray[i].getFieldName(), fieldArray[i].getFieldDescription(), fieldArray[i].getFieldDescription(), Color.RED, Color.BLACK);
             }
             else if(fieldArray[i] instanceof FieldShipYard){
-                guiFields[i] = new GUI_Shipping("default", fieldArray[i].getFieldName(),/*String.valueOf(((FieldShipYard) fieldArray[i]).getPrice())*/"M4000", fieldArray[i].getFieldDescription(), String.valueOf(((FieldShipYard) fieldArray[i]).getRent()), Color.WHITE, Color.BLACK);
+                guiFields[i] = new GUI_Shipping("default", fieldArray[i].getFieldName(),/*String.valueOf(((FieldShipYard) fieldArray[i]).getPrice())*/"M4000", fieldArray[i].getFieldDescription(), String.valueOf(((FieldShipYard) fieldArray[i]).getRentTimesMulti()), Color.WHITE, Color.BLACK);
             }
             //String picture, String title, String subText, String description, String rent, Color bgColor, Color fgColor
             else if(fieldArray[i] instanceof Brewery){
@@ -95,7 +95,7 @@ public class UIController {
                     case "sort" -> color = Color.black;
                 }
 
-                guiFields[i] = new GUI_Street(fieldArray[i].getFieldName(),"M" + ((Properties) fieldArray[i]).getPrice(), (fieldArray[i]).getFieldDescription(), String.valueOf(((Properties) fieldArray[i]).getRent()), color, txtcolor);
+                guiFields[i] = new GUI_Street(fieldArray[i].getFieldName(),"M" + ((Properties) fieldArray[i]).getPrice(), (fieldArray[i]).getFieldDescription(), String.valueOf(((Properties) fieldArray[i]).getRentTimesMulti()), color, txtcolor);
             }
             else if(fieldArray[i] instanceof FieldInfo && fieldArray[i].getFieldName().equals("I fængsel")) {
                 guiFields[i] = new GUI_Jail("default", fieldArray[i].getFieldName(), fieldArray[i].getFieldDescription(), fieldArray[i].getFieldDescription(), Color.RED, Color.BLACK);
@@ -197,7 +197,7 @@ public class UIController {
             if(((Properties)fields[field]).getOwnedBy() != -1) {
                 ((GUI_Street) this.gui.getFields()[field]).setOwnerName(players[((Properties) fields[field]).getOwnedBy()].getName());
                 ((GUI_Street) this.gui.getFields()[field]).setBorder(this.guiPlayers[((Properties)fields[field]).getOwnedBy()].getPrimaryColor());
-                ((GUI_Street)getGUI().getFields()[field]).setRent("M"+ ((Properties)fields[field]).getRent());
+                ((GUI_Street)getGUI().getFields()[field]).setRent("M"+ ((Properties)fields[field]).getRentTimesMulti());
             }
         }
     }
@@ -232,7 +232,7 @@ public class UIController {
             ((GUI_Street)getGUI().getFields()[players[i].getPlayerOwnedFields().atIndex(j)]).setHouses(0);
             ((GUI_Street)getGUI().getFields()[players[i].getPlayerOwnedFields().atIndex(j)]).setHotel(true);
         }
-        ((GUI_Street)getGUI().getFields()[players[i].getPlayerOwnedFields().atIndex(j)]).setRent("M"+ ((Properties)fields[players[i].getPlayerOwnedFields().atIndex(j)]).getRent());
+        ((GUI_Street)getGUI().getFields()[players[i].getPlayerOwnedFields().atIndex(j)]).setRent("M"+ ((Properties)fields[players[i].getPlayerOwnedFields().atIndex(j)]).getRentTimesMulti());
     }
 
     public GUI_Player getGuiPlayer(int playerNumber){
@@ -243,9 +243,9 @@ public class UIController {
 
     public void updateRent(int currentField, Field[] fields){
         if(fields[currentField] instanceof Properties){
-            ((GUI_Street)getGUI().getFields()[currentField]).setRent("M"+ ((Properties)fields[currentField]).getRent());
+            ((GUI_Street)getGUI().getFields()[currentField]).setRent("M"+ ((Properties)fields[currentField]).getRentTimesMulti());
         } else if(fields[currentField] instanceof FieldShipYard){
-            ((GUI_Shipping)getGUI().getFields()[currentField]).setRent("M"+ ((FieldShipYard)fields[currentField]).getRent());
+            ((GUI_Shipping)getGUI().getFields()[currentField]).setRent("M"+ ((FieldShipYard)fields[currentField]).getRentTimesMulti());
         }
     }
 
