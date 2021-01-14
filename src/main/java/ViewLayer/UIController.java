@@ -235,6 +235,7 @@ public class UIController {
         ((GUI_Street)getGUI().getFields()[players[i].getPlayerOwnedFields().atIndex(j)]).setRent("M"+ ((Properties)fields[players[i].getPlayerOwnedFields().atIndex(j)]).getRentTimesMulti());
     }
 
+
     public GUI_Player getGuiPlayer(int playerNumber){
         return guiPlayers[playerNumber];
     }
@@ -243,7 +244,9 @@ public class UIController {
 
     public void updateRent(int currentField, Field[] fields){
         if(fields[currentField] instanceof Properties){
-            ((GUI_Street)getGUI().getFields()[currentField]).setRent("M"+ ((Properties)fields[currentField]).getRentTimesMulti());
+            if(!((Properties)fields[currentField]).getPawned()){
+                ((GUI_Street) getGUI().getFields()[currentField]).setRent("M" + ((Properties) fields[currentField]).getRentTimesMulti());
+            }
         } else if(fields[currentField] instanceof FieldShipYard){
             ((GUI_Shipping)getGUI().getFields()[currentField]).setRent("M"+ ((FieldShipYard)fields[currentField]).getRentTimesMulti());
         }

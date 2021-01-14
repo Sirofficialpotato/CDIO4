@@ -181,6 +181,10 @@ public class Properties extends Field {
 
     public int getIndex(){return this.index;}
 
+    public boolean getPawned(){
+        return this.pawned;
+    }
+
     private void buildingSwitch(){
         switch (buildOn) {
             case 1 -> this.priceMulti = 3;
