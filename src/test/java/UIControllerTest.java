@@ -21,9 +21,8 @@ class UIControllerTest {
         Player[] players = {new Player("test1"), new Player("test2"), new Player("test3"), new Player("test4")};
         UIController myControl = new UIController(players);
 
-
-        Scanner scan = new Scanner(System.in);
-        scan.nextInt();
+        myControl.getGUI().showMessage("UIFieldGen virker");
+        myControl.getGUI().close();
     }
 
     @Test
@@ -53,13 +52,13 @@ class UIControllerTest {
 
     @Test
     void updateGUIFieldOwner(){
-        Field[] myFields = new Field[24];
+        Field[] myFields = new Field[40];
         FieldsOnBoard f1 = new FieldsOnBoard();
         myFields = f1.getFieldArr();
         Player[] players = {new Player("test1"), new Player("test2"), new Player("test3"), new Player("test4")};
         UIController myControl = new UIController(players, myFields);
-        ((Properties)myFields[2]).setOwnedBy(1);
-        myControl.updateGUIFieldOwner(players, myFields, 2);
+        ((Properties)myFields[1]).setOwnedBy(1);
+        myControl.updateGUIFieldOwner(players, myFields, 1);
         String[] test = new String[]{"hej", "test"};
         myControl.getGUI().getUserButtonPressed("hej", test);
     }

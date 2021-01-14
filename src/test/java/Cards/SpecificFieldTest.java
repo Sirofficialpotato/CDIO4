@@ -25,7 +25,7 @@ class SpecificFieldTest {
             f1.getCards().lastItemToFront();
         }
         for (int i = 0; i < choiceCards.size; i++) {
-            System.out.print(choiceCards.getLast().getCardText());
+//            System.out.print(choiceCards.getLast().getCardText());
             choiceCards.getLast().drawCard(players[0]);
             System.out.println("Player pos:" +  players[0].getPosition() + " ");
             choiceCards.getLast().drawCard(players[0]);
