@@ -1,3 +1,4 @@
+import Cards.Cards;
 import Fields.*;
 
 import Player.Player;
@@ -231,7 +232,7 @@ public class GameController {
         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
         //********************checks is player is on a chancefield if so he draws a card***********************************
         if (gameBoard.getFields()[playerList[i].getPosition()] instanceof FieldChance) {
-            /*Cards currentCard = gameBoard.getCards().getLast();
+            Cards currentCard = gameBoard.getCards().getLast();
             ((FieldChance)gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), gameBoard.getCards());
             uiController.getGUI().displayChanceCard(currentCard.getCardText());
             //Loop that draws cards until the last drawn card has drawAgain == false
@@ -241,7 +242,7 @@ public class GameController {
             if(currentCard.getCardText().equals("Ryk frem til det nærmeste rederi og betal ejeren to gange den leje han ellers er berettiget til, hvis selskabet ikke ejes af nogen kan De købe det af banken.")){
                 shippingCardCheck = true;
             }
-            DoAfterMove(i, shippingCardCheck);*/
+            DoAfterMove(i, shippingCardCheck);
         }
 
         else if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties) {
@@ -365,7 +366,7 @@ public class GameController {
                             }
                         }
 
-                        if (pController.getPosibillites(i).length != 0) {
+                        if (pController.getBuyingPosibillites(i).length != 0) {
                             buyHouseOrRoll(i, "Afslut tur");
                         }
 
@@ -398,10 +399,10 @@ public class GameController {
 
     private void buyHouseOrRoll(int i, String RollOrEndTurn){
         //*************************************Player gets the choice to either buy houses/hotels or roll with the dice*******************************************************
-        if (!playerList[i].getInJail() && pController.getPosibillites(i).length != 0) {
-            String[] choiceArr = new String[pController.getPosibillites(i).length];
-            for (int j = 0; j < pController.getPosibillites(i).length; j++) {
-                choiceArr[j] = pController.getPosibillites(i)[j].getFieldName();
+        if (!playerList[i].getInJail() && pController.getBuyingPosibillites(i).length != 0) {
+            String[] choiceArr = new String[pController.getBuyingPosibillites(i).length];
+            for (int j = 0; j < pController.getBuyingPosibillites(i).length; j++) {
+                choiceArr[j] = pController.getBuyingPosibillites(i)[j].getFieldName();
             }
             ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], RollOrEndTurn, "Køb huse/hoteller");
 
@@ -425,7 +426,7 @@ public class GameController {
 
             }
         pController.initCanBuy();
-        } else if (!playerList[i].getInJail() && pController.getPosibillites(i).length == 0) {
+        } else if (!playerList[i].getInJail() && pController.getBuyingPosibillites(i).length == 0) {
             ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], RollOrEndTurn);
         }
         //*************************************Player gets the choice to either buy houses/hotels or roll with the dice*******************************************************

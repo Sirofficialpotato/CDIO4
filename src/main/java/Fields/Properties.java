@@ -11,6 +11,7 @@ public class Properties extends Field {
     private final int index;
     int priceMulti = 1;
     int rent;
+    boolean pawned = false;
     // All ownable properties with a value and a color
     public Properties(String name, String description, String color,int value, int index){
         super(name, description);
@@ -110,6 +111,17 @@ public class Properties extends Field {
         }
     }
 
+    public void sellBuilding(Player player){
+        if(this.buildOn == 5){
+            this.buildOn = 0;
+            player.setMoney(this.price*5/4);
+        }
+        else if(this.buildOn > 0){
+            this.buildOn--;
+            player.setMoney(this.price/4);
+        }
+    }
+
     public int getGroup(){
         return switch (this.getFieldColor()) {
             case "blå" -> 0;
@@ -125,6 +137,16 @@ public class Properties extends Field {
 
     }
 
+    public void pawnBuilding(Player player){
+        if(pawned == false) {
+            pawned = true;
+            player.setMoney(this.price);
+        }
+        else{
+            pawned = false;
+            player.setMoney(-this.price*110/100);
+        }
+    }
     public String getFieldName() {
         return fieldName;
     }
@@ -143,6 +165,10 @@ public class Properties extends Field {
 
     public int getPrice() {
         return price;
+    }
+
+    public void setBuildOn(int numberOfBuildings){
+        this.buildOn = numberOfBuildings;
     }
 
     public int getIndex(){return this.index;}

@@ -7,11 +7,7 @@ import Fields.FieldsOnBoard;
 import java.util.Random;
 
 
-//**************************************************!!!Thoughts!!!******************************************************
-// TODO: 26-11-2020  - Maybe make it so you can see who pays to whom i.e. Jens pays 1M to Mads to stay overnight.
-// TODO: 26-11-2020  - Divide gameboard into several methods? see possibly places with many ****
-// TODO: 26-11-2020  - Optimize the entire gameboard ??
-//**********************************************************************************************************************
+
 
 
 public class GameBoard {
@@ -31,10 +27,8 @@ public class GameBoard {
         Language langSelector = new Language("dk");
         currentLang = langSelector.returnLang();
         generateChanceCards(true);
-        ((FieldShipYard)myFields[5]).setOwnedBy(1);
-        while(!cards.getLast().getCardText().equals("Ryk frem til det nærmeste rederi og betal ejeren to gange den leje han ellers er berettiget til, hvis selskabet ikke ejes af nogen kan De købe det af banken.")) {
-            mixCards();
-        }
+        mixCards();
+
 
     }
 

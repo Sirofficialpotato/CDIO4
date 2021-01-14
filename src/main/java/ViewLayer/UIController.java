@@ -211,7 +211,7 @@ public class UIController {
             }
         }
         if(field == 12 || field == 28) {
-            if (((FieldShipYard) fields[field]).getOwnedBy() != -1) {
+            if (((Brewery) fields[field]).getOwnedBy() != -1) {
                 ((GUI_Brewery) this.gui.getFields()[field]).setOwnerName(null);
                 ((GUI_Brewery) this.gui.getFields()[field]).setBorder(Color.lightGray);
             }
