@@ -521,7 +521,7 @@ public class GameController {
                 else if(gameBoard.getFields()[currentField] instanceof FieldShipYard){
                     ((FieldShipYard) this.gameBoard.getFields()[currentField]).pawnShipYard(this.playerList[i]);
                     if(!((FieldShipYard) this.gameBoard.getFields()[currentField]).getPawned()){
-                        toPawnOrNotToPawn = ((FieldShipYard) this.gameBoard.getFields()[currentField]).getRent() + "";
+                        toPawnOrNotToPawn = ((FieldShipYard) this.gameBoard.getFields()[currentField]).getRentTimesMulti() + "";
                     }
                 }
                 ((GUI_Ownable)this.uiController.getGUI().getFields()[currentField]).setRent(toPawnOrNotToPawn);
