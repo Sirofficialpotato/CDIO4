@@ -74,6 +74,46 @@ public class PropertyController {
         return groupOwner;
     }
 
+    public boolean isBuildingDistEvenForSell(Properties field){
+        boolean isEven = false;
+        int groupChecker = -1;
+        int indexOfOtherGroupMember1 = -1;
+        int indexOfOtherGroupMember2 = -1;
+        for (int i = 0; i < properties.length; i++) {
+            for (int j = 0; j < properties[0].length; j++) {
+                if(properties[i][j][2] == field.getIndex()){
+                    groupChecker = i;
+                    break;
+                }
+            }
+        }
+        for (int i = 0; i < properties[groupChecker].length; i++) {
+            if(properties[groupChecker][i][2] != field.getIndex()){
+                if(indexOfOtherGroupMember1 == -1){
+                    indexOfOtherGroupMember1 = properties[groupChecker][i][2];
+                }
+                else{
+                    indexOfOtherGroupMember2 = properties[groupChecker][i][2];
+                }
+            }
+        }
+        int i = 0;
+        if(groupChecker != -1) {
+            if (groupChecker == 0 || groupChecker == 7) {
+                if (Math.abs(((Properties) fields[indexOfOtherGroupMember1]).getBuildOn() - ((Properties) fields[field.getIndex()]).getBuildOn()) == 0
+                        || ((Properties) fields[indexOfOtherGroupMember1]).getBuildOn() < ((Properties) fields[field.getIndex()]).getBuildOn()){
+                    isEven = true;
+                }
+            }
+            else{
+                if(((Properties) fields[indexOfOtherGroupMember1]).getBuildOn() >= ((Properties) fields[field.getIndex()]).getBuildOn() && ((Properties) fields[indexOfOtherGroupMember2]).getBuildOn() <= ((Properties) fields[field.getIndex()]).getBuildOn()){
+                    isEven = true;
+                }
+            }
+        }
+        return isEven;
+    }
+
     public boolean isBuildingDistEvenForBuy(Properties field){
         boolean isEven = false;
         int groupChecker = -1;
@@ -224,7 +264,7 @@ public class PropertyController {
         Arrays.fill(canSell, false);
         for (int i = 0; i < fields.length; i++) {
             if(fields[i] instanceof Properties){
-                if(((Properties) fields[i]).getOwnedBy() == player && ((Properties) fields[i]).getBuildOn() > 0){
+                if(((Properties) fields[i]).getOwnedBy() == player && ((Properties) fields[i]).getBuildOn() > 0 && isBuildingDistEvenForSell((Properties) fields[i])){
                     canSell[i] = true;
                 }
             }
