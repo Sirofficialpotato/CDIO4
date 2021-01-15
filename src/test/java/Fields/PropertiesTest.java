@@ -10,32 +10,32 @@ class PropertiesTest {
     @Test
     void landOnField() {
         Player[] players = new Player[]{new Player("test"),new Player("test"),new Player("test")};
-        players[0].setMoney(20);
-        Field[] fields = new Field[24];
+        players[0].setMoney(20000);
+        Field[] fields = new Field[40];
         FieldsOnBoard f1 = new FieldsOnBoard();
         fields = f1.getFieldArr();
-        players[1].setMoney(20);
+        players[1].setMoney(20000);
 
         //Test with first group
         ((Properties)fields[1]).setOwnedBy(0);
-        ((Properties)fields[2]).setOwnedBy(1);
-        players[0].setPosition(2);
-        ((Properties)fields[2]).landOnField(players, 0, fields, true);
-        assertEquals(19,players[0].getMoney());
-        assertEquals(21,players[1].getMoney());
+        ((Properties)fields[3]).setOwnedBy(1);
+        players[0].setPosition(3);
+        ((Properties)fields[3]).landOnField(players, 0, fields, true);
+        assertEquals(19700,players[0].getMoney());
+        assertEquals(20300,players[1].getMoney());
 
         //test with most last group
-        ((Properties)fields[22]).setOwnedBy(0);
+        ((Properties)fields[21]).setOwnedBy(0);
         ((Properties)fields[23]).setOwnedBy(0);
         players[1].setSpecificPosition(23);
         ((Properties)fields[23]).landOnField(players, 1, fields, true);
-        assertEquals(29,players[0].getMoney());
-        assertEquals(11,players[1].getMoney());
+        assertEquals(20800,players[0].getMoney());
+        assertEquals(19200,players[1].getMoney());
 
-        assertEquals(-1, ((Properties)fields[5]).getOwnedBy());
-        players[2].setSpecificPosition(5);
-        ((Properties)fields[5]).landOnField(players, 2, fields, true);
-        assertEquals(2, ((Properties)fields[5]).getOwnedBy());
+        assertEquals(-1, ((Properties)fields[6]).getOwnedBy());
+        players[2].setSpecificPosition(6);
+        ((Properties)fields[6]).landOnField(players, 2, fields, true);
+        assertEquals(2, ((Properties)fields[6]).getOwnedBy());
         //
 //       for (int i = 1; i <= 23; i++) {
 //           if (i % 3 == 0 )

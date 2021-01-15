@@ -1,8 +1,11 @@
+package Controllers;
+
 import Cards.*;
 import Fields.Field;
 import Fields.FieldChance;
 import Fields.FieldShipYard;
 import Fields.FieldsOnBoard;
+import Language.Language;
 
 import java.util.Random;
 

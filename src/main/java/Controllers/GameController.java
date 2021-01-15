@@ -1,8 +1,14 @@
-import Cards.Cards;
+package Controllers;
+
+import DiceStuff.*;
 import Fields.*;
+import Cards.*;
 
 import Player.Player;
 import ViewLayer.UIController;
+
+import Language.*;
+import gui_fields.GUI_Ownable;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -12,6 +18,7 @@ public class GameController {
     private int numberOfPlayers = 0;
     String ready;
     int Losers = 0;
+
     private Player[] playerList;
     Rafflecup rafflecup = new Rafflecup();
     private boolean GameOver = false;
@@ -71,7 +78,7 @@ public class GameController {
             }
             //Sets the players money according the rules
             switch (numberOfPlayers) {
-                case 3, 4, 5, 6 -> player.setMoney(30000);
+                case 3, 4, 5, 6 -> player.setMoney(10000);
             }
             playerList[i - 1] = player;
         }
@@ -111,13 +118,16 @@ public class GameController {
                             int deleteField = playerList[k].getPlayerOwnedFields().atIndex(i);
                             uiController.removeGUIFieldOwner(gameBoard.getFields(), playerList[k].getPlayerOwnedFields().atIndex(i));
                             if (deleteField == 5 || deleteField == 15 || deleteField == 25 || deleteField == 35) {
-                                ((FieldShipYard) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
+                                ((FieldShipYard) gameBoard.getFields()[deleteField]).setOwnedBy(-1, gameBoard.getFields(),deleteField);
+                                ((FieldShipYard) gameBoard.getFields()[deleteField]).checkIfSameShippingOwner(deleteField, gameBoard.getFields());
                             }
                             else if(deleteField == 12 || deleteField == 28){
                                 ((Brewery) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
                             }
                             else {
                                 ((Properties) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
+                                ((Properties) gameBoard.getFields()[deleteField]).setBuildOn(0);
+                                ((Properties) gameBoard.getFields()[deleteField]).buildingSwitch();
                             }
                         }
                     }
@@ -206,7 +216,7 @@ public class GameController {
                     playerList[i].setPosition(+rafflecup.RafflecupFaceValue());
                     //updates gui player position
                     uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
-                    DoAfterMove(i, false);
+                    fieldChanceCheck(i);
 
                 } else if (!rafflecup.SameDie() && playerList[i].getTurnsInJail() == 3) {
                     playerList[i].setInJail(false);
@@ -226,26 +236,30 @@ public class GameController {
         }
     }
 
-    private void DoAfterMove(int i, boolean gotHereByCard){
+    private void fieldChanceCheck(int i) {
 
         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
         //********************checks is player is on a chancefield if so he draws a card***********************************
         if (gameBoard.getFields()[playerList[i].getPosition()] instanceof FieldChance) {
             Cards currentCard = gameBoard.getCards().getLast();
-            ((FieldChance)gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), gameBoard.getCards());
+            ((FieldChance) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), gameBoard.getCards());
             uiController.getGUI().displayChanceCard(currentCard.getCardText());
+            uiController.getGUI().showMessage(playerList[i].getName() + " trækker et lykkekort! ");
+            uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
             //Loop that draws cards until the last drawn card has drawAgain == false
             //If else statements keeps track of which type of card and acts accordingly
             gameBoard.getCards().lastItemToFront();
             boolean shippingCardCheck = false;
-            if(currentCard.getCardText().equals("Ryk frem til det nærmeste rederi og betal ejeren to gange den leje han ellers er berettiget til, hvis selskabet ikke ejes af nogen kan De købe det af banken.")){
+            if (currentCard.getCardText().equals("Ryk frem til det nærmeste rederi og betal ejeren to gange den leje han ellers er berettiget til, hvis selskabet ikke ejes af nogen kan De købe det af banken.")) {
                 shippingCardCheck = true;
             }
             DoAfterMove(i, shippingCardCheck);
         }
-
-        else if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties) {
-            if (((Properties) gameBoard.getFields()[playerList[i].getPosition()]).getOwnedBy() == -1) {
+        DoAfterMove(i, false);
+    }
+    private void DoAfterMove(int i, boolean gotHereByCard){
+        if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties) {
+            if (((Properties) gameBoard.getFields()[playerList[i].getPosition()]).getOwnedBy() == -1 && playerList[i].getMoney() > ((Properties) gameBoard.getFields()[playerList[i].getPosition()]).getPrice()) {
                 boolean buyOrNot = uiController.getGUI().getUserLeftButtonPressed(playerList[i].getName() + " landede på " + gameBoard.getFields()[playerList[i].getPosition()].getFieldName() + " og har nu muligheden for at købe", "Køb", "Ignorere");
                 if (buyOrNot) {
                     playerList[i].addToPlayerOwnedFields();
@@ -254,10 +268,10 @@ public class GameController {
                     ((Properties) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), false);
                 }
             } else {
-                ((Properties) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), true);
+                ((Properties) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), false);
             }
         } else if (gameBoard.getFields()[playerList[i].getPosition()] instanceof FieldShipYard) {
-            if (((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).getOwnedBy() == -1) {
+            if (((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).getOwnedBy() == -1  && playerList[i].getMoney() > ((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).getPrice()) {
                 boolean buyOrNot = uiController.getGUI().getUserLeftButtonPressed(playerList[i].getName() + " landede på " + gameBoard.getFields()[playerList[i].getPosition()].getFieldName() + " og har nu muligheden for at købe", "Køb", "Ignorere");
                 if (buyOrNot) {
                     playerList[i].addToPlayerOwnedFields();
@@ -266,7 +280,7 @@ public class GameController {
                     ((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), false, gotHereByCard);
                 }
             } else {
-                ((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), true, gotHereByCard);
+                ((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), false, gotHereByCard);
             }
 
         }
@@ -280,7 +294,7 @@ public class GameController {
             }
         }
         else if(gameBoard.getFields()[playerList[i].getPosition()] instanceof Brewery) {
-            if (((Brewery) gameBoard.getFields()[playerList[i].getPosition()]).getOwnedBy() == -1) {
+            if (((Brewery) gameBoard.getFields()[playerList[i].getPosition()]).getOwnedBy() == -1  && playerList[i].getMoney() > ((Brewery) gameBoard.getFields()[playerList[i].getPosition()]).getPrice()) {
                 boolean buyOrNot = uiController.getGUI().getUserLeftButtonPressed(playerList[i].getName() + " landede på " + gameBoard.getFields()[playerList[i].getPosition()].getFieldName() + " og har nu muligheden for at købe", "Køb", "Ignorere");
                 if (buyOrNot) {
                     playerList[i].addToPlayerOwnedFields();
@@ -313,13 +327,12 @@ public class GameController {
     }
 
     private void GameFlow() {
+        boolean breakholder = false;
         while (!GameOver) {
 
             for (int i = 0; i < playerList.length; i++) {
                 int occurences = 0; //same die counter
                 while(true) {
-
-
                     if (playerList[i] != null) {
                         //************************************JAIL************************************
                         Jailfunc(i);
@@ -332,7 +345,9 @@ public class GameController {
                         if (GameOver) break;
 
                         buyHouseOrRoll(i, currentLang[15]);
-
+                        if(playerList[i].getMoney() <= 0){
+                            uiController.getGUI().showMessage("Spilleren " + playerList[i].getName() + " har ramt M0 og bliver derfor nødsaget til at sælge/pantsætte for at blive i spillet!");
+                        }
 
                         // if statement to check if the user typed in throw
                         if (ready.equals(currentLang[15]) && !playerList[i].getInJail()) {
@@ -340,7 +355,23 @@ public class GameController {
                             //Change die on in gui to reflect new roll and update player position
                             rafflecup.useRafflecup();
                             uiController.getGUI().setDice(rafflecup.getD1(), rafflecup.getD2());
-                            playerList[i].setPosition(+rafflecup.RafflecupFaceValue());
+
+                            if(rafflecup.SameDie()){
+                                if (occurences == 2){
+                                    uiController.getGUI().showMessage(playerList[i].getName() + " har slået 2 ens tre gange og er blevet smidt i fængsel");
+                                    playerList[i].setInJail(true);
+                                    playerList[i].setSpecificPosition(10);
+
+                                    //updates gui player position
+                                    uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
+
+                                    break;
+                                }
+                            }
+                            else{breakholder = true;}
+                            occurences++;
+
+                            playerList[i].setPosition(+/*rafflecup.RafflecupFaceValue()*/1);
 
                             //updates gui player position
                             uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
@@ -352,9 +383,8 @@ public class GameController {
                         //Part 1 of landOnField test see part 2
                         //System.out.println(playerList[i].getName() + " before landing on field: " + playerList[i].getMoney());
 
-
-                        DoAfterMove(i, false);
-                        updateGuiFields();
+                        fieldChanceCheck(i);
+                        updateAllGuiFields();
                         //here we update the player position again to make sure it's correct if a chancecard has been used
                         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
 
@@ -365,20 +395,16 @@ public class GameController {
                             }
                         }
 
-                        if (pController.getPosibillites(i).length != 0) {
+                        if (pController.getBuyingPosibillites(i).length + pController.getPawningPossibilites(i).length + pController.getSellingPossibilities(i).length > 0) {
+                            if(playerList[i].getMoney() <= 0){
+                                uiController.getGUI().showMessage("Spilleren " + playerList[i].getName() + " har ramt M0 og bliver derfor nødsaget til at sælge/pantsætte for at blive i spillet!");
+                            }
                             buyHouseOrRoll(i, "Afslut tur");
                         }
 
                     }
+                    if (breakholder){breakholder = false;break;}
 
-                    if(rafflecup.SameDie()){
-                        if (occurences == 3){
-                            playerList[i].setInJail(true);
-                            break;
-                            }
-                        }
-                        else{break;}
-                    occurences++;
                 }
             }
         }
@@ -396,43 +422,175 @@ public class GameController {
         //****************************************Restart game?!!*******************************************
     }
 
-    private void buyHouseOrRoll(int i, String RollOrEndTurn){
-        //*************************************Player gets the choice to either buy houses/hotels or roll with the dice*******************************************************
-        if (!playerList[i].getInJail() && pController.getPosibillites(i).length != 0) {
-            String[] choiceArr = new String[pController.getPosibillites(i).length];
-            for (int j = 0; j < pController.getPosibillites(i).length; j++) {
-                choiceArr[j] = pController.getPosibillites(i)[j].getFieldName();
-            }
-            ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], RollOrEndTurn, "Køb huse/hoteller");
+    private void buyHouseOrRoll(int i, String RollOrEndTurn) {
+        String[] choiceBuyArr = this.initBuyArray(i);
+        String[] choicePawnArr = this.initPawnArray(i);
+        String[] choiceSellArr = this.initSellArray(i);
 
+            do {
+                this.ready = this.getBuyOrSellChoice(i, RollOrEndTurn, choiceBuyArr, choiceSellArr, choicePawnArr);
+                if (this.ready.equals("Køb huse/hoteller") && !this.playerList[i].getInJail()) {
+                    this.buyHouse(i, choiceBuyArr);
+                    choiceBuyArr = this.initBuyArray(i);
+                    choicePawnArr = this.initPawnArray(i);
+                    choiceSellArr = this.initSellArray(i);
 
-            while(!ready.equals(RollOrEndTurn)) {
-                if(ready.equals("Køb huse/hoteller") && !playerList[i].getInJail()){
-                    String propertyToBuyAt = uiController.getGUI().getUserButtonPressed("Vælg en grund at købe huse/hoteller til", choiceArr);
+                } else if (this.ready.equals("Sælg/Pantsæt")) {
+                    this.sellOrPawn(i, "Tilbage", choiceSellArr, choicePawnArr);
+                    choiceBuyArr = this.initBuyArray(i);
+                    choicePawnArr = this.initPawnArray(i);
+                    choiceSellArr = this.initSellArray(i);
 
-                    //Loop to check what field the player selected by matching the String propertyTOBuyAt with the fields of which the player owns
-                    for (int j = 0; j < playerList[i].getPlayerOwnedFields().current; j++) {
-                        if(propertyToBuyAt.equals(gameBoard.getFields()[playerList[i].getPlayerOwnedFields().atIndex(j)].getFieldName())){
-                            ((Properties)gameBoard.getFields()[playerList[i].getPlayerOwnedFields().atIndex(j)]).buildOnProperty(playerList[i], gameBoard.getFields());
-                            uiController.buildPropertiesOnGui(i,j,((Properties) gameBoard.getFields()[playerList[i].getPlayerOwnedFields().atIndex(j)]).getBuildOn(),playerList, gameBoard.getFields());
-                            uiController.getGuiPlayer(i).setBalance(playerList[i].getMoney());
-                            updateGuiFields();
-                        }
-
-                    }
                 }
-                ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], RollOrEndTurn, "Køb huse/hoteller");
+                else if(this.ready.equals("Kast")){
+                    break;
+                }
 
-            }
-        pController.initCanBuy();
-        } else if (!playerList[i].getInJail() && pController.getPosibillites(i).length == 0) {
-            ready = uiController.getGUI().getUserButtonPressed(uiController.getGuiPlayer(i).getName() + currentLang[14], RollOrEndTurn);
-        }
-        //*************************************Player gets the choice to either buy houses/hotels or roll with the dice*******************************************************
-        updateGuiFields();
+
+            }while (!ready.equals("Afslut tur"));
+
+
+
+
+
+        this.updateAllGuiFields();
     }
 
-    private void updateGuiFields(){
+
+    private void sellOrPawn(int player, String RollOrEndTurn, String[] choiceSellArr, String[] choicePawnArr) {
+        String sellOrPawn = this.sellOrPawnChoice(player, RollOrEndTurn,choiceSellArr, choicePawnArr);
+        while(!sellOrPawn.equals(RollOrEndTurn)){
+            if (sellOrPawn.equals("Sælg")) {
+                this.sellHouse(player, choiceSellArr);
+                choiceSellArr = this.initSellArray(player);
+            } else {
+                this.PawnOwnable(player, choicePawnArr);
+                choicePawnArr = this.initPawnArray(player);
+            }
+            sellOrPawn = this.sellOrPawnChoice(player, RollOrEndTurn, choiceSellArr, choicePawnArr);
+        }
+
+    }
+
+    private String sellOrPawnChoice(int player, String RollOrEndTurn, String[] choiceSellArr, String[] choicePawnArr) {
+        String sellOrPawn;
+        if (choicePawnArr.length == 0 && choiceSellArr.length != 0) {
+            sellOrPawn = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(player).getName() + ": Vælg en mulighed", new String[]{RollOrEndTurn, "Sælg"});
+        } else if (choiceSellArr.length == 0 && choicePawnArr.length != 0) {
+            sellOrPawn = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(player).getName() + ": Vælg en mulighed", new String[]{RollOrEndTurn, "Pantsæt"});
+        } else if (choicePawnArr.length != 0 && choiceSellArr.length != 0) {
+            sellOrPawn = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(player).getName() + ": Vælg en mulighed", new String[]{RollOrEndTurn, "Sælg", "Pantsæt"});
+        } else {
+            sellOrPawn = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(player).getName() + ": Vælg en mulighed", new String[]{RollOrEndTurn});
+        }
+
+        return sellOrPawn;
+    }
+
+    private void sellHouse(int i, String[] choiceSellArr) {
+        String propertyToSellAt = this.uiController.getGUI().getUserButtonPressed("Vælg en grund at sælge huse/hoteller fra", choiceSellArr);
+        for(int j = 0; j < this.playerList[i].getPlayerOwnedFields().current; ++j) {
+            if (propertyToSellAt.equals(this.gameBoard.getFields()[(Integer)this.playerList[i].getPlayerOwnedFields().atIndex(j)].getFieldName())) {
+                ((Properties)this.gameBoard.getFields()[(Integer)this.playerList[i].getPlayerOwnedFields().atIndex(j)]).sellBuilding(this.playerList[i]);
+                this.uiController.buildPropertiesOnGui(i, j, ((Properties)this.gameBoard.getFields()[(Integer)this.playerList[i].getPlayerOwnedFields().atIndex(j)]).getBuildOn(), this.playerList, this.gameBoard.getFields());
+                this.uiController.getGuiPlayer(i).setBalance(this.playerList[i].getMoney());
+                this.updateAllGuiFields();
+            }
+        }
+
+    }
+
+    private void PawnOwnable(int i, String[] choicePawnArr) {
+        String propertyToPawn = this.uiController.getGUI().getUserButtonPressed("Vælg en grund du vil pantsætte", choicePawnArr);
+        String toPawnOrNotToPawn = "Pantsat";
+        for(int j = 0; j < this.playerList[i].getPlayerOwnedFields().current; ++j) {
+            int currentField = (Integer)this.playerList[i].getPlayerOwnedFields().atIndex(j);
+            if (propertyToPawn.equals(this.gameBoard.getFields()[currentField].getFieldName())) {
+                if(gameBoard.getFields()[currentField] instanceof Properties) {
+                    ((Properties) this.gameBoard.getFields()[currentField]).pawnProperties(this.playerList[i]);
+                    if(!((Properties) this.gameBoard.getFields()[currentField]).getPawned()){
+                        toPawnOrNotToPawn = ((Properties) this.gameBoard.getFields()[currentField]).getRentTimesMulti() + "";
+                    }
+                }
+                else if(gameBoard.getFields()[currentField] instanceof Brewery){
+                    ((Brewery) this.gameBoard.getFields()[currentField]).pawnBrewery(this.playerList[i]);
+                    if(!((Brewery) this.gameBoard.getFields()[currentField]).getPawned()){
+                        toPawnOrNotToPawn = "100/200 gange kast";
+                    }
+                }
+                else if(gameBoard.getFields()[currentField] instanceof FieldShipYard){
+                    ((FieldShipYard) this.gameBoard.getFields()[currentField]).pawnShipYard(this.playerList[i]);
+                    if(!((FieldShipYard) this.gameBoard.getFields()[currentField]).getPawned()){
+                        toPawnOrNotToPawn = ((FieldShipYard) this.gameBoard.getFields()[currentField]).getRentTimesMulti() + "";
+                    }
+                }
+                ((GUI_Ownable)this.uiController.getGUI().getFields()[currentField]).setRent(toPawnOrNotToPawn);
+                this.uiController.getGuiPlayer(i).setBalance(this.playerList[i].getMoney());
+            }
+        }
+
+    }
+
+    private void buyHouse(int i, String[] choiceBuyArr) {
+        String propertyToBuyAt = this.uiController.getGUI().getUserButtonPressed("Vælg en grund at købe huse/hoteller til", choiceBuyArr);
+
+        for(int j = 0; j < this.playerList[i].getPlayerOwnedFields().current; ++j) {
+            if (propertyToBuyAt.equals(this.gameBoard.getFields()[(Integer)this.playerList[i].getPlayerOwnedFields().atIndex(j)].getFieldName())) {
+                ((Properties)this.gameBoard.getFields()[(Integer)this.playerList[i].getPlayerOwnedFields().atIndex(j)]).buildOnProperty(this.playerList[i], this.gameBoard.getFields());
+                this.uiController.buildPropertiesOnGui(i, j, ((Properties)this.gameBoard.getFields()[(Integer)this.playerList[i].getPlayerOwnedFields().atIndex(j)]).getBuildOn(), this.playerList, this.gameBoard.getFields());
+                this.uiController.getGuiPlayer(i).setBalance(this.playerList[i].getMoney());
+                this.updateAllGuiFields();
+            }
+        }
+
+    }
+
+    private String[] initBuyArray(int player) {
+        String[] choiceBuyArr = new String[this.pController.getBuyingPosibillites(player).length];
+
+        for(int j = 0; j < this.pController.getBuyingPosibillites(player).length; ++j) {
+            choiceBuyArr[j] = this.pController.getBuyingPosibillites(player)[j].getFieldName();
+        }
+
+        return choiceBuyArr;
+    }
+
+    private String[] initSellArray(int player) {
+        String[] choiceSellArr = new String[this.pController.getSellingPossibilities(player).length];
+
+        for(int j = 0; j < this.pController.getSellingPossibilities(player).length; ++j) {
+            choiceSellArr[j] = this.pController.getSellingPossibilities(player)[j].getFieldName();
+        }
+
+        return choiceSellArr;
+    }
+
+    private String[] initPawnArray(int player) {
+        String[] choicePawnArr = new String[this.pController.getPawningPossibilites(player).length];
+
+        for(int j = 0; j < this.pController.getPawningPossibilites(player).length; ++j) {
+            choicePawnArr[j] = this.pController.getPawningPossibilites(player)[j].getFieldName();
+        }
+
+        return choicePawnArr;
+    }
+
+    private String getBuyOrSellChoice( int i, String RollOrEndTurn, String[] choiceBuyArr, String[] choiceSellArr, String[] choicePawnArr) {
+        String choice;
+        if (choiceBuyArr.length > 0 && choicePawnArr.length + choiceSellArr.length > 0) {
+            choice = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(i).getName() + ": Vælg en mulighed", new String[]{RollOrEndTurn, "Køb huse/hoteller", "Sælg/Pantsæt"});
+        } else if (choiceBuyArr.length > 0 && choicePawnArr.length + choiceSellArr.length == 0) {
+            choice = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(i).getName() + ": Vælg en mulighed", new String[]{RollOrEndTurn, "Køb huse/hoteller"});
+        } else if (choiceBuyArr.length == 0 && choicePawnArr.length + choiceSellArr.length > 0) {
+            choice = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(i).getName() + ": Vælg en mulighed", new String[]{RollOrEndTurn, "Sælg/Pantsæt"});
+        } else {
+            choice = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(i).getName() + ": Vælg en mulighed", new String[]{RollOrEndTurn});
+        }
+
+        return choice;
+    }
+
+    private void updateAllGuiFields(){
         for (int j = 0; j < gameBoard.getFields().length; j++) {
             uiController.updateRent(j, gameBoard.getFields());
         }

@@ -1,3 +1,7 @@
+package DiceStuff;
+
+import DiceStuff.Die;
+
 public class Rafflecup {
 
     private Die d1, d2;
@@ -22,10 +26,7 @@ public class Rafflecup {
         return d1.getFaceValue() + d2.getFaceValue();
     }
 
-    public Boolean SameDie()
-    {
-        return d1.getFaceValue() == d2.getFaceValue();
-    }
+    public Boolean SameDie() { return d1.getFaceValue() == d2.getFaceValue(); }
 
     public int getD1(){
         return d1.getFaceValue();

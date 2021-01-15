@@ -9,8 +9,9 @@ public class Properties extends Field {
     private final int price;
     private int buildOn = 0;
     private final int index;
-    int priceMulti = 1;
-    int rent;
+    private int priceMulti = 1;
+    private int rent;
+    private boolean pawned = false;
     // All ownable properties with a value and a color
     public Properties(String name, String description, String color,int value, int index){
         super(name, description);
@@ -57,8 +58,8 @@ public class Properties extends Field {
             }*/
         }
 
-        //case if you dont own meaning someone else owns
-        else if(this.getOwnedBy() != player && this.ownedBy != -1){
+        //case if you dont own meaning someone else owns, case if the player is in jail, don't pay rent
+        else if(this.getOwnedBy() !=player && this.ownedBy != -1 && !players[this.getOwnedBy()].getInJail()){
 
             /*switch (players[player].getPosition()) {
                 case 1, 3 -> doubleSizedGroup(fields, 1, 3);
@@ -70,9 +71,14 @@ public class Properties extends Field {
                 case 31, 32, 34 -> tripleSizedGroup(fields, 31, 32, 34);
                 case 37, 39 -> doubleSizedGroup(fields, 37, 39);
             }*/
+            //Chek if a ground is pledge, and thereafter pay the right rent.
+            if(pawned == false){
+                players[player].setMoney(-this.rent * this.priceMulti);
+                players[this.getOwnedBy()].setMoney(this.rent * this.priceMulti);
+            }
 
-            players[player].setMoney(-this.rent * this.priceMulti);
-            players[this.getOwnedBy()].setMoney(this.rent * this.priceMulti);
+
+
         }
     }
     //method for when 2 players have the same amount of money in the end of the game
@@ -110,6 +116,17 @@ public class Properties extends Field {
         }
     }
 
+    public void sellBuilding(Player player){
+        if(this.buildOn == 5){
+            this.buildOn = 0;
+            player.setMoney(this.price*5/4);
+        }
+        else if(this.buildOn > 0){
+            this.buildOn--;
+            player.setMoney(this.price/4);
+        }
+    }
+
     public int getGroup(){
         return switch (this.getFieldColor()) {
             case "blå" -> 0;
@@ -125,6 +142,16 @@ public class Properties extends Field {
 
     }
 
+    public void pawnProperties(Player player){
+        if(pawned == false) {
+            pawned = true;
+            player.setMoney(this.price/2);
+        }
+        else{
+            pawned = false;
+            player.setMoney(-this.price/2*110/100);
+        }
+    }
     public String getFieldName() {
         return fieldName;
     }
@@ -145,10 +172,19 @@ public class Properties extends Field {
         return price;
     }
 
+    public void setBuildOn(int numberOfBuildings){
+        this.buildOn = numberOfBuildings;
+    }
+
     public int getIndex(){return this.index;}
 
-    private void buildingSwitch(){
-        switch (buildOn) {
+    public boolean getPawned(){
+        return this.pawned;
+    }
+
+    public void buildingSwitch(){
+        switch (this.buildOn) {
+            case 0 -> this.priceMulti = 1;
             case 1 -> this.priceMulti = 3;
             case 2 -> this.priceMulti = 4;
             case 3 -> this.priceMulti = 5;
@@ -196,7 +232,7 @@ public class Properties extends Field {
         }
     }
 
-    public int getRent(){
+    /*public int getRent(){
         int tempRent = rent;
         switch (buildOn) {
             case 0 -> tempRent = rent * priceMulti;
@@ -218,5 +254,8 @@ public class Properties extends Field {
 
         }
         return tempRent;
+    */
+    public int getRentTimesMulti(){
+        return (this.rent*this.priceMulti);
     }
 }
