@@ -42,4 +42,26 @@ class PropertyControllerTest {
         returnedFields = pc.getSellingPossibilities(1);
         assertEquals(1,returnedFields.length);
     }
+
+    @Test
+    void EvenBuildingDist(){
+        GameBoard gb = new GameBoard();
+        PropertyController pc = new PropertyController(gb.getFields());
+        //Two field group test
+        ((Properties)gb.getFields()[1]).setOwnedBy(1);
+        ((Properties)gb.getFields()[3]).setOwnedBy(1);
+        ((Properties)gb.getFields()[1]).setBuildOn(2);
+        ((Properties)gb.getFields()[3]).setBuildOn(1);
+        assertTrue(pc.isBuildingDistEvenForBuy((Properties) gb.getFields()[3]));
+        //three field group test
+        ((Properties)gb.getFields()[6]).setOwnedBy(1);
+        ((Properties)gb.getFields()[8]).setOwnedBy(1);
+        ((Properties)gb.getFields()[9]).setOwnedBy(1);
+
+        ((Properties)gb.getFields()[6]).setBuildOn(3);
+        ((Properties)gb.getFields()[8]).setBuildOn(3);
+        ((Properties)gb.getFields()[9]).setBuildOn(4);
+        assertTrue(pc.isBuildingDistEvenForBuy((Properties) gb.getFields()[8]));
+        assertTrue(pc.isBuildingDistEvenForBuy((Properties) gb.getFields()[9]));
+    }
 }

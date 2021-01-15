@@ -47,6 +47,7 @@ public class PropertyController {
     //Checks if a specific player can build on a specific field
     public boolean isFieldBuildable(Properties field, int playerNumber) {
         boolean groupOwner = false;
+        boolean evenBuildingDistribution = false;
         int groupChecker = -1;
         for (int i = 0; i < properties.length; i++) {
             for (int j = 0; j < properties[0].length; j++) {
@@ -56,7 +57,7 @@ public class PropertyController {
                 }
             }
         }
-        if(groupChecker != -1) {
+        if(groupChecker != -1 && isBuildingDistEvenForBuy(field)) {
             if(properties[groupChecker][2][0] != -2) {
                 if (playerNumber == properties[groupChecker][0][0] && playerNumber == properties[groupChecker][1][0] && playerNumber == properties[groupChecker][2][0]) {
                     groupOwner = true;
@@ -71,6 +72,46 @@ public class PropertyController {
         }
 
         return groupOwner;
+    }
+
+    public boolean isBuildingDistEvenForBuy(Properties field){
+        boolean isEven = false;
+        int groupChecker = -1;
+        int indexOfOtherGroupMember1 = -1;
+        int indexOfOtherGroupMember2 = -1;
+        for (int i = 0; i < properties.length; i++) {
+            for (int j = 0; j < properties[0].length; j++) {
+                if(properties[i][j][2] == field.getIndex()){
+                    groupChecker = i;
+                    break;
+                }
+            }
+        }
+        for (int i = 0; i < properties[groupChecker].length; i++) {
+            if(properties[groupChecker][i][2] != field.getIndex()){
+                if(indexOfOtherGroupMember1 == -1){
+                    indexOfOtherGroupMember1 = properties[groupChecker][i][2];
+                }
+                else{
+                    indexOfOtherGroupMember2 = properties[groupChecker][i][2];
+                }
+            }
+        }
+        int i = 0;
+        if(groupChecker != -1) {
+            if (groupChecker == 0 || groupChecker == 7) {
+                if (Math.abs(((Properties) fields[indexOfOtherGroupMember1]).getBuildOn() - ((Properties) fields[field.getIndex()]).getBuildOn()) == 0
+                || ((Properties) fields[indexOfOtherGroupMember1]).getBuildOn() > ((Properties) fields[field.getIndex()]).getBuildOn()){
+                    isEven = true;
+                }
+            }
+            else{
+                if(((Properties) fields[indexOfOtherGroupMember1]).getBuildOn() >= ((Properties) fields[field.getIndex()]).getBuildOn() && ((Properties) fields[indexOfOtherGroupMember2]).getBuildOn() >= ((Properties) fields[field.getIndex()]).getBuildOn()){
+                    isEven = true;
+                }
+            }
+        }
+        return isEven;
     }
 
     public boolean hasGroupPawnedProperties(Properties field){
@@ -105,6 +146,8 @@ public class PropertyController {
 
         return pawnable;
     }
+
+
 
     //Generates boolean field with true for all fields that player can build on
     public void generatePossibilities(int playerNumber){
