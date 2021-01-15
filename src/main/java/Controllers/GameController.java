@@ -332,8 +332,10 @@ public class GameController {
 
             for (int i = 0; i < playerList.length; i++) {
                 int occurences = 0; //same die counter
+
                 while(true) {
                     if (playerList[i] != null) {
+
                         //************************************JAIL************************************
                         Jailfunc(i);
                         //***********************************JAIL************************************
@@ -402,6 +404,9 @@ public class GameController {
                             buyHouseOrRoll(i, "Afslut tur");
                         }
 
+                    }
+                    else{
+                        break;
                     }
                     if (breakholder){breakholder = false;break;}
 
