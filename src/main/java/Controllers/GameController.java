@@ -126,6 +126,8 @@ public class GameController {
                             }
                             else {
                                 ((Properties) gameBoard.getFields()[deleteField]).setOwnedBy(-1);
+                                ((Properties) gameBoard.getFields()[deleteField]).setBuildOn(0);
+                                ((Properties) gameBoard.getFields()[deleteField]).buildingSwitch();
                             }
                         }
                     }
@@ -369,7 +371,7 @@ public class GameController {
                             else{breakholder = true;}
                             occurences++;
 
-                            playerList[i].setPosition(+rafflecup.RafflecupFaceValue());//
+                            playerList[i].setPosition(+/*rafflecup.RafflecupFaceValue()*/1);
 
                             //updates gui player position
                             uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
@@ -519,7 +521,7 @@ public class GameController {
                 else if(gameBoard.getFields()[currentField] instanceof FieldShipYard){
                     ((FieldShipYard) this.gameBoard.getFields()[currentField]).pawnShipYard(this.playerList[i]);
                     if(!((FieldShipYard) this.gameBoard.getFields()[currentField]).getPawned()){
-                        toPawnOrNotToPawn = ((FieldShipYard) this.gameBoard.getFields()[currentField]).getRentTimesMulti() + "";
+                        toPawnOrNotToPawn = ((FieldShipYard) this.gameBoard.getFields()[currentField]).getRent() + "";
                     }
                 }
                 ((GUI_Ownable)this.uiController.getGUI().getFields()[currentField]).setRent(toPawnOrNotToPawn);
