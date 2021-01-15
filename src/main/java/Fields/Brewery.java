@@ -49,6 +49,9 @@ public class Brewery extends Field{
         }
     }
 
+    public boolean getPawned(){
+        return this.pawned;
+    }
     public int getOwnedBy() {
         return ownedBy;
     }

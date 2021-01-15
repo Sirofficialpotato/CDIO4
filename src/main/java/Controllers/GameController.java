@@ -1,6 +1,5 @@
 package Controllers;
 
-import Cards.Cards;
 import DiceStuff.Rafflecup;
 import Fields.*;
 
@@ -447,7 +446,7 @@ public class GameController {
                 this.sellHouse(player, choiceSellArr);
                 choiceSellArr = this.initSellArray(player);
             } else {
-                this.pawnProperty(player, choicePawnArr);
+                this.PawnOwnable(player, choicePawnArr);
                 choicePawnArr = this.initPawnArray(player);
             }
             sellOrPawn = this.sellOrPawnChoice(player, RollOrEndTurn, choiceSellArr, choicePawnArr);
@@ -483,22 +482,31 @@ public class GameController {
 
     }
 
-    public void pawnProperty(int i, String[] choicePawnArr) {
+    public void PawnOwnable(int i, String[] choicePawnArr) {
         String propertyToPawn = this.uiController.getGUI().getUserButtonPressed("Vælg en grund du vil pantsætte", choicePawnArr);
-
+        String toPawnOrNotToPawn = "Pantsat";
         for(int j = 0; j < this.playerList[i].getPlayerOwnedFields().current; ++j) {
             int currentField = (Integer)this.playerList[i].getPlayerOwnedFields().atIndex(j);
             if (propertyToPawn.equals(this.gameBoard.getFields()[currentField].getFieldName())) {
                 if(gameBoard.getFields()[currentField] instanceof Properties) {
                     ((Properties) this.gameBoard.getFields()[currentField]).pawnProperties(this.playerList[i]);
+                    if(!((Properties) this.gameBoard.getFields()[currentField]).getPawned()){
+                        toPawnOrNotToPawn = ((Properties) this.gameBoard.getFields()[currentField]).getRentTimesMulti() + "";
+                    }
                 }
                 else if(gameBoard.getFields()[currentField] instanceof Brewery){
                     ((Brewery) this.gameBoard.getFields()[currentField]).pawnBrewery(this.playerList[i]);
+                    if(!((Brewery) this.gameBoard.getFields()[currentField]).getPawned()){
+                        toPawnOrNotToPawn = "100/200 gange kast";
+                    }
                 }
                 else if(gameBoard.getFields()[currentField] instanceof FieldShipYard){
                     ((FieldShipYard) this.gameBoard.getFields()[currentField]).pawnShipYard(this.playerList[i]);
+                    if(!((FieldShipYard) this.gameBoard.getFields()[currentField]).getPawned()){
+                        toPawnOrNotToPawn = ((FieldShipYard) this.gameBoard.getFields()[currentField]).getRent() + "";
+                    }
                 }
-                ((GUI_Ownable)this.uiController.getGUI().getFields()[currentField]).setRent("Pantsat");
+                ((GUI_Ownable)this.uiController.getGUI().getFields()[currentField]).setRent(toPawnOrNotToPawn);
                 this.uiController.getGuiPlayer(i).setBalance(this.playerList[i].getMoney());
             }
         }

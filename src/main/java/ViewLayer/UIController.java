@@ -181,20 +181,20 @@ public class UIController {
         //Updates Owners of GUI fields, by referencing the name of the owner of logical fields
     public void updateGUIFieldOwner(Player[] players, Field[] fields, int field){
         if(field == 5 || field == 15 || field == 25 || field == 35) {
-            if (((FieldShipYard) fields[field]).getOwnedBy() != -1) {
+            if (((FieldShipYard) fields[field]).getOwnedBy() != -1 && !((FieldShipYard) fields[field]).getPawned()) {
                 ((GUI_Shipping) this.gui.getFields()[field]).setOwnerName(players[((FieldShipYard) fields[field]).getOwnedBy()].getName());
                 ((GUI_Shipping) this.gui.getFields()[field]).setBorder(this.guiPlayers[((FieldShipYard) fields[field]).getOwnedBy()].getPrimaryColor());
                 ((GUI_Shipping) this.gui.getFields()[field]).setRent("M"+ ((FieldShipYard) fields[field]).getRentTimesMulti());
             }
         }
         else if(field == 12 || field == 28){
-            if (((Brewery) fields[field]).getOwnedBy() != -1) {
+            if (((Brewery) fields[field]).getOwnedBy() != -1 && !((Brewery) fields[field]).getPawned()) {
                 ((GUI_Brewery) this.gui.getFields()[field]).setOwnerName(players[((Brewery) fields[field]).getOwnedBy()].getName());
                 ((GUI_Brewery) this.gui.getFields()[field]).setBorder(this.guiPlayers[((Brewery) fields[field]).getOwnedBy()].getPrimaryColor());
             }
         }
         else {
-            if(((Properties)fields[field]).getOwnedBy() != -1) {
+            if(((Properties)fields[field]).getOwnedBy() != -1 && !((Properties)fields[field]).getPawned()) {
                 ((GUI_Street) this.gui.getFields()[field]).setOwnerName(players[((Properties) fields[field]).getOwnedBy()].getName());
                 ((GUI_Street) this.gui.getFields()[field]).setBorder(this.guiPlayers[((Properties)fields[field]).getOwnedBy()].getPrimaryColor());
                 ((GUI_Street)getGUI().getFields()[field]).setRent("M"+ ((Properties)fields[field]).getRentTimesMulti());

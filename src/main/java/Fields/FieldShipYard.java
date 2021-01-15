@@ -65,6 +65,10 @@ public class FieldShipYard extends Field {
         return this.rent;
     }
 
+    public boolean getPawned(){
+        return this.pawned;
+    }
+
     public int getRentTimesMulti(){
         return (this.rent*this.priceMulti);
     }
