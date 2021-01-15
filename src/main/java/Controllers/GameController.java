@@ -228,8 +228,8 @@ public class GameController {
         } else if (playerList[i].getInJail() && playerList[i].getJailCard()) {
             playerList[i].setJailCard(false);
             playerList[i].setInJail(false);
-            gameBoard.fieldChance.getCards().add(playerList[i].getJailCardOject());
-            gameBoard.fieldChance.getCards().lastItemToFront();
+            gameBoard.getCards().add(playerList[i].getJailCardOject());
+            gameBoard.getCards().lastItemToFront();
             playerList[i].removeJailCardObect();
             uiController.getGUI().showMessage(playerList[i].getName() + currentLang[21]);
         }
@@ -378,7 +378,8 @@ public class GameController {
                             }
                             occurences++;
 
-                            playerList[i].setPosition(+rafflecup.RafflecupFaceValue());
+                            playerList[i].setPosition(rafflecup.RafflecupFaceValue());
+
 
                             //updates gui player position
                             uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
