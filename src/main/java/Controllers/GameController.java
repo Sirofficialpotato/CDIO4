@@ -446,7 +446,7 @@ public class GameController {
     }
 
 
-    public void sellOrPawn(int player, String RollOrEndTurn, String[] choiceSellArr, String[] choicePawnArr) {
+    private void sellOrPawn(int player, String RollOrEndTurn, String[] choiceSellArr, String[] choicePawnArr) {
         String sellOrPawn = this.sellOrPawnChoice(player, RollOrEndTurn,choiceSellArr, choicePawnArr);
         while(!sellOrPawn.equals(RollOrEndTurn)){
             if (sellOrPawn.equals("Sælg")) {
@@ -461,7 +461,7 @@ public class GameController {
 
     }
 
-    public String sellOrPawnChoice(int player, String RollOrEndTurn, String[] choiceSellArr, String[] choicePawnArr) {
+    private String sellOrPawnChoice(int player, String RollOrEndTurn, String[] choiceSellArr, String[] choicePawnArr) {
         String sellOrPawn;
         if (choicePawnArr.length == 0 && choiceSellArr.length != 0) {
             sellOrPawn = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(player).getName() + ": Vælg en mulighed", new String[]{RollOrEndTurn, "Sælg"});
@@ -476,7 +476,7 @@ public class GameController {
         return sellOrPawn;
     }
 
-    public void sellHouse(int i, String[] choiceSellArr) {
+    private void sellHouse(int i, String[] choiceSellArr) {
         String propertyToSellAt = this.uiController.getGUI().getUserButtonPressed("Vælg en grund at sælge huse/hoteller fra", choiceSellArr);
         for(int j = 0; j < this.playerList[i].getPlayerOwnedFields().current; ++j) {
             if (propertyToSellAt.equals(this.gameBoard.getFields()[(Integer)this.playerList[i].getPlayerOwnedFields().atIndex(j)].getFieldName())) {
@@ -489,7 +489,7 @@ public class GameController {
 
     }
 
-    public void PawnOwnable(int i, String[] choicePawnArr) {
+    private void PawnOwnable(int i, String[] choicePawnArr) {
         String propertyToPawn = this.uiController.getGUI().getUserButtonPressed("Vælg en grund du vil pantsætte", choicePawnArr);
         String toPawnOrNotToPawn = "Pantsat";
         for(int j = 0; j < this.playerList[i].getPlayerOwnedFields().current; ++j) {
@@ -520,7 +520,7 @@ public class GameController {
 
     }
 
-    public void buyHouse(int i, String[] choiceBuyArr) {
+    private void buyHouse(int i, String[] choiceBuyArr) {
         String propertyToBuyAt = this.uiController.getGUI().getUserButtonPressed("Vælg en grund at købe huse/hoteller til", choiceBuyArr);
 
         for(int j = 0; j < this.playerList[i].getPlayerOwnedFields().current; ++j) {
@@ -534,7 +534,7 @@ public class GameController {
 
     }
 
-    public String[] initBuyArray(int player) {
+    private String[] initBuyArray(int player) {
         String[] choiceBuyArr = new String[this.pController.getBuyingPosibillites(player).length];
 
         for(int j = 0; j < this.pController.getBuyingPosibillites(player).length; ++j) {
@@ -544,7 +544,7 @@ public class GameController {
         return choiceBuyArr;
     }
 
-    public String[] initSellArray(int player) {
+    private String[] initSellArray(int player) {
         String[] choiceSellArr = new String[this.pController.getSellingPossibilities(player).length];
 
         for(int j = 0; j < this.pController.getSellingPossibilities(player).length; ++j) {
@@ -554,7 +554,7 @@ public class GameController {
         return choiceSellArr;
     }
 
-    public String[] initPawnArray(int player) {
+    private String[] initPawnArray(int player) {
         String[] choicePawnArr = new String[this.pController.getPawningPossibilites(player).length];
 
         for(int j = 0; j < this.pController.getPawningPossibilites(player).length; ++j) {
@@ -564,7 +564,7 @@ public class GameController {
         return choicePawnArr;
     }
 
-    public String getBuyOrSellChoice( int i, String RollOrEndTurn, String[] choiceBuyArr, String[] choiceSellArr, String[] choicePawnArr) {
+    private String getBuyOrSellChoice( int i, String RollOrEndTurn, String[] choiceBuyArr, String[] choiceSellArr, String[] choicePawnArr) {
         String choice;
         if (choiceBuyArr.length > 0 && choicePawnArr.length + choiceSellArr.length > 0) {
             choice = this.uiController.getGUI().getUserButtonPressed(this.uiController.getGuiPlayer(i).getName() + ": Vælg en mulighed", new String[]{RollOrEndTurn, "Køb huse/hoteller", "Sælg/Pantsæt"});
