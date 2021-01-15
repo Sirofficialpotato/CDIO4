@@ -339,6 +339,7 @@ public class GameController {
 
                         //************************************JAIL************************************
                         Jailfunc(i);
+                        if (playerList[i].getInJail()){break;}
                         //***********************************JAIL************************************
                         //Check for if player has a player specific card and gives them the choice
 
@@ -378,7 +379,7 @@ public class GameController {
                             }
                             occurences++;
 
-                            playerList[i].setPosition(+rafflecup.RafflecupFaceValue());
+                            playerList[i].setPosition(/*+rafflecup.RafflecupFaceValue()*/ 30);
 
                             //updates gui player position
                             uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
