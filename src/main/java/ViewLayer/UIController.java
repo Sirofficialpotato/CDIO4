@@ -252,4 +252,8 @@ public class UIController {
         }
     }
 
+    public void updatePawnStatus(int currentField, String toPawnOrNotToPawn){
+        ((GUI_Ownable)this.getGUI().getFields()[currentField]).setRent(toPawnOrNotToPawn);
+    }
+
 }

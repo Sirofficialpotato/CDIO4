@@ -1,16 +1,15 @@
 package Controllers;
 
-import DiceStuff.*;
+import DiceStuff.Rafflecup;
 import Fields.*;
-import Cards.*;
+
 
 import Player.Player;
 import ViewLayer.UIController;
 
 import Language.*;
-import gui_fields.GUI_Ownable;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.Arrays;
 
 public class GameController {
@@ -78,7 +77,7 @@ public class GameController {
             }
             //Sets the players money according the rules
             switch (numberOfPlayers) {
-                case 3, 4, 5, 6 -> player.setMoney(5000);
+                case 3, 4, 5, 6 -> player.setMoney(30000);
             }
             playerList[i - 1] = player;
         }
@@ -228,8 +227,8 @@ public class GameController {
         } else if (playerList[i].getInJail() && playerList[i].getJailCard()) {
             playerList[i].setJailCard(false);
             playerList[i].setInJail(false);
-            gameBoard.fieldChance.getCards().add(playerList[i].getJailCardOject());
-            gameBoard.fieldChance.getCards().lastItemToFront();
+            gameBoard.getCards().add(playerList[i].getJailCardOject());
+            gameBoard.getCards().lastItemToFront();
             playerList[i].removeJailCardObect();
             uiController.getGUI().showMessage(playerList[i].getName() + currentLang[21]);
         }
@@ -240,16 +239,16 @@ public class GameController {
         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
         //********************checks is player is on a chancefield if so he draws a card***********************************
         if (gameBoard.getFields()[playerList[i].getPosition()] instanceof FieldChance) {
-            Cards currentCard = gameBoard.getCards().getLast();
+            //Cards currentCard = gameBoard.getCards().getLast();
             ((FieldChance) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), gameBoard.getCards());
-            uiController.getGUI().displayChanceCard(currentCard.getCardText());
+            uiController.getGUI().displayChanceCard(gameBoard.getCards().getLast().getCardText());
             uiController.getGUI().showMessage(playerList[i].getName() + " trækker et lykkekort! ");
             uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
             //Loop that draws cards until the last drawn card has drawAgain == false
             //If else statements keeps track of which type of card and acts accordingly
             gameBoard.getCards().lastItemToFront();
             boolean shippingCardCheck = false;
-            if (currentCard.getCardText().equals("Ryk frem til det nærmeste rederi og betal ejeren to gange den leje han ellers er berettiget til, hvis selskabet ikke ejes af nogen kan De købe det af banken.")) {
+            if (gameBoard.getCards().getLast().getCardText().equals("Ryk frem til det nærmeste rederi og betal ejeren to gange den leje han ellers er berettiget til, hvis selskabet ikke ejes af nogen kan De købe det af banken.")) {
                 shippingCardCheck = true;
             }
             DoAfterMove(i, shippingCardCheck);
@@ -538,7 +537,7 @@ public class GameController {
                         toPawnOrNotToPawn = ((FieldShipYard) this.gameBoard.getFields()[currentField]).getRentTimesMulti() + "";
                     }
                 }
-                ((GUI_Ownable)this.uiController.getGUI().getFields()[currentField]).setRent(toPawnOrNotToPawn);
+                uiController.updatePawnStatus(currentField,toPawnOrNotToPawn);
                 this.uiController.getGuiPlayer(i).setBalance(this.playerList[i].getMoney());
             }
         }
