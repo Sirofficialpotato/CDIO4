@@ -145,11 +145,11 @@ public class Properties extends Field {
     public void pawnProperties(Player player){
         if(pawned == false) {
             pawned = true;
-            player.setMoney(this.price);
+            player.setMoney(this.price/2);
         }
         else{
             pawned = false;
-            player.setMoney(-this.price*110/100);
+            player.setMoney(-this.price/2*110/100);
         }
     }
     public String getFieldName() {
