@@ -348,20 +348,7 @@ public class GameController {
                             //Change die on in gui to reflect new roll and update player position
                             rafflecup.useRafflecup();
                             uiController.getGUI().setDice(rafflecup.getD1(), rafflecup.getD2());
-                            if(rafflecup.SameDie()){
-                                if (occurences == 2){
-                                    uiController.getGUI().showMessage(playerList[i].getName() + " har slået 2 ens tre gange og er blevet smidt i fængsel");
-                                    playerList[i].setInJail(true);
-                                    playerList[i].setSpecificPosition(10);
 
-                                    //updates gui player position
-                                    uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
-
-                                    break;
-                                }
-                            }
-                            else{break;}
-                            occurences++;
 
                             playerList[i].setPosition(+rafflecup.RafflecupFaceValue());
 
@@ -392,7 +379,20 @@ public class GameController {
                         }
 
                     }
+                    if(rafflecup.SameDie()){
+                        if (occurences == 2){
+                            uiController.getGUI().showMessage(playerList[i].getName() + " har slået 2 ens tre gange og er blevet smidt i fængsel");
+                            playerList[i].setInJail(true);
+                            playerList[i].setSpecificPosition(10);
 
+                            //updates gui player position
+                            uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
+
+                            break;
+                        }
+                    }
+                    else{break;}
+                    occurences++;
 
                 }
             }
