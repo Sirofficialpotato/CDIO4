@@ -210,7 +210,7 @@ public class UIController {
                 ((GUI_Shipping) this.gui.getFields()[field]).setRent("M" + ((FieldShipYard) fields[field]).getRentTimesMulti());
             }
         }
-        if(field == 12 || field == 28) {
+        else if(field == 12 || field == 28) {
             if (((Brewery) fields[field]).getOwnedBy() != -1) {
                 ((GUI_Brewery) this.gui.getFields()[field]).setOwnerName(null);
                 ((GUI_Brewery) this.gui.getFields()[field]).setBorder(Color.lightGray);
