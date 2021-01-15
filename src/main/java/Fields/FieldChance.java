@@ -48,8 +48,8 @@ public class FieldChance extends Field {
                 cards.lastItemToFront();
             }
         }
-        else{
-            currentCard.drawCard(players[player]);
+        else if(currentCard instanceof PriceIncrease){
+            ((PriceIncrease)currentCard).drawCard(players[player], fields);
             cards.lastItemToFront();
         }
     }

@@ -24,6 +24,14 @@ public class MoveToField extends Cards
             if (player.getPosition() - temp < 5){
                 player.setSpecificPosition(temp + 5);
             }
+            else if(temp == 30){
+                if(player.getPosition() - temp < 5) {
+                    player.setSpecificPosition(35);
+                }
+                else{
+                    player.setSpecificPosition(5);
+                }
+            }
             else{
                 player.setSpecificPosition(temp + 15);
             }

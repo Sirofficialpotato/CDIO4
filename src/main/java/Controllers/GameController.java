@@ -92,7 +92,6 @@ public class GameController {
         Language langSelector = new Language("Dansk");
         currentLang = langSelector.returnLang();
         playerList = new Player[SetPlayerAmount()];
-
         PlayerCreator();
         uiController.addPlayers(playerList);
         ChooseColor();
