@@ -9,9 +9,9 @@ public class Wallet {
 
         // Placeholder - Should "minus money" be possible?
         this.money += money;
-        if(this.money < 0) {
+        /*if(this.money < 0) {
             this.money = 0;
-        }
+        }*/
     }
     public int getMoney() {
         return money;

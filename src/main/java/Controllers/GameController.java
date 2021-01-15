@@ -76,7 +76,7 @@ public class GameController {
             }
             //Sets the players money according the rules
             switch (numberOfPlayers) {
-                case 3, 4, 5, 6 -> player.setMoney(30000);
+                case 3, 4, 5, 6 -> player.setMoney(10000);
             }
             playerList[i - 1] = player;
         }
@@ -255,7 +255,7 @@ public class GameController {
     }
     private void DoAfterMove(int i, boolean gotHereByCard){
         if (gameBoard.getFields()[playerList[i].getPosition()] instanceof Properties) {
-            if (((Properties) gameBoard.getFields()[playerList[i].getPosition()]).getOwnedBy() == -1) {
+            if (((Properties) gameBoard.getFields()[playerList[i].getPosition()]).getOwnedBy() == -1 && playerList[i].getMoney() > ((Properties) gameBoard.getFields()[playerList[i].getPosition()]).getPrice()) {
                 boolean buyOrNot = uiController.getGUI().getUserLeftButtonPressed(playerList[i].getName() + " landede på " + gameBoard.getFields()[playerList[i].getPosition()].getFieldName() + " og har nu muligheden for at købe", "Køb", "Ignorere");
                 if (buyOrNot) {
                     playerList[i].addToPlayerOwnedFields();
@@ -264,10 +264,10 @@ public class GameController {
                     ((Properties) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), false);
                 }
             } else {
-                ((Properties) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), true);
+                ((Properties) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), false);
             }
         } else if (gameBoard.getFields()[playerList[i].getPosition()] instanceof FieldShipYard) {
-            if (((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).getOwnedBy() == -1) {
+            if (((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).getOwnedBy() == -1  && playerList[i].getMoney() > ((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).getPrice()) {
                 boolean buyOrNot = uiController.getGUI().getUserLeftButtonPressed(playerList[i].getName() + " landede på " + gameBoard.getFields()[playerList[i].getPosition()].getFieldName() + " og har nu muligheden for at købe", "Køb", "Ignorere");
                 if (buyOrNot) {
                     playerList[i].addToPlayerOwnedFields();
@@ -276,7 +276,7 @@ public class GameController {
                     ((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), false, gotHereByCard);
                 }
             } else {
-                ((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), true, gotHereByCard);
+                ((FieldShipYard) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), false, gotHereByCard);
             }
 
         }
@@ -290,7 +290,7 @@ public class GameController {
             }
         }
         else if(gameBoard.getFields()[playerList[i].getPosition()] instanceof Brewery) {
-            if (((Brewery) gameBoard.getFields()[playerList[i].getPosition()]).getOwnedBy() == -1) {
+            if (((Brewery) gameBoard.getFields()[playerList[i].getPosition()]).getOwnedBy() == -1  && playerList[i].getMoney() > ((Brewery) gameBoard.getFields()[playerList[i].getPosition()]).getPrice()) {
                 boolean buyOrNot = uiController.getGUI().getUserLeftButtonPressed(playerList[i].getName() + " landede på " + gameBoard.getFields()[playerList[i].getPosition()].getFieldName() + " og har nu muligheden for at købe", "Køb", "Ignorere");
                 if (buyOrNot) {
                     playerList[i].addToPlayerOwnedFields();
@@ -340,7 +340,9 @@ public class GameController {
                         if (GameOver) break;
 
                         buyHouseOrRoll(i, currentLang[15]);
-
+                        if(playerList[i].getMoney() <= 0){
+                            uiController.getGUI().showMessage("Spilleren " + playerList[i].getName() + " har ramt M0 og bliver derfor nødsaget til at sælge/pantsætte for at blive i spillet!");
+                        }
 
                         // if statement to check if the user typed in throw
                         if (ready.equals(currentLang[15]) && !playerList[i].getInJail()) {
@@ -375,6 +377,9 @@ public class GameController {
                         }
 
                         if (pController.getBuyingPosibillites(i).length + pController.getPawningPossibilites(i).length + pController.getSellingPossibilities(i).length > 0) {
+                            if(playerList[i].getMoney() <= 0){
+                                uiController.getGUI().showMessage("Spilleren " + playerList[i].getName() + " har ramt M0 og bliver derfor nødsaget til at sælge/pantsætte for at blive i spillet!");
+                            }
                             buyHouseOrRoll(i, "Afslut tur");
                         }
 
