@@ -368,7 +368,7 @@ public class GameController {
                             else{breakholder = true;}
                             occurences++;
 
-                            playerList[i].setPosition(1);//+rafflecup.RafflecupFaceValue()
+                            playerList[i].setPosition(+rafflecup.RafflecupFaceValue());
 
                             //updates gui player position
                             uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
