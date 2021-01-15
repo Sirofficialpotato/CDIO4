@@ -78,7 +78,7 @@ public class GameController {
             }
             //Sets the players money according the rules
             switch (numberOfPlayers) {
-                case 3, 4, 5, 6 -> player.setMoney(10000);
+                case 3, 4, 5, 6 -> player.setMoney(5000);
             }
             playerList[i - 1] = player;
         }
@@ -333,8 +333,9 @@ public class GameController {
             for (int i = 0; i < playerList.length; i++) {
                 int occurences = 0; //same die counter
 
-                while(true) {
-                    if (playerList[i] != null) {
+                if (playerList[i] != null) {
+                    while(true) {
+
 
                         //************************************JAIL************************************
                         Jailfunc(i);
@@ -345,21 +346,24 @@ public class GameController {
                         //loop to check if a player as reached 0
                         EndGame();
                         if (GameOver) break;
+                        if(playerList[i] == null){
+                            break;
+                        }
 
                         buyHouseOrRoll(i, currentLang[15]);
-                        if(playerList[i].getMoney() <= 0){
+                        if (playerList[i] != null && playerList[i].getMoney() <= 0) {
                             uiController.getGUI().showMessage("Spilleren " + playerList[i].getName() + " har ramt M0 og bliver derfor nødsaget til at sælge/pantsætte for at blive i spillet!");
                         }
 
                         // if statement to check if the user typed in throw
-                        if (ready.equals(currentLang[15]) && !playerList[i].getInJail()) {
+                        if (playerList[i] != null && ready.equals(currentLang[15]) && !playerList[i].getInJail()) {
 
                             //Change die on in gui to reflect new roll and update player position
                             rafflecup.useRafflecup();
                             uiController.getGUI().setDice(rafflecup.getD1(), rafflecup.getD2());
 
-                            if(rafflecup.SameDie()){
-                                if (occurences == 2){
+                            if (rafflecup.SameDie()) {
+                                if (occurences == 2) {
                                     uiController.getGUI().showMessage(playerList[i].getName() + " har slået 2 ens tre gange og er blevet smidt i fængsel");
                                     playerList[i].setInJail(true);
                                     playerList[i].setSpecificPosition(10);
@@ -369,47 +373,52 @@ public class GameController {
 
                                     break;
                                 }
+                            } else {
+                                breakholder = true;
                             }
-                            else{breakholder = true;}
                             occurences++;
 
-                            playerList[i].setPosition(+/*rafflecup.RafflecupFaceValue()*/1);
+                            playerList[i].setPosition(+rafflecup.RafflecupFaceValue());
 
                             //updates gui player position
                             uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
 
-                            if (playerList[i].getPosition() == 30) {
+                            if (playerList[i] != null && playerList[i].getPosition() == 30) {
                                 uiController.getGUI().showMessage(playerList[i].getName() + " landede på gå i fængsel feltet og bliver derfor smidt direkte i fængsel!");
                             }
                         }
                         //Part 1 of landOnField test see part 2
                         //System.out.println(playerList[i].getName() + " before landing on field: " + playerList[i].getMoney());
+                        if (playerList[i] != null) {
 
-                        fieldChanceCheck(i);
-                        updateAllGuiFields();
-                        //here we update the player position again to make sure it's correct if a chancecard has been used
-                        uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
+                            fieldChanceCheck(i);
+                            updateAllGuiFields();
+                            //here we update the player position again to make sure it's correct if a chancecard has been used
+                            uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
 
-                        // Gotta update Money here to make sure the gui displays the correct amount.
-                        for (int j = 0; j < playerList.length; j++) {
-                            if (playerList[j] != null) {
-                                uiController.getGuiPlayer(j).setBalance(playerList[j].getMoney());
+                            // Gotta update Money here to make sure the gui displays the correct amount.
+                            for (int j = 0; j < playerList.length; j++) {
+                                if(playerList[j] != null){
+                                    uiController.getGuiPlayer(j).setBalance(playerList[j].getMoney());
+                                }
                             }
                         }
 
+
                         if (pController.getBuyingPosibillites(i).length + pController.getPawningPossibilites(i).length + pController.getSellingPossibilities(i).length > 0) {
-                            if(playerList[i].getMoney() <= 0){
+                            if(playerList[i] != null && playerList[i].getMoney() <= 0){
                                 uiController.getGUI().showMessage("Spilleren " + playerList[i].getName() + " har ramt M0 og bliver derfor nødsaget til at sælge/pantsætte for at blive i spillet!");
                             }
                             buyHouseOrRoll(i, "Afslut tur");
                         }
 
-                    }
-                    else{
-                        break;
-                    }
+                    //}
+                    //else{
+                        //break;
+                    //}
                     if (breakholder){breakholder = false;break;}
 
+                    }
                 }
             }
         }
