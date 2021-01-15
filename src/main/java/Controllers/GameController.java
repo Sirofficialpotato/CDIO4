@@ -2,6 +2,7 @@ package Controllers;
 
 import DiceStuff.*;
 import Fields.*;
+import Cards.*;
 
 import Player.Player;
 import ViewLayer.UIController;
@@ -237,7 +238,7 @@ public class GameController {
 
         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
         //********************checks is player is on a chancefield if so he draws a card***********************************
-        /*if (gameBoard.getFields()[playerList[i].getPosition()] instanceof FieldChance) {
+        if (gameBoard.getFields()[playerList[i].getPosition()] instanceof FieldChance) {
             Cards currentCard = gameBoard.getCards().getLast();
             ((FieldChance) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), gameBoard.getCards());
             uiController.getGUI().displayChanceCard(currentCard.getCardText());
@@ -251,7 +252,7 @@ public class GameController {
                 shippingCardCheck = true;
             }
             DoAfterMove(i, shippingCardCheck);
-        }*/
+        }
         DoAfterMove(i, false);
     }
     private void DoAfterMove(int i, boolean gotHereByCard){
