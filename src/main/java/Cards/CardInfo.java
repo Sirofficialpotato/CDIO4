@@ -12,7 +12,7 @@ public class CardInfo<T> {
     public CardInfo(){
         this.cardInfo = new Object[][]{
                 {//Prisen stiger
-                    "Priser stiger: Oliepriserne er steget, og De skal betale kr 500 pr hus og kr 2000 pr hotel",
+                        "Priser stiger: Oliepriserne er steget, og De skal betale kr 500 pr hus og kr 2000 pr hotel",
                         "Priser stiger: Ejendomsskatten er steget. Ekstraudgifterne er: 800 kr pr hus, 2300 kr pr hotel.",
                         //Betal penge til banken
                         "Betal penge til banken: De har kørt frem for “fuldt stop”, Betal 1000 kroner i bøde",

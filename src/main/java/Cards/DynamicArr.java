@@ -110,6 +110,7 @@ public class DynamicArr<T> {
         }
         arr = temp;
         size--;
+        current--;
     }
 
     public void addAtStart(T object){

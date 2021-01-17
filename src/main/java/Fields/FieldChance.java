@@ -20,9 +20,10 @@ public class FieldChance extends Field {
     public void landOnField(Player[] players, int player, Field[] fields, DynamicArr<Cards> cards ) {
         Cards currentCard = cards.getLast();
         if (currentCard instanceof JailInteractions) {
-            if (currentCard.getCardText().substring(0, 14).equals("I anledning af")) {
+            if (currentCard.getCardText().equals("I anledning af kongens fødselsdag benådes De herved for fængsel. Dette kort kan opbevares indtil De får brug for det, eller De kan sælge det.")) {
                 cards.removeLast();
                 players[player].addJailCard((JailInteractions) currentCard);
+                players[player].setJailCard(true);
             } else {
                 players[player].setInJail(true);
                 players[player].setSpecificPosition(10);
@@ -48,8 +49,8 @@ public class FieldChance extends Field {
                 cards.lastItemToFront();
             }
         }
-        else{
-            currentCard.drawCard(players[player]);
+        else if(currentCard instanceof PriceIncrease){
+            ((PriceIncrease)currentCard).drawCard(players[player], fields);
             cards.lastItemToFront();
         }
     }

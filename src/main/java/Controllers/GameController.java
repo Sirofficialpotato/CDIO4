@@ -1,16 +1,15 @@
 package Controllers;
 
-import DiceStuff.*;
+import DiceStuff.Rafflecup;
 import Fields.*;
-import Cards.*;
+
 
 import Player.Player;
 import ViewLayer.UIController;
 
 import Language.*;
-import gui_fields.GUI_Ownable;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.Arrays;
 
 public class GameController {
@@ -78,7 +77,7 @@ public class GameController {
             }
             //Sets the players money according the rules
             switch (numberOfPlayers) {
-                case 3, 4, 5, 6 -> player.setMoney(10000);
+                case 3, 4, 5, 6 -> player.setMoney(30000);
             }
             playerList[i - 1] = player;
         }
@@ -92,28 +91,24 @@ public class GameController {
         Language langSelector = new Language("Dansk");
         currentLang = langSelector.returnLang();
         playerList = new Player[SetPlayerAmount()];
-
         PlayerCreator();
         uiController.addPlayers(playerList);
         ChooseColor();
         GameFlow();
     }
 
-    private void EndGame() {
+    private void EndPlayer() {
         for (int k = 0; k < playerList.length; k++) {
             // Disable player with 0 or less cash
             if (uiController.getGuiPlayer(k).getBalance() <= 0) {
                 if (playerList[k] != null) {
                     uiController.getGUI().getFields()[playerList[k].getPosition()].setCar(uiController.getGuiPlayer(k), false);
 
-                    //Virker ikke måske brugbart???
+                    //Loop to remove all buildings and fields owned by the losing player.
                     for (int i = 0; i < playerList[k].getPlayerOwnedFields().size; i++) {
-                        System.out.println(playerList[k].getPlayerOwnedFields().atIndex(i));
-                        if (playerList[k].getPlayerOwnedFields().atIndex(i) == null)
-                        {
-                            continue;
-                        }
-                        else if(playerList[k].getPlayerOwnedFields().atIndex(i) != null){
+                        //System.out.println(playerList[k].getPlayerOwnedFields().atIndex(i));
+
+                        if(playerList[k].getPlayerOwnedFields().atIndex(i) != null){
 
                             int deleteField = playerList[k].getPlayerOwnedFields().atIndex(i);
                             uiController.removeGUIFieldOwner(gameBoard.getFields(), playerList[k].getPlayerOwnedFields().atIndex(i));
@@ -138,6 +133,7 @@ public class GameController {
             }
             if (Losers == playerList.length - 1) {
                 GameOver = true;
+                break;
             }
 
         }
@@ -229,8 +225,8 @@ public class GameController {
         } else if (playerList[i].getInJail() && playerList[i].getJailCard()) {
             playerList[i].setJailCard(false);
             playerList[i].setInJail(false);
-            gameBoard.fieldChance.getCards().add(playerList[i].getJailCardOject());
-            gameBoard.fieldChance.getCards().lastItemToFront();
+            gameBoard.getCards().add(playerList[i].getJailCardOject());
+            gameBoard.getCards().lastItemToFront();
             playerList[i].removeJailCardObect();
             uiController.getGUI().showMessage(playerList[i].getName() + currentLang[21]);
         }
@@ -241,16 +237,16 @@ public class GameController {
         uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
         //********************checks is player is on a chancefield if so he draws a card***********************************
         if (gameBoard.getFields()[playerList[i].getPosition()] instanceof FieldChance) {
-            Cards currentCard = gameBoard.getCards().getLast();
+            //Cards currentCard = gameBoard.getCards().getLast();
             ((FieldChance) gameBoard.getFields()[playerList[i].getPosition()]).landOnField(playerList, i, gameBoard.getFields(), gameBoard.getCards());
-            uiController.getGUI().displayChanceCard(currentCard.getCardText());
+            uiController.getGUI().displayChanceCard(gameBoard.getCards().getLast().getCardText());
             uiController.getGUI().showMessage(playerList[i].getName() + " trækker et lykkekort! ");
             uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
             //Loop that draws cards until the last drawn card has drawAgain == false
             //If else statements keeps track of which type of card and acts accordingly
             gameBoard.getCards().lastItemToFront();
             boolean shippingCardCheck = false;
-            if (currentCard.getCardText().equals("Ryk frem til det nærmeste rederi og betal ejeren to gange den leje han ellers er berettiget til, hvis selskabet ikke ejes af nogen kan De købe det af banken.")) {
+            if (gameBoard.getCards().getLast().getCardText().equals("Ryk frem til det nærmeste rederi og betal ejeren to gange den leje han ellers er berettiget til, hvis selskabet ikke ejes af nogen kan De købe det af banken.")) {
                 shippingCardCheck = true;
             }
             DoAfterMove(i, shippingCardCheck);
@@ -332,32 +328,39 @@ public class GameController {
 
             for (int i = 0; i < playerList.length; i++) {
                 int occurences = 0; //same die counter
-                while(true) {
-                    if (playerList[i] != null) {
+
+                if (playerList[i] != null) {
+                    while(true) {
+
+
                         //************************************JAIL************************************
                         Jailfunc(i);
+                        if (playerList[i].getInJail()){break;}
                         //***********************************JAIL************************************
                         //Check for if player has a player specific card and gives them the choice
 
 
                         //loop to check if a player as reached 0
-                        EndGame();
+                        EndPlayer();
                         if (GameOver) break;
+                        if(playerList[i] == null){
+                            break;
+                        }
 
                         buyHouseOrRoll(i, currentLang[15]);
-                        if(playerList[i].getMoney() <= 0){
+                        if (playerList[i] != null && playerList[i].getMoney() <= 0) {
                             uiController.getGUI().showMessage("Spilleren " + playerList[i].getName() + " har ramt M0 og bliver derfor nødsaget til at sælge/pantsætte for at blive i spillet!");
                         }
 
                         // if statement to check if the user typed in throw
-                        if (ready.equals(currentLang[15]) && !playerList[i].getInJail()) {
+                        if (playerList[i] != null && ready.equals(currentLang[15]) && !playerList[i].getInJail()) {
 
                             //Change die on in gui to reflect new roll and update player position
                             rafflecup.useRafflecup();
                             uiController.getGUI().setDice(rafflecup.getD1(), rafflecup.getD2());
 
-                            if(rafflecup.SameDie()){
-                                if (occurences == 2){
+                            if (rafflecup.SameDie()) {
+                                if (occurences == 2) {
                                     uiController.getGUI().showMessage(playerList[i].getName() + " har slået 2 ens tre gange og er blevet smidt i fængsel");
                                     playerList[i].setInJail(true);
                                     playerList[i].setSpecificPosition(10);
@@ -367,44 +370,53 @@ public class GameController {
 
                                     break;
                                 }
+                            } else {
+                                breakholder = true;
                             }
-                            else{breakholder = true;}
                             occurences++;
 
-                            playerList[i].setPosition(+rafflecup.RafflecupFaceValue());
+                            playerList[i].setPosition(rafflecup.RafflecupFaceValue());
+
 
                             //updates gui player position
                             uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
 
-                            if (playerList[i].getPosition() == 30) {
+                            if (playerList[i] != null && playerList[i].getPosition() == 30) {
                                 uiController.getGUI().showMessage(playerList[i].getName() + " landede på gå i fængsel feltet og bliver derfor smidt direkte i fængsel!");
                             }
                         }
                         //Part 1 of landOnField test see part 2
                         //System.out.println(playerList[i].getName() + " before landing on field: " + playerList[i].getMoney());
+                        if (playerList[i] != null) {
 
-                        fieldChanceCheck(i);
-                        updateAllGuiFields();
-                        //here we update the player position again to make sure it's correct if a chancecard has been used
-                        uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
+                            fieldChanceCheck(i);
+                            updateAllGuiFields();
+                            //here we update the player position again to make sure it's correct if a chancecard has been used
+                            uiController.updateGUIPlayerPos(playerList[i], playerList[i].getOldposition(), playerList[i].getPosition());
 
-                        // Gotta update Money here to make sure the gui displays the correct amount.
-                        for (int j = 0; j < playerList.length; j++) {
-                            if (playerList[j] != null) {
-                                uiController.getGuiPlayer(j).setBalance(playerList[j].getMoney());
+                            // Gotta update Money here to make sure the gui displays the correct amount.
+                            for (int j = 0; j < playerList.length; j++) {
+                                if(playerList[j] != null){
+                                    uiController.getGuiPlayer(j).setBalance(playerList[j].getMoney());
+                                }
                             }
                         }
 
+
                         if (pController.getBuyingPosibillites(i).length + pController.getPawningPossibilites(i).length + pController.getSellingPossibilities(i).length > 0) {
-                            if(playerList[i].getMoney() <= 0){
+                            if(playerList[i] != null && playerList[i].getMoney() <= 0){
                                 uiController.getGUI().showMessage("Spilleren " + playerList[i].getName() + " har ramt M0 og bliver derfor nødsaget til at sælge/pantsætte for at blive i spillet!");
                             }
                             buyHouseOrRoll(i, "Afslut tur");
                         }
 
-                    }
+                    //}
+                    //else{
+                        //break;
+                    //}
                     if (breakholder){breakholder = false;break;}
 
+                    }
                 }
             }
         }
@@ -524,7 +536,7 @@ public class GameController {
                         toPawnOrNotToPawn = ((FieldShipYard) this.gameBoard.getFields()[currentField]).getRentTimesMulti() + "";
                     }
                 }
-                ((GUI_Ownable)this.uiController.getGUI().getFields()[currentField]).setRent(toPawnOrNotToPawn);
+                uiController.updatePawnStatus(currentField,toPawnOrNotToPawn);
                 this.uiController.getGuiPlayer(i).setBalance(this.playerList[i].getMoney());
             }
         }

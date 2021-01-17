@@ -1,10 +1,7 @@
 package Controllers;
 
 import Cards.*;
-import Fields.Field;
-import Fields.FieldChance;
-import Fields.FieldShipYard;
-import Fields.FieldsOnBoard;
+import Fields.*;
 import Language.Language;
 
 import java.util.Random;
@@ -31,6 +28,11 @@ public class GameBoard {
         currentLang = langSelector.returnLang();
         generateChanceCards(true);
         mixCards();
+
+
+
+
+
 
 
     }
