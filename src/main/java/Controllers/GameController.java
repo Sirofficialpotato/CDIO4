@@ -97,21 +97,18 @@ public class GameController {
         GameFlow();
     }
 
-    private void EndGame() {
+    private void EndPlayer() {
         for (int k = 0; k < playerList.length; k++) {
             // Disable player with 0 or less cash
             if (uiController.getGuiPlayer(k).getBalance() <= 0) {
                 if (playerList[k] != null) {
                     uiController.getGUI().getFields()[playerList[k].getPosition()].setCar(uiController.getGuiPlayer(k), false);
 
-                    //Virker ikke måske brugbart???
+                    //Loop to remove all buildings and fields owned by the losing player.
                     for (int i = 0; i < playerList[k].getPlayerOwnedFields().size; i++) {
-                        System.out.println(playerList[k].getPlayerOwnedFields().atIndex(i));
-                        if (playerList[k].getPlayerOwnedFields().atIndex(i) == null)
-                        {
-                            continue;
-                        }
-                        else if(playerList[k].getPlayerOwnedFields().atIndex(i) != null){
+                        //System.out.println(playerList[k].getPlayerOwnedFields().atIndex(i));
+
+                        if(playerList[k].getPlayerOwnedFields().atIndex(i) != null){
 
                             int deleteField = playerList[k].getPlayerOwnedFields().atIndex(i);
                             uiController.removeGUIFieldOwner(gameBoard.getFields(), playerList[k].getPlayerOwnedFields().atIndex(i));
@@ -136,6 +133,7 @@ public class GameController {
             }
             if (Losers == playerList.length - 1) {
                 GameOver = true;
+                break;
             }
 
         }
@@ -343,7 +341,7 @@ public class GameController {
 
 
                         //loop to check if a player as reached 0
-                        EndGame();
+                        EndPlayer();
                         if (GameOver) break;
                         if(playerList[i] == null){
                             break;
