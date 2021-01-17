@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="CDIO4:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/CDIO4_jar</output-path>
+    <root id="archive" name="CDIO3.jar">
+      <element id="module-output" name="CDIO3" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/diplomitdtu/matadorgui/3.1.7/matadorgui-3.1.7.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

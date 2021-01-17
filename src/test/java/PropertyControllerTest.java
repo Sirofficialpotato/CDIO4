@@ -16,9 +16,11 @@ class PropertyControllerTest {
         ((Properties)gb.getFields()[3]).setOwnedBy(1);
         returnedFields = pc.getBuyingPosibillites(1);
         assertEquals(2,returnedFields.length);
+        ((Properties)gb.getFields()[3]).setOwnedBy(0);
+        returnedFields = pc.getBuyingPosibillites(1);
+        assertEquals(0,returnedFields.length);
 
     }
-
     @Test
     void getPawningPossibilites() {
         GameBoard gb = new GameBoard();
@@ -28,9 +30,11 @@ class PropertyControllerTest {
         ((Properties)gb.getFields()[3]).setOwnedBy(1);
         ((Properties)gb.getFields()[3]).setBuildOn(1);
         returnedFields = pc.getPawningPossibilites(1);
-        assertEquals(1,returnedFields.length);
+        assertEquals(0,returnedFields.length);
+        ((Properties)gb.getFields()[3]).setBuildOn(0);
+        returnedFields = pc.getPawningPossibilites(1);
+        assertEquals(2,returnedFields.length);
     }
-
     @Test
     void getSellingPossibilities() {
         GameBoard gb = new GameBoard();
@@ -41,6 +45,9 @@ class PropertyControllerTest {
         ((Properties)gb.getFields()[3]).setBuildOn(1);
         returnedFields = pc.getSellingPossibilities(1);
         assertEquals(1,returnedFields.length);
+        ((Properties)gb.getFields()[1]).setBuildOn(1);
+        returnedFields = pc.getSellingPossibilities(1);
+        assertEquals(2,returnedFields.length);
     }
 
     @Test
@@ -62,6 +69,6 @@ class PropertyControllerTest {
         ((Properties)gb.getFields()[8]).setBuildOn(3);
         ((Properties)gb.getFields()[9]).setBuildOn(4);
         assertTrue(pc.isBuildingDistEvenForBuy((Properties) gb.getFields()[8]));
-        assertTrue(pc.isBuildingDistEvenForBuy((Properties) gb.getFields()[9]));
+        assertTrue(!pc.isBuildingDistEvenForBuy((Properties) gb.getFields()[9]));
     }
 }
